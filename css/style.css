@@ -427,25 +427,53 @@ h3 {
   padding-top: 196px;
 }
 
+/* card = clickable button (no default button UI) */
+.theatre-item {
+  width: 100%;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.theatre-item:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 6px;
+}
+
 .theatre-item img {
   width: 100%;
   max-height: 632px;
+  display: block;
 }
 
+/* فاصله عکس تا تایتل = 32px
+   فاصله تایتل تا سابتایتل = 8px */
 .theatre-item h3 {
-  display: flex;
-  justify-content: space-between;
-  gap: 24px;
   margin: 32px 0 8px;
+  display: inline-flex;
+  align-items: baseline;
+
+  /* فاصله عنوان تا سال = 8px */
+  gap: 8px;
 }
 
+/* سال: مطابق Card Body */
 .theatre-item h3 span {
   font-size: 20px;
+  line-height: 31px;
   font-weight: 400;
 }
 
+/* سابتایتل: مطابق Card Subtitle */
 .theatre-item p {
   margin: 0;
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 400;
 }
 
 /* Podcast */
