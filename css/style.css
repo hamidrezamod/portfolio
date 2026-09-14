@@ -453,7 +453,7 @@ h3 {
 /* فاصله عکس تا تایتل = 32px
    فاصله تایتل تا سابتایتل = 8px */
 .theatre-item h3 {
-  margin: 32px 0 8px;
+  margin: 16px 0 8px;
   display: inline-flex;
   align-items: baseline;
 
@@ -478,12 +478,73 @@ h3 {
 
 /* Podcast */
 
-.podcast {
-  grid-template-columns: 640px 448px; /* دقیقاً 1120 با gap 32 */
+/* =========================
+   PODCAST (match Figma)
+========================= */
+
+.podcast-section h2{
+  /* h2 global already ok */
 }
 
-.podcast img {
-  height: 444px;
+.podcast-featured{
+  margin-top: 160px;                 /* title -> content (مثل سکشن‌های دیگه) */
+
+  display: grid;
+  grid-template-columns: 640px 448px; /* text + image */
+  column-gap: 32px;                  /* فاصله متن تا عکس */
+  align-items: center;
+}
+
+.podcast-featured__title{
+  margin: 0;
+  font-size: 40px;
+  line-height: 44px;
+  font-weight: 600;
+}
+
+.podcast-featured__subtitle{
+  margin: 8px 0 0;                  /* فاصله تایتل تا ساب‌تایتل */
+  font-size: 24px;                  /* Card Subtitle */
+  line-height: 30px;
+  font-weight: 400;
+}
+
+/* links block spacing */
+.podcast-featured__links{
+  margin-top: 64px;                 /* فاصله ساب‌تایتل تا دکمه‌ها */
+  display: flex;
+  flex-direction: column;
+  gap: 16px;                        /* فاصله بین دو دکمه */
+}
+
+/* button style = table Button 19px / 500 */
+.podcast-link{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;                         /* فاصله آیکون تا نوشته */
+
+  font-size: 19px;
+  font-weight: 500;
+  line-height: normal;              /* Auto */
+  text-decoration: none;
+}
+
+.podcast-link:hover{
+  text-decoration: underline;
+}
+
+.podcast-link__icon{
+  width: 20px;                      /* اگر سایز دقیق دادی، دقیق می‌کنم */
+  height: 20px;
+  display: block;
+  flex: 0 0 20px;
+}
+
+/* image */
+.podcast-featured__image{
+  width: 448px;                     /* عرض عکس */
+  height: auto;                     /* اگر خواستی مثل قبل فیکس کنیم بگو */
+  display: block;
 }
 
 /* Resume */
