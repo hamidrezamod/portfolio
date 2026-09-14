@@ -65,9 +65,10 @@ h3 {
   line-height: 44px;
 }
 
-.container {
-  width: var(--content-width);
+.container{
+  width: min(var(--content-width), calc(100% - 32px)); /* 16px + 16px */
   margin-inline: auto;
+
 }
 
 .section {
