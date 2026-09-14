@@ -534,8 +534,8 @@ h3 {
 }
 
 .podcast-link__icon{
-  width: 20px;                      /* اگر سایز دقیق دادی، دقیق می‌کنم */
-  height: 20px;
+  width: 19.22px;                      /* اگر سایز دقیق دادی، دقیق می‌کنم */
+  height: 19.22px;
   display: block;
   flex: 0 0 20px;
 }
