@@ -835,7 +835,8 @@ footer {
   position: absolute;
 
   /* full-bleed بدون ایجاد اسکرول افقی */
-
+left: calc(50% - 50vw);
+  right: calc(50% - 50vw);
 
   top: -100px;         /* بکگراند تا بالای صفحه */
   bottom: 0;           /* تا پایین خود تیتر */
