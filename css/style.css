@@ -177,7 +177,8 @@ h3 {
 
 .writing-list .project > div{
   grid-column: 2;
-  width: 425px;
+  width: 418px;
+  align-items: center;
 }
 
 /* Reversed card (Stand by Me): text left, image right (same sizes) */
