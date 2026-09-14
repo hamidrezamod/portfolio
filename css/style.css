@@ -835,9 +835,9 @@ footer {
   position: absolute;
 
   /* full-bleed بدون ایجاد اسکرول افقی */
-  
 
-  top: -50px;         /* بکگراند تا بالای صفحه */
+
+  top: -100px;         /* بکگراند تا بالای صفحه */
   bottom: 0;           /* تا پایین خود تیتر */
 
   background: var(--background);
