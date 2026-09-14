@@ -4,7 +4,7 @@
   --beige: #f3e9dc;
   --content-width: 1120px;
 }
-
+html { scroll-behavior: auto; }
 * {
   box-sizing: border-box;
 }
