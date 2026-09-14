@@ -1034,69 +1034,40 @@ footer {
 */
 
 /* =========================
-   MOBILE LAYOUT
-   (content side padding = 16px via .container rule)
+   MOBILE (match screenshot)
+   side padding = 16px
 ========================= */
+@media (max-width: 560px){
 
-@media (max-width: 768px){
-
-  /* Typography (بر اساس جدول راهنما، ولی مناسب موبایل) */
-  body{
-    font-size: 18px;
-    line-height: 28px;
+  /* container: 16px from both sides */
+  .container{
+    width: calc(100% - 32px);
   }
 
+  /* general spacing */
+  .section{ margin-top: 180px; }
+  .dark-section{ margin-top: 180px; }
+
+  /* HERO */
   h1{
     font-size: 54px;
     line-height: 52px;
   }
 
-  h2{
-    font-size: 48px;
-    line-height: 52px;
-  }
-
-  h3{
-    font-size: 30px;
-    line-height: 34px;
-  }
-
-  /* Sections spacing (در موبایل کمتر از دسکتاپ) */
-  .section{ margin-top: 180px; }
-  .dark-section{ margin-top: 180px; }
-
-  /* HERO */
   .hero{
     padding-top: 72px;
-    padding-bottom: 220px; /* حس مشابه موبایل */
+    padding-bottom: 220px;
   }
 
   .portrait{
-    width: min(240px, 70vw);
-    height: auto;
-    aspect-ratio: 348 / 358;
-    margin: 0 auto 16px;
+    width: 240px;
+    height: 246px; /* نسبت نزدیک به 348×358 */
   }
 
-  .portrait img{ position: absolute; inset: 0; }
-  .portrait span{ inset: 36px 0 0; }
-
-  .scroll-arrow{
-    margin-top: 72px;
-  }
-
-  /* ABOUT: single column */
+  /* ABOUT: 1 column */
   .two-columns{
     grid-template-columns: 1fr;
     gap: 24px;
-  }
-
-  .about-section h2{
-    margin-top: 0; /* در موبایل تیتر مثل اسکرین‌شات بالاتر میاد */
-  }
-
-  .section-copy{
-    margin-top: 72px; /* موبایل */
   }
 
   .about-image{
@@ -1106,43 +1077,48 @@ footer {
     margin-top: 0;
   }
 
-  /* WRITINGS: stack (image on top, text below) */
+  .section-copy{
+    margin-top: 72px;
+  }
+
+  /* WRITINGS: stack (image top, text bottom) */
   .writing-list{
     margin-top: 100px;
     gap: 120px;
   }
 
   .writing-list .project{
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: column !important;
+    align-items: flex-start !important;
     gap: 16px;
   }
 
   .writing-list .project.project-reversed{
-    flex-direction: column; /* در موبایل هم مثل بقیه */
+    flex-direction: column !important;
   }
 
   .writing-list .project > img{
-    width: 100%;
-    height: auto;
+    width: 100% !important;
+    height: auto !important;
     aspect-ratio: 670 / 355.77;
+    flex: 0 0 auto !important;
   }
 
   .writing-list .project > div{
-    width: 100%;
+    width: 100% !important;
+    flex: 0 0 auto !important;
   }
 
   /* SHORT FILM: stack */
   .short-film__layout,
   .featured{
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
     row-gap: 32px;
   }
 
-  .short-film__player.video-embed,
   .video-embed{
-    width: 100%;
-    height: auto;
+    width: 100% !important;
+    height: auto !important;
     aspect-ratio: 677 / 380.81;
   }
 
@@ -1152,7 +1128,7 @@ footer {
     height: 100%;
   }
 
-  /* THEATRE: 2 columns on mobile (like screenshot) */
+  /* THEATRE: 2 columns like screenshot */
   .theatre-grid{
     grid-template-columns: repeat(2, minmax(0, 1fr));
     column-gap: 16px;
@@ -1164,7 +1140,7 @@ footer {
   }
 
   .theatre-offset{
-    padding-top: 0; /* موبایل بدون offset */
+    padding-top: 0;
   }
 
   .theatre-item h3{
@@ -1173,14 +1149,14 @@ footer {
 
   /* PODCAST: stack */
   .podcast-featured{
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
     row-gap: 32px;
     margin-top: 100px;
   }
 
   .podcast-featured__image{
-    width: 100%;
-    height: auto;
+    width: 100% !important;
+    height: auto !important;
     aspect-ratio: 448 / 444;
   }
 
@@ -1190,11 +1166,11 @@ footer {
   }
 
   .skills-row{
-    flex-wrap: wrap;  /* روی موبایل بره خط بعد */
+    flex-wrap: wrap;
     row-gap: 16px;
   }
 
-  /* AWARDS grid */
+  /* AWARDS */
   .certificate-grid{
     grid-template-columns: repeat(2, 1fr);
     gap: 24px;
@@ -1202,10 +1178,6 @@ footer {
   }
 
   /* CONTACT */
-  .contact{
-    margin-top: 180px;
-  }
-
   .contact-grid{
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
@@ -1214,12 +1186,7 @@ footer {
 
   /* DOCK NAV */
   .dock-nav{
-    width: min(443px, calc(100% - 32px));
+    width: calc(100% - 32px);
     bottom: 16px;
-    padding: 0 14px;
-  }
-
-  .dock-nav__menu{
-    width: 170px;
   }
 }
