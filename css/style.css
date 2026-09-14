@@ -903,6 +903,87 @@ footer {
   transform: scale(var(--card-hover-scale-text));
 }
 
+/* =========================
+   Smooth hover tuning (Writings + Theatre)
+========================= */
+
+:root{
+  --hover-img-scale: 1.035;  /* زوم ملایم */
+  --hover-text-scale: 1.02;
+  --hover-dur: 520ms;        /* نرم‌تر */
+  --hover-ease: cubic-bezier(0.16, 1, 0.3, 1); /* smooth / modern */
+}
+
+/* Reduce motion support */
+@media (prefers-reduced-motion: reduce){
+  :root{
+    --hover-dur: 1ms;
+  }
+}
+
+/* --- WRITINGS --- */
+.writing-list .project{
+  /* اگر نمی‌خوای زوم از قاب بیرون بزنه، این رو نگه دار */
+  overflow: hidden;
+}
+
+.writing-list .project > img{
+  filter: grayscale(100%);
+  transform: scale(1);
+  will-change: transform, filter;
+  transition:
+    transform var(--hover-dur) var(--hover-ease),
+    filter var(--hover-dur) var(--hover-ease);
+}
+
+.writing-list .project > div{
+  transform: scale(1);
+  transform-origin: left center;
+  will-change: transform;
+  transition: transform var(--hover-dur) var(--hover-ease);
+}
+
+.writing-list .project:hover > img{
+  filter: grayscale(0%);
+  transform: scale(var(--hover-img-scale));
+}
+
+.writing-list .project:hover > div{
+  transform: scale(var(--hover-text-scale));
+}
+
+/* --- THEATRE --- */
+.theatre-item{
+  overflow: hidden;
+}
+
+.theatre-item img{
+  filter: grayscale(100%);
+  transform: scale(1);
+  will-change: transform, filter;
+  transition:
+    transform var(--hover-dur) var(--hover-ease),
+    filter var(--hover-dur) var(--hover-ease);
+}
+
+.theatre-item h3,
+.theatre-item p{
+  transform: scale(1);
+  transform-origin: left top;
+  will-change: transform;
+  transition: transform var(--hover-dur) var(--hover-ease);
+}
+
+.theatre-item:hover img{
+  filter: grayscale(0%);
+  transform: scale(var(--hover-img-scale));
+}
+
+.theatre-item:hover h3,
+.theatre-item:hover p{
+  transform: scale(var(--hover-text-scale));
+}
+
 /* موبایل فعلاً غیرفعال است (Stage 1)
 @media (...) { ... }
 */
