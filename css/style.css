@@ -707,13 +707,13 @@ footer {
 .dock-nav{
   position: fixed;
   left: 50%;
-  bottom: 40px;                 /* اگر فاصله دقیق از پایین داری بگو تا دقیقش کنم */
+  bottom: 40px;                 /* اگر عدد دقیق داری بگو */
   transform: translateX(-50%);
   z-index: 9999;
 
   width: 443px;
   height: 52px;
-  padding: 8 18px;
+  padding: 0 18px;
 
   display: flex;
   align-items: center;
@@ -722,24 +722,36 @@ footer {
   background: #343333;
   color: #F7F4EF;
 
-  border-radius: 16px;          /* حالت pill */
-  box-shadow: 0 0 7px rgba(0,0,0,0.3); /* blur 7, x/y = 0 */
+  border-radius: 26px;
+  box-shadow: 0 0 7px rgba(0,0,0,0.3);
 }
 
 .dock-nav__link,
 .dock-nav__cta{
-  font-size: 19px;              /* Navbar/Menu */
+  font-size: 19px;
   font-weight: 500;
   line-height: normal;
   color: inherit;
   text-decoration: none;
 }
 
-.dock-nav__link:hover{
-  text-decoration: underline;
+.dock-nav__link:hover{ text-decoration: underline; }
+
+.dock-nav__cta{
+  background: #F7F4EF;
+  color: #343333;
+  padding: 6px 16px;
+  border-radius: 10px;
 }
 
-/* Works button */
+/* Works */
+.dock-nav__works{
+  position: relative;
+  height: 52px;
+  display: inline-flex;
+  align-items: center;
+}
+
 .dock-nav__toggle{
   font-family: inherit;
   color: inherit;
@@ -762,54 +774,48 @@ footer {
   width: 11px;
   height: 9px;
   display: block;
-  transition: transform 180ms ease; /* انیمیشن سبک، اگر نمی‌خوای بگو حذف کنم */
+  transition: transform 180ms ease;
 }
 
 .dock-nav.is-open .dock-nav__chevron{
   transform: rotate(180deg);
 }
 
-/* contact button look */
-.dock-nav__cta{
-  background: #F7F4EF;
-  color: #343333;
-  padding: 6px 16px;
-  border-radius: 8px;
-}
-
-/* Dropdown menu */
-.dock-nav__works{
-  position: relative;
-}
-
-/* Works wrapper باید هم‌ارتفاع نوبار باشد تا menu دقیقاً بچسبد */
-.dock-nav__works{
-  position: relative;
-  height: 52px;           /* مهم */
-  display: inline-flex;
-  align-items: center;
-}
-
-/* Dropdown menu: بچسبد + radius بالا 16 و پایین 0 */
+/* Menu: default hidden (بدون hidden attribute) */
 .dock-nav__menu{
   position: absolute;
   left: 50%;
-  bottom: 52px;           /* مهم: چسبیده به لبه بالای نوبار */
+  bottom: 52px;                 /* دقیقاً چسبیده به بالای navbar */
   transform: translateX(-50%);
 
-  width: 170px;           /* اگر عدد دقیق داری بگو */
+  width: 170px;                 /* اگر عرض دقیق داری بگو */
   padding: 14px 18px;
 
   background: #343333;
   box-shadow: 0 0 7px rgba(0,0,0,0.3);
 
-  border-radius: 8px 8px 0 0; /* بالا گرد، پایین صاف برای اتصال */
+  border-radius: 16px 16px 0 0; /* بالا گرد، پایین صاف برای اتصال */
 
-  display: flex;
+  display: none;                /* مهم: پیش‌فرض بسته */
   flex-direction: column;
   gap: 16px;
 }
 
+.dock-nav.is-open .dock-nav__menu{
+  display: flex;                /* فقط وقتی باز شد */
+}
+
+.dock-nav__menu-link{
+  font-size: 19px;
+  font-weight: 500;
+  line-height: normal;
+  color: #F7F4EF;
+  text-decoration: none;
+}
+
+.dock-nav__menu-link:hover{
+  text-decoration: underline;
+}
 /* موبایل فعلاً غیرفعال است (Stage 1)
 @media (...) { ... }
 */
