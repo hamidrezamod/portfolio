@@ -984,6 +984,48 @@ footer {
   transform: scale(var(--hover-text-scale));
 }
 
+/* =========================
+   Scroll indicator (minimal modern)
+========================= */
+
+.scroll-indicator{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 37.56px;
+  height: 34.35px;
+  line-height: 0;
+}
+
+.scroll-indicator__icon{
+  width: 37.56px;
+  height: 34.35px;
+  display: block;
+}
+
+/* animate each chevron with a slight delay */
+.scroll-indicator__chev{
+  opacity: 0.25;
+  transform: translateY(0px);
+  animation: scrollChev 1.35s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+.scroll-indicator__chev--2{
+  animation-delay: 0.18s;
+}
+
+@keyframes scrollChev{
+  0%   { opacity: 0.15; transform: translateY(-1px); }
+  25%  { opacity: 1;    transform: translateY(2px); }
+  55%  { opacity: 0.15; transform: translateY(7px); }
+  100% { opacity: 0.15; transform: translateY(7px); }
+}
+
+/* accessibility */
+@media (prefers-reduced-motion: reduce){
+  .scroll-indicator__chev{ animation: none; opacity: 1; transform: none; }
+}
+
 /* موبایل فعلاً غیرفعال است (Stage 1)
 @media (...) { ... }
 */
