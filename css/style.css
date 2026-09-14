@@ -190,16 +190,12 @@ h3 {
 .writing-list .project.project-reversed > div{
   grid-column: 1;
   width: 490px;
-  align-items: center;
-  object-fit: cover;
 }
 
 .writing-list .project.project-reversed > img{
   grid-column: 2;
   width: 200px;
   height: 355.77px;
-   align-items: center;
-   object-fit: cover;
 }
 
 /* اگر قبلاً order گذاشتی، بی‌اثر/خنثی شود */
