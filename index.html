@@ -245,37 +245,83 @@
   </div>
 </section>
 
-    <section class="section container resume">
-      <h2>Resume</h2>
+    <section class="section container resume" id="resume">
+  <h2>Resume</h2>
 
-      <div class="resume-content">
-        <div>
-          <h3>Education</h3>
-          <p><strong>Master: Cinema</strong> — 2020–2023<br>Sooreh University</p>
-          <p><strong>Bachelor: Directing and Acting</strong> — 2015–2020<br>University of Tehran</p>
+  <div class="resume__stack">
+
+    <!-- Education -->
+    <section class="resume-block">
+      <h3 class="resume-block__title">Education</h3>
+
+      <div class="resume-block__content">
+        <div class="resume-item">
+          <p class="resume-item__top"><strong>Master: Cinema</strong> — 2020–2023</p>
+          <p class="resume-item__sub">Sooreh University</p>
         </div>
 
-        <div>
-          <h3>Experience</h3>
-          <ul>
-            <li>Freelance UI/UX Designer — 2024–Present</li>
-            <li>Content Creator &amp; Consultant, Podgard Art Podcast — 2022–2025</li>
-            <li>Literary Editor, Enba Magazine — 2018–2020</li>
-            <li>Editorial Board Member, Practical Examination Guide — 2018</li>
-            <li>Theatre Venue Supervisor, 19th Experience Theatre Festival — 2019</li>
-            <li>Workshop &amp; Panel Coordinator, 18th Experience Theatre Festival — 2018</li>
-          </ul>
-        </div>
-
-        <div>
-          <h3>Software Skills</h3>
-          <p><strong>Design:</strong> Figma, Premiere Pro, Illustrator, Photoshop</p>
-          <p><strong>Project Management:</strong> Notion, Atlassian, Google Calendar</p>
-          <p><strong>Writing &amp; Content:</strong> Microsoft Word, Google Docs</p>
+        <div class="resume-item">
+          <p class="resume-item__top"><strong>Bachelor: Directing and Acting</strong> — 2015–2020</p>
+          <p class="resume-item__sub">University of Tehran</p>
         </div>
       </div>
     </section>
 
+    <!-- Experience -->
+    <section class="resume-block">
+      <h3 class="resume-block__title">Experience</h3>
+
+      <ul class="resume-list">
+        <li>Freelance UI/UX Designer — 2024–Present</li>
+        <li>Content Creator &amp; Content Consultant, Podgard Art Podcast — 2022–2025</li>
+        <li>Literary Editor, Enba Magazine — 2018–2020</li>
+        <li>Editorial Board Member, Practical Examination Guide for Theatre Arts — 2018</li>
+        <li>Theatre Venue Supervisor, 19th Experience Theatre Festival — 2019</li>
+        <li>Workshop &amp; Panel Coordinator, 18th Experience Theatre Festival — 2018</li>
+        <li>Executive Team Member, Practical Examination for Theatre Arts — 2016–2018</li>
+      </ul>
+    </section>
+
+    <!-- Software Skills -->
+    <section class="resume-block">
+      <h3 class="resume-block__title">Software Skills</h3>
+
+      <div class="skills-row">
+        <!-- Group 1 -->
+        <div class="skills-group">
+          <span class="skills-group__label">Design</span>
+          <div class="skills-group__icons">
+            <!-- این اسم‌ها placeholder هستند؛ با اسم فایل‌های خودت یکی کن -->
+            <img class="skill-icon" src="assets/icons/figma.svg" alt="Figma">
+            <img class="skill-icon" src="assets/icons/premiere.svg" alt="Premiere Pro">
+            <img class="skill-icon" src="assets/icons/illustrator.svg" alt="Illustrator">
+            <img class="skill-icon" src="assets/icons/photoshop.svg" alt="Photoshop">
+          </div>
+        </div>
+
+        <!-- Group 2 -->
+        <div class="skills-group">
+          <span class="skills-group__label">Project Management</span>
+          <div class="skills-group__icons">
+            <img class="skill-icon" src="assets/icons/notion.svg" alt="Notion">
+            <img class="skill-icon" src="assets/icons/jira.svg" alt="Atlassian">
+            <img class="skill-icon" src="assets/icons/calendar.svg" alt="Google Calendar">
+          </div>
+        </div>
+
+        <!-- Group 3 -->
+        <div class="skills-group">
+          <span class="skills-group__label">Writing &amp; Content</span>
+          <div class="skills-group__icons">
+            <img class="skill-icon" src="assets/icons/word.svg" alt="Microsoft Word">
+            <img class="skill-icon" src="assets/icons/docs.svg" alt="Google Docs">
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</section>
     <section class="section container">
       <h2 class="align-right">Awards &amp; Certificates</h2>
 
@@ -288,18 +334,41 @@
       </div>
     </section>
 
-    <section class="contact container">
-      <h2>Contact Info</h2>
+    <section class="contact container" id="contact">
+  <h2 class="contact__title">Contact Info</h2>
 
-      <div class="contact-grid">
-        <a href="tel:+989358502657">☎ +98 935 850 2657</a>
-        <a href="mailto:Hamid.r.mod@gmail.com">✉ Hamid.r.mod@gmail.com</a>
-        <a href="#">Instagram</a>
-        <a href="#">LinkedIn</a>
-        <a href="#">Dribbble</a>
-        <a href="#">Letterboxd</a>
-      </div>
-    </section>
+  <div class="contact-grid">
+    <a class="contact-link" href="tel:+989358502657" aria-label="Phone">
+      <img class="contact-link__icon" src="assets/icons/phone.svg" alt="" aria-hidden="true">
+      <span>+98 935 850 2657</span>
+    </a>
+
+    <a class="contact-link" href="mailto:Hamid.r.mod@gmail.com" aria-label="Email">
+      <img class="contact-link__icon" src="assets/icons/email.svg" alt="" aria-hidden="true">
+      <span>Hamid.r.mod@gmail.com</span>
+    </a>
+
+    <a class="contact-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+      <img class="contact-link__icon" src="assets/icons/instagram.svg" alt="" aria-hidden="true">
+      <span>Instagram</span>
+    </a>
+
+    <a class="contact-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+      <img class="contact-link__icon" src="assets/icons/linkedin.svg" alt="" aria-hidden="true">
+      <span>Linkedin</span>
+    </a>
+
+    <a class="contact-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="Dribbble">
+      <img class="contact-link__icon" src="assets/icons/dribbble.svg" alt="" aria-hidden="true">
+      <span>Dribbble</span>
+    </a>
+
+    <a class="contact-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="Letterboxd">
+      <img class="contact-link__icon" src="assets/icons/letterboxd.svg" alt="" aria-hidden="true">
+      <span>Letterboxd</span>
+    </a>
+  </div>
+</section>
   </main>
 
   <footer>Designed &amp; built by Hamid Reza Mohammadi</footer>
