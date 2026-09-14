@@ -184,11 +184,13 @@ h3 {
 /* Reversed card (Stand by Me): text left, image right (same sizes) */
 .writing-list .project.project-reversed{
   grid-template-columns: 418px 670px; /* text + image */
+  align-items: center;
 }
 
 .writing-list .project.project-reversed > div{
   grid-column: 1;
   width: 418px;
+  align-items: center;
 }
 
 .writing-list .project.project-reversed > img{
