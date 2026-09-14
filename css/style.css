@@ -713,7 +713,7 @@ footer {
 
   width: 443px;
   height: 52px;
-  padding: 0 18px;
+  padding: 8 18px;
 
   display: flex;
   align-items: center;
@@ -722,7 +722,7 @@ footer {
   background: #343333;
   color: #F7F4EF;
 
-  border-radius: 26px;          /* حالت pill */
+  border-radius: 16px;          /* حالت pill */
   box-shadow: 0 0 7px rgba(0,0,0,0.3); /* blur 7, x/y = 0 */
 }
 
@@ -774,7 +774,7 @@ footer {
   background: #F7F4EF;
   color: #343333;
   padding: 6px 16px;
-  border-radius: 10px;
+  border-radius: 8px;
 }
 
 /* Dropdown menu */
@@ -803,7 +803,7 @@ footer {
   background: #343333;
   box-shadow: 0 0 7px rgba(0,0,0,0.3);
 
-  border-radius: 16px 16px 0 0; /* بالا گرد، پایین صاف برای اتصال */
+  border-radius: 8px 8px 0 0; /* بالا گرد، پایین صاف برای اتصال */
 
   display: flex;
   flex-direction: column;
