@@ -151,41 +151,67 @@ h3 {
 }
 
 /* =========================
-   WRITINGS (FINAL - ALL CARDS SAME)
+   WRITINGS (FIXED)
+   Layout:
+   container = 1120
+   image = 670
+   text = 418
+   gap = 32
 ========================= */
 
 .writing-list{
-  margin-top: 160px;   /* title -> first card */
+  margin-top: 160px;   /* فاصله تیتر Writings تا کارت اول */
   display: grid;
-  row-gap: 200px;      /* gap between cards */
+  row-gap: 200px;      /* فاصله کارت‌ها */
 }
 
 .writing-list .project{
   display: grid;
-  grid-template-columns: 670px 418px; /* image + text */
-  column-gap: 32px;                  /* text to image gap */
-  align-items: center;               /* center text with image vertically */
+  grid-template-columns: 670px 418px;
+  column-gap: 32px;
+  align-items: center; /* متن و عکس از وسط هم‌راستا */
 }
 
-.writing-list .project img{
+/* فقط عکس اصلی کارت (نه آیکون) */
+.writing-list .project > img{
   width: 670px;
   height: 355.77px;
   object-fit: cover;
+  display: block;
 }
 
+/* باکس متن */
+.writing-list .project > div{
+  width: 418px;
+}
+
+/* کارت دوم: متن چپ / عکس راست (مثل فیگما) */
+.writing-list .project.project-reversed{
+  grid-template-columns: 418px 670px;
+}
+
+.writing-list .project.project-reversed > div{
+  grid-column: 1;
+}
+
+.writing-list .project.project-reversed > img{
+  grid-column: 2;
+}
+
+/* تایپو و فاصله‌ها */
 .writing-list .project h3{
   margin: 0;
 }
 
 .writing-list .read-link{
-  margin-top: 8px;                 /* title -> Read in Farsi */
+  margin-top: 8px;         /* فاصله تیتر تا Read in Farsi */
   display: inline-flex;
-  align-items: center;             /* icon aligned with the text line */
-  gap: 8px;                        /* text -> icon gap */
+  align-items: center;     /* آیکون در امتداد متن */
+  gap: 8px;                /* فاصله متن تا آیکون */
 
   font-size: 19px;
-  font-weight: 500;
-  line-height: normal;             /* closest to "auto" */
+  font-weight: 500;        /* Medium */
+  line-height: normal;     /* Auto */
   text-decoration: none;
 }
 
@@ -193,14 +219,13 @@ h3 {
   text-decoration: underline;
 }
 
-
 .writing-list .read-link__icon{
   width: 20.3px;
   height: 20.3px;
-  display: block;
   flex: 0 0 20.3px;
+  display: block;
+  object-fit: contain;
 }
-
 
 /* Dark sections */
 
