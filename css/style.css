@@ -183,19 +183,19 @@ h3 {
 
 /* Reversed card (Stand by Me): text left, image right (same sizes) */
 .writing-list .project.project-reversed{
-  grid-template-columns: 490px 670px; /* text + image */
+  grid-template-columns: 490px 550px; /* text + image */
   align-items: center;
 }
 
 .writing-list .project.project-reversed > div{
   grid-column: 1;
-  width: 470px;
+  width: 490px;
   align-items: center;
 }
 
 .writing-list .project.project-reversed > img{
   grid-column: 2;
-  width: 670px;
+  width: 550px;
   height: 355.77px;
    align-items: center;
    object-fit: cover;
