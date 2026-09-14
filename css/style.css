@@ -152,6 +152,12 @@ h3 {
 
 /* Writings */
 /* ===== WRITINGS: fixed widths + correct reverse + center align ===== */
+.writing-list {
+  display: grid;
+  gap: 200px;
+  margin-top: 160px;
+}
+
 
 .writing-list .project{
   display: grid;
@@ -171,7 +177,7 @@ h3 {
 
 .writing-list .project > div{
   grid-column: 2;
-  width: 418px;
+  width: 416px;
 }
 
 /* Reversed card (Stand by Me): text left, image right (same sizes) */
