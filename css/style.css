@@ -1,0 +1,397 @@
+:root {
+  --background: #f7f4ef;
+  --ink: #413f3e;
+  --beige: #f3e9dc;
+  --content-width: 1120px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* مرحله‌های بعدی (Future Features)
+html { scroll-behavior: smooth; }
+*/
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--background);
+  font-family: "Crimson Pro", Georgia, serif;
+  font-size: 20px;
+  line-height: 1.55;
+
+  /* فقط دسکتاپ */
+  min-width: 1440px;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  object-fit: cover;
+}
+
+a {
+  color: inherit;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+h1, h2, h3, p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 16px;
+  font-size: 104px;
+  font-weight: 600;
+  line-height: 100px;
+}
+
+h2 {
+  margin: 0;
+  font-size: 64px;
+  font-weight: 600;
+  line-height: 69px;
+}
+
+h3 {
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 44px;
+}
+
+.container {
+  width: var(--content-width);
+  margin-inline: auto;
+}
+
+.section {
+  margin-top: 320px;
+}
+
+.align-right {
+  text-align: right;
+}
+
+/* Hero */
+
+.hero {
+  padding-top: 120px;
+  padding-bottom: 336px; /* فاصله آیکون تا About */
+  text-align: center;
+}
+
+.portrait {
+  position: relative;
+  width: 348px;
+  height: 358px;
+  margin: 0 auto 16px; /* فاصله عکس تا تایتل = 16 */
+}
+
+.portrait span {
+  position: absolute;
+  inset: 50px 0 0;
+  background: var(--beige);
+}
+
+.portrait img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hero > p {
+  margin: 0;               /* فاصله تایتل تا سابتایتل با margin-bottom h1 کنترل شد */
+  font-size: 34px;
+  line-height: 38px;
+  font-weight: 400;
+}
+
+.scroll-arrow {
+  display: block;
+  margin-top: 92px; /* فاصله سابتایتل تا آیکون */
+  line-height: 0;
+}
+
+/* About */
+
+.about-section.section {
+  margin-top: 0; /* چون فاصله را از Hero با padding-bottom گرفتیم */
+}
+
+.two-columns {
+  display: grid;
+  grid-template-columns: 550.26px 537.74px; /* کل عرض 1120 با gap 32 */
+  gap: 32px; /* فاصله متن تا عکس */
+}
+
+.section-copy {
+  margin-top: 160px; /* فاصله تایتل تا بدنه */
+}
+
+.section-copy p {
+  text-align: justify;
+  margin-bottom: 0;
+}
+
+.section-copy p + p {
+  margin-top: 16px; /* فاصله بین پاراگراف‌ها */
+}
+
+.about-image {
+  width: 537.74px;
+  height: 629.26px;
+  margin-top: 69px;
+}
+
+/* Writings */
+
+.writing-list {
+  display: grid;
+  gap: 200px;
+  margin-top: 160px;
+}
+
+.project {
+  display: grid;
+  grid-template-columns: 670px 418px; /* 670 + 32 + 418 = 1120 */
+  align-items: center;
+  gap: 32px;
+}
+
+.project-reversed img {
+  order: 2;
+}
+
+.project img {
+  width: 670px;
+  height: 355.77px;
+}
+
+.project a {
+  font-size: 19px;
+}
+
+/* Dark sections */
+
+.dark-section {
+  margin-top: 320px;
+  padding: 72px 0;
+  color: var(--background);
+  background: var(--ink);
+}
+
+.featured {
+  display: grid;
+  grid-template-columns: 411px 677px; /* 411 + 32 + 677 = 1120 */
+  align-items: center;
+  gap: 32px;
+  margin-top: 160px;
+}
+
+/* Short film typography spacing (طبق توضیحات تو) */
+.featured-title-row{
+  display: flex;
+  align-items: baseline;
+  gap: 8px; /* فاصله عنوان تا سال */
+}
+
+.featured .year {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 500;
+}
+
+.featured .role{
+  margin: 8px 0 0; /* فاصله ساب‌تایتل نسبت به عنوان */
+}
+
+.links {
+  margin-top: 64px; /* فاصله ساب‌تایتل تا Watch on */
+  margin-bottom: 0;
+}
+
+.watch-icons{
+  display: inline-flex;
+  gap: 16px; /* فاصله بین آیکون‌ها */
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.icon-link{
+  display: inline-flex;
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-placeholder{
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(247, 244, 239, 0.6);
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  line-height: 1;
+}
+
+/* Vimeo embed + poster fallback */
+.video-embed{
+  width: 677px;
+  height: 380.81px;
+  position: relative;
+  overflow: hidden;
+}
+
+.video-embed iframe{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.video-poster{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 1;
+  transition: opacity 220ms ease;
+}
+
+.video-embed.is-loaded .video-poster{
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Theatre */
+
+.theatre-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 448px));
+  justify-content: space-between;
+  margin-top: 160px;
+}
+
+.theatre-column {
+  display: grid;
+  gap: 200px;
+}
+
+.theatre-offset {
+  padding-top: 196px;
+}
+
+.theatre-item img {
+  width: 100%;
+  max-height: 632px;
+}
+
+.theatre-item h3 {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  margin: 32px 0 8px;
+}
+
+.theatre-item h3 span {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.theatre-item p {
+  margin: 0;
+}
+
+/* Podcast */
+
+.podcast {
+  grid-template-columns: 640px 448px; /* دقیقاً 1120 با gap 32 */
+}
+
+.podcast img {
+  height: 444px;
+}
+
+/* Resume */
+
+.resume-content {
+  display: grid;
+  gap: 64px;
+  margin-top: 160px;
+}
+
+.resume-content h3 {
+  margin-bottom: 32px;
+}
+
+.resume-content p {
+  margin-bottom: 32px;
+}
+
+.resume-content ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+/* Certificates */
+
+.certificate-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 64px;
+  align-items: start;
+  margin-top: 160px;
+}
+
+.certificate-grid img {
+  width: 100%;
+  border: 1px solid var(--ink);
+}
+
+/* Contact */
+
+.contact {
+  margin-top: 320px;
+  padding-bottom: 120px;
+  text-align: center;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  max-width: 760px;
+  margin: 160px auto 0;
+}
+
+.contact-grid a {
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+/* Footer */
+
+footer {
+  display: grid;
+  min-height: 126px;
+  place-items: center;
+  padding: 16px 24px 70px;
+  color: var(--background);
+  background: var(--ink);
+  text-align: center;
+}
+
+/* موبایل فعلاً غیرفعال است (Stage 1)
+@media (...) { ... }
+*/
