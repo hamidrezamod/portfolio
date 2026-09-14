@@ -151,32 +151,71 @@ h3 {
 }
 
 /* Writings */
+/* ===== WRITINGS: fixed widths + correct reverse + center align ===== */
 
-.writing-list {
+.writing-list .project{
   display: grid;
-  gap: 200px;
-  margin-top: 160px;
+  width: 100%;
+  grid-template-columns: 670px 418px; /* image + text */
+  column-gap: 2px;                   /* gap between image and text */
+  align-items: center;               /* vertical center */
 }
 
-.project {
-  display: grid;
-  grid-template-columns: 670px 418px; /* 670 + 32 + 418 = 1120 */
-  align-items: center;
-  gap: 32px;
+/* Normal card positions */
+.writing-list .project > img{
+  grid-column: 1;
+  width: 670px;
+  height: 355.77px;
+  object-fit: cover;
 }
 
-.project-reversed img {
-  order: 2;
+.writing-list .project > div{
+  grid-column: 2;
+  width: 418px;
 }
 
-.project img {
+/* Reversed card (Stand by Me): text left, image right (same sizes) */
+.writing-list .project.project-reversed{
+  grid-template-columns: 418px 670px; /* text + image */
+}
+
+.writing-list .project.project-reversed > div{
+  grid-column: 1;
+  width: 418px;
+}
+
+.writing-list .project.project-reversed > img{
+  grid-column: 2;
   width: 670px;
   height: 355.77px;
 }
 
-.project a {
-  font-size: 19px;
+/* اگر قبلاً order گذاشتی، بی‌اثر/خنثی شود */
+.writing-list .project.project-reversed img{
+  order: 0;
 }
+
+/* Title -> Read in Farsi = 8px (برای همه کارت‌ها) */
+.writing-list .project h3{
+  margin: 0;
+}
+
+.writing-list .project .read-link{
+  margin-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  font-size: 19px;
+  font-weight: 500;
+  line-height: normal; /* closest to "Auto" */
+  text-decoration: none;
+}
+
+.writing-list .project .read-link:hover{
+  text-decoration: underline;
+}
+
 .writing-list .project .read-link__icon{
   width: 20.3px;
   height: 20.3px;
