@@ -66,7 +66,7 @@
   <h2 class="align-right sticky-title">Writings</h2>
 
   <div class="writing-list">
-    <article class="project" data-popup="article-pathology">
+    <article class="project" data-article-src="articles/pathology.html">
       <img src="assets/writing01.webp" alt="">
       <div>
         <h3>A Pathology of Iranian Underground Cinema</h3>
@@ -78,7 +78,7 @@
     </article>
 
     <!-- کارت دوم: متن چپ / عکس راست -->
-    <article class="project project-reversed" data-popup="article-stand-by-me">
+    <article class="project project-reversed" data-article-src="articles/stand-by-me.html">
       <img src="assets/writing02.webp" alt="">
       <div>
         <h3>Stand by Me: In Search of the American Dream</h3>
@@ -89,7 +89,7 @@
       </div>
     </article>
 
-    <article class="project" data-popup="article-outcry">
+    <article class="project" data-article-src="articles/outcry.html">
       <img src="assets/writing03.webp" alt="">
       <div>
         <h3>Outcry: A Film Not Made for Us</h3>
@@ -402,6 +402,22 @@
   <a class="dock-nav__link" href="#resume">Resume</a>
   <a class="dock-nav__cta" href="#contact">contact</a>
 </nav>
+
+  <div class="article-modal" id="articleModal" aria-hidden="true">
+  <div class="article-modal__backdrop" data-article-close></div>
+
+  <div class="article-modal__panel" role="dialog" aria-modal="true" aria-label="Article" data-native-scroll>
+    <div class="article-modal__closebar">
+      <button class="article-modal__close" type="button" aria-label="Close article" data-article-close>
+        <img src="assets/icons/close.svg" alt="" aria-hidden="true" width="40" height="40">
+      </button>
+    </div>
+
+    <div class="article-modal__content" id="articleModalContent"></div>
+  </div>
+</div>
+
+  
   
   <script src="js/main.js"></script>
 </body>
