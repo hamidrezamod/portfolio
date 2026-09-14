@@ -816,6 +816,25 @@ footer {
 .dock-nav__menu-link:hover{
   text-decoration: underline;
 }
+
+.sticky-title{
+  position: sticky;
+  top: 100px;
+  z-index: 50;
+  position: relative;
+}
+
+.sticky-title::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100vw;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--background);
+  z-index: -1;
+}
 /* موبایل فعلاً غیرفعال است (Stage 1)
 @media (...) { ... }
 */
