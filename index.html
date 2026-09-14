@@ -16,7 +16,7 @@
 
 <body>
   <main>
-    <header class="hero container">
+    <header class="hero container" id="top">
       <div class="portrait">
         <span aria-hidden="true"></span>
         <img src="assets/hamid.png" alt="Hamid Reza Mohammadi">
@@ -59,7 +59,7 @@
       <img class="about-image" src="assets/about.webp" alt="Hamid outdoors">
     </section>
 
-    <section class="section container">
+    <section class="section container" id="writings">
   <h2 class="align-right">Writings</h2>
 
   <div class="writing-list">
@@ -147,7 +147,7 @@
   </div>
 </section>
 
-    <section class="section container">
+    <section class="section container" id="theatre">
   <h2 class="align-right">Theatre</h2>
 
   <div class="theatre-grid">
@@ -372,6 +372,33 @@
   </main>
 
   <footer>Designed &amp; built by Hamid Reza Mohammadi</footer>
+  <nav class="dock-nav" aria-label="Site navigation">
+  <a class="dock-nav__link" href="#top">Home</a>
+
+  <div class="dock-nav__works">
+    <button
+      class="dock-nav__toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="worksMenu"
+    >
+      Works
+      <svg class="dock-nav__chevron" width="11" height="9" viewBox="0 0 11 9" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M1 3L5.5 7L10 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
+    <div class="dock-nav__menu" id="worksMenu" hidden>
+      <a class="dock-nav__menu-link" href="#writings">Writings</a>
+      <a class="dock-nav__menu-link" href="#short-film">Short Film</a>
+      <a class="dock-nav__menu-link" href="#theatre">Theatre</a>
+      <a class="dock-nav__menu-link" href="#podcast">Podcast</a>
+    </div>
+  </div>
+
+  <a class="dock-nav__link" href="#resume">Resume</a>
+  <a class="dock-nav__cta" href="#contact">contact</a>
+</nav>
 
   <script src="js/main.js"></script>
 </body>
