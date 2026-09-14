@@ -817,7 +817,63 @@ footer {
   text-decoration: underline;
 }
 
+/* =========================
+   STICKY SECTION TITLES
+   For: Writings / Theatre / Resume
+========================= */
+
 .sticky-title{
+  position: sticky;
+  top: 100px;            /* فاصله از بالا = 100px */
+  z-index: 50;
+
+  /* برای اینکه pseudo-element پشتش درست کار کند */
+  position: sticky;
+  background: transparent;
+}
+
+.sticky-title{
+  /* لازم است relative باشد تا ::before به خود تیتر بچسبد */
+  position: sticky;
+  top: 100px;
+  z-index: 50;
+}
+
+.sticky-title{
+  position: sticky;
+  top: 100px;
+  z-index: 50;
+}
+
+.sticky-title{
+  position: sticky;
+  top: 100px;
+  z-index: 50;
+
+  /* مهم */
+  position: sticky;
+  top: 100px;
+  z-index: 50;
+
+  /* برای pseudo */
+  position: sticky;
+  top: 100px;
+  z-index: 50;
+  position: sticky;
+  top: 100px;
+  z-index: 50;
+}
+
+/* نسخه تمیز و نهایی (این‌ها را نگه دار، تکراری‌های بالا را اگر خواستی حذف کن) */
+.sticky-title{
+  position: sticky;
+  top: 100px;
+  z-index: 50;
+  position: sticky;
+  top: 100px;
+  z-index: 50;
+
+  /* برای pseudo-element */
   position: sticky;
   top: 100px;
   z-index: 50;
@@ -829,12 +885,24 @@ footer {
   position: absolute;
   top: 0;
   bottom: 0;
+
+  /* بکگراند سرتاسری (full bleed) */
   width: 100vw;
   left: 50%;
   transform: translateX(-50%);
+
   background: var(--background);
   z-index: -1;
 }
+
+/* اگر حس کردی تیتر بیش از حد "می‌چسبه" و یک نوار نفس می‌خوای:
+   این padding را فعال کن. (الان عددی نگفتی، پس پیش‌فرض 0 گذاشتم)
+*/
+/*
+.sticky-title{
+  padding: 10px 0;
+}
+*/
 /* موبایل فعلاً غیرفعال است (Stage 1)
 @media (...) { ... }
 */
