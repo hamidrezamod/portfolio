@@ -699,6 +699,119 @@ footer {
   text-align: center;
 }
 
+
+/* =========================
+   DOCK NAV (sticky bottom center)
+========================= */
+
+.dock-nav{
+  position: fixed;
+  left: 50%;
+  bottom: 40px;                 /* اگر فاصله دقیق از پایین داری بگو تا دقیقش کنم */
+  transform: translateX(-50%);
+  z-index: 9999;
+
+  width: 443px;
+  height: 52px;
+  padding: 0 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: #343333;
+  color: #F7F4EF;
+
+  border-radius: 26px;          /* حالت pill */
+  box-shadow: 0 0 7px rgba(0,0,0,0.3); /* blur 7, x/y = 0 */
+}
+
+.dock-nav__link,
+.dock-nav__cta{
+  font-size: 19px;              /* Navbar/Menu */
+  font-weight: 500;
+  line-height: normal;
+  color: inherit;
+  text-decoration: none;
+}
+
+.dock-nav__link:hover{
+  text-decoration: underline;
+}
+
+/* Works button */
+.dock-nav__toggle{
+  font-family: inherit;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  padding: 0;
+
+  font-size: 19px;
+  font-weight: 500;
+  line-height: normal;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  cursor: pointer;
+}
+
+.dock-nav__chevron{
+  width: 11px;
+  height: 9px;
+  display: block;
+  transition: transform 180ms ease; /* انیمیشن سبک، اگر نمی‌خوای بگو حذف کنم */
+}
+
+.dock-nav.is-open .dock-nav__chevron{
+  transform: rotate(180deg);
+}
+
+/* contact button look */
+.dock-nav__cta{
+  background: #F7F4EF;
+  color: #343333;
+  padding: 6px 16px;
+  border-radius: 10px;
+}
+
+/* Dropdown menu */
+.dock-nav__works{
+  position: relative;
+}
+
+.dock-nav__menu{
+  position: absolute;
+  left: 50%;
+  bottom: 62px;                 /* بالای نوار */
+  transform: translateX(-50%);
+
+  width: 170px;                 /* اگر عرض دقیق منو رو داری بگو */
+  padding: 14px 18px;
+
+  background: #343333;
+  border-radius: 12px;
+  box-shadow: 0 0 7px rgba(0,0,0,0.3);
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dock-nav__menu-link{
+  font-size: 19px;
+  font-weight: 500;
+  line-height: normal;
+  color: #F7F4EF;
+  text-decoration: none;
+}
+
+.dock-nav__menu-link:hover{
+  text-decoration: underline;
+}
+
 /* موبایل فعلاً غیرفعال است (Stage 1)
 @media (...) { ... }
 */
