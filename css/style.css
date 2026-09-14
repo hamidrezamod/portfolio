@@ -152,70 +152,96 @@ h3 {
 
 /* Writings */
 
-.writing-list {
+/* ===== WRITINGS (FINAL FIX) ===== */
+
+/* تنظیمات دقیق کارت‌ها */
+:root{
+  --writing-img-w: 670px;
+  --writing-text-w: 418px;
+
+  /* برای اینکه جمع دقیقاً 1120 شود باید gap واقعی 32 باشد */
+  --writing-gap: 32px;
+
+  /* ولی تو گفتی فاصله‌ی دیده‌شده بین متن و عکس 2px است */
+  --writing-visible-gap: 2px;
+}
+
+/* لیست */
+.writing-list{
   display: grid;
   gap: 200px;
   margin-top: 160px;
 }
 
-/* حالت معمولی: عکس چپ، متن راست */
-.project {
+/* کارت استاندارد (عکس چپ / متن راست) */
+.writing-list .project{
   display: grid;
-  grid-template-columns: 670px 418px; /* 670 + 32 + 418 = 1120 */
-  column-gap: 32px;
+  grid-template-columns: var(--writing-img-w) var(--writing-text-w);
+  column-gap: var(--writing-gap);
   align-items: center;
 }
 
-.project > img {
-  grid-column: 1;
-  width: 670px;
+/* اندازه‌های ثابت */
+.writing-list .project > img{
+  width: var(--writing-img-w);
   height: 355.77px;
   object-fit: cover;
 }
 
-.project > div {
+.writing-list .project > div{
+  width: var(--writing-text-w);
+}
+
+/* کارت ریورس (متن چپ / عکس راست) — بدون تغییر اندازه‌ها */
+.writing-list .project.project-reversed{
+  grid-template-columns: var(--writing-text-w) var(--writing-img-w);
+}
+
+.writing-list .project.project-reversed > img{
   grid-column: 2;
-  width: 418px; /* عرض متن‌ها یکسان */
 }
 
-/* حالت ریورس: متن چپ، عکس راست (بدون تغییر اندازه‌ها) */
-.project-reversed {
-  grid-template-columns: 418px 670px;
-}
-
-.project-reversed > div {
+.writing-list .project.project-reversed > div{
   grid-column: 1;
-  width: 418px;
 }
 
-.project-reversed > img {
-  grid-column: 2;
-  width: 670px;
-  height: 355.77px;
-  object-fit: cover;
+/* ساخت فاصله‌ی دیده‌شده 2px با حفظ عرض کلی 1120:
+   gap واقعی 32 است ولی تصویر 30px داخل gap می‌آید. */
+.writing-list .project:not(.project-reversed) > img{
+  margin-right: calc(var(--writing-gap) - var(--writing-visible-gap)); /* 30px */
 }
 
-/* فاصله عنوان تا دکمه = 16px */
-.project h3 {
+.writing-list .project.project-reversed > img{
+  margin-left: calc(var(--writing-gap) - var(--writing-visible-gap));  /* 30px */
+}
+
+/* فاصله تیتر تا Read in Farsi = 8px */
+.writing-list .project h3{
   margin: 0;
 }
 
-.project a {
-  display: inline-block;
-  margin-top: 16px;
+.writing-list .project .read-link{
+  margin-top: 8px;
 
-  /* Button style from your table */
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
   font-size: 19px;
   font-weight: 500;
-  line-height: normal; /* closest to Auto */
+  line-height: normal; /* نزدیک‌ترین معادل Auto */
   text-decoration: none;
 }
 
-.project a:hover {
+.writing-list .project .read-link:hover{
   text-decoration: underline;
 }
 
-
+.writing-list .project .read-link__icon{
+  width: 20.3px;
+  height: 20.3px;
+  display: block;
+}
 
 /* Dark sections */
 
