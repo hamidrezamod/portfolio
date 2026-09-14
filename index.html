@@ -99,52 +99,53 @@
   </div>
 </section>
 
-    <section class="dark-section">
-      <div class="container">
-        <h2>Short Film</h2>
+    <section class="dark-section short-film" id="short-film">
+  <div class="container">
+    <h2>Short Film</h2>
 
-        <article class="featured">
-          <div>
-            <div class="featured-title-row">
-              <h3>The Problem Statement: Reframing Migration</h3>
-              <p class="year">2024</p>
-            </div>
+    <article class="short-film__layout">
+      <div class="short-film__text">
+        <h3 class="short-film__title">
+          The Problem Statement:<br>
+          Reframing Migration <span class="short-film__year">2024</span>
+        </h3>
 
-            <p class="role">Director &amp; Writer</p>
+        <p class="short-film__subtitle">Director &amp; Writer</p>
 
-            <p class="links">
-              Watch on:
-              <span class="watch-icons">
-                <!-- بعداً آیکن‌های SVG واقعی را جایگزین می‌کنی -->
-                <a class="icon-link" href="https://vimeo.com/" target="_blank" rel="noopener noreferrer" aria-label="Vimeo">
-                  <span class="icon-placeholder">V</span>
-                </a>
-                <a class="icon-link" href="#" aria-label="Google Drive">
-                  <span class="icon-placeholder">D</span>
-                </a>
-              </span>
-            </p>
+        <div class="short-film__watch">
+          <span class="short-film__watch-label">Watch on:</span>
+
+          <div class="short-film__icons">
+            <!-- SVG icons (replace file names if yours are different) -->
+            <a class="short-film__icon-link" href="https://vimeo.com/" target="_blank" rel="noopener noreferrer" aria-label="Vimeo">
+              <img class="short-film__icon" src="assets/icons/vimeo.svg" alt="" aria-hidden="true">
+            </a>
+
+            <a class="short-film__icon-link" href="#" aria-label="Google Drive">
+              <img class="short-film__icon" src="assets/icons/drive.svg" alt="" aria-hidden="true">
+            </a>
           </div>
-
-          <!-- Vimeo player + poster fallback -->
-          <div class="video-embed" data-video-embed>
-            <!-- اگر ویمئو لود نشه، این تصویر می‌مونه -->
-            <img class="video-poster" src="assets/short-film.jpg" alt="The Problem Statement poster">
-
-            <iframe
-              src="https://player.vimeo.com/video/1225059359?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
-              width="1920"
-              height="1080"
-              frameborder="0"
-              allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-              referrerpolicy="strict-origin-when-cross-origin"
-              title="The Problem Statement: Reframing Migration"
-              loading="lazy"
-            ></iframe>
-          </div>
-        </article>
+        </div>
       </div>
-    </section>
+
+      <!-- Vimeo player + poster fallback -->
+      <div class="video-embed short-film__player" data-video-embed>
+        <img class="video-poster" src="assets/short-film.jpg" alt="The Problem Statement poster">
+
+        <iframe
+          src="https://player.vimeo.com/video/1225059359?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+          width="1920"
+          height="1080"
+          frameborder="0"
+          allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          title="The Problem Statement: Reframing Migration"
+          loading="lazy"
+        ></iframe>
+      </div>
+    </article>
+  </div>
+</section>
 
     <section class="section container">
       <h2 class="align-right">Theatre</h2>
