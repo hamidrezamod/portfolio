@@ -168,3 +168,76 @@ const SmoothScroll = (() => {
     if (!dock.contains(e.target)) closeMenu();
   });
 })();
+
+/* =========================
+   Article modal (loads external HTML files)
+========================= */
+(function () {
+  const modal = document.getElementById("articleModal");
+  const content = document.getElementById("articleModalContent");
+  if (!modal || !content) return;
+
+  const closeEls = modal.querySelectorAll("[data-article-close]");
+  let isClosing = false;
+
+  async function openArticle(url) {
+    try {
+      content.innerHTML = ""; // clear
+
+      // fetch article html
+      const res = await fetch(url, { cache: "no-cache" });
+      if (!res.ok) throw new Error("Failed to load article: " + url);
+
+      const html = await res.text();
+      content.innerHTML = html;
+
+      document.body.classList.add("is-modal-open");
+      modal.classList.add("is-active");
+      modal.setAttribute("aria-hidden", "false");
+    } catch (err) {
+      console.error(err);
+      content.innerHTML = "<div style='padding:40px'>Could not load this article.</div>";
+      document.body.classList.add("is-modal-open");
+      modal.classList.add("is-active");
+      modal.setAttribute("aria-hidden", "false");
+    }
+  }
+
+  function closeArticle() {
+    if (isClosing) return;
+    isClosing = true;
+
+    modal.classList.remove("is-active");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("is-modal-open");
+
+    // wait for animation to finish, then clear
+    window.setTimeout(() => {
+      content.innerHTML = "";
+      isClosing = false;
+    }, 850);
+  }
+
+  // open on click writing cards
+  document.querySelectorAll(".writing-list .project[data-article-src]").forEach((card) => {
+    card.style.cursor = "pointer";
+    card.addEventListener("click", (e) => {
+      // if user clicks the inner link, prevent jump but still open
+      if (e.target.closest("a")) e.preventDefault();
+
+      const url = card.getAttribute("data-article-src");
+      if (!url) return;
+      openArticle(url);
+    });
+  });
+
+  // close handlers
+  closeEls.forEach((el) => el.addEventListener("click", closeArticle));
+
+  // ESC close
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal.classList.contains("is-active")) {
+      closeArticle();
+    }
+  });
+})();
