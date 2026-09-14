@@ -152,54 +152,69 @@ h3 {
 
 /* Writings */
 
-
 .writing-list {
   display: grid;
   gap: 200px;
   margin-top: 160px;
 }
 
+/* حالت معمولی: عکس چپ، متن راست */
 .project {
   display: grid;
   grid-template-columns: 670px 418px; /* 670 + 32 + 418 = 1120 */
+  column-gap: 32px;
   align-items: center;
-  gap: 32px;
 }
 
-/* نکته مهم:
-   ریورس فقط جای عکس و متن را عوض می‌کند، نه اندازه‌ها را */
-.project-reversed img {
-  order: 2;
-}
-
-.project img {
+.project > img {
+  grid-column: 1;
   width: 670px;
   height: 355.77px;
   object-fit: cover;
 }
 
-/* یکسان‌سازی عرض ناحیه متن در هر دو حالت */
 .project > div {
+  grid-column: 2;
+  width: 418px; /* عرض متن‌ها یکسان */
+}
+
+/* حالت ریورس: متن چپ، عکس راست (بدون تغییر اندازه‌ها) */
+.project-reversed {
+  grid-template-columns: 418px 670px;
+}
+
+.project-reversed > div {
+  grid-column: 1;
   width: 418px;
 }
 
-/* فاصله عنوان تا دکمه باید 16px باشد */
+.project-reversed > img {
+  grid-column: 2;
+  width: 670px;
+  height: 355.77px;
+  object-fit: cover;
+}
+
+/* فاصله عنوان تا دکمه = 16px */
 .project h3 {
   margin: 0;
 }
 
 .project a {
   display: inline-block;
-  margin-top: 16px;   /* title -> Read in Farsi */
-  font-size: 19px;    /* Button size */
-  font-weight: 500;   /* Button weight */
-  line-height: normal;/* معادل Auto */
+  margin-top: 16px;
+
+  /* Button style from your table */
+  font-size: 19px;
+  font-weight: 500;
+  line-height: normal; /* closest to Auto */
   text-decoration: none;
 }
 
 .project a:hover {
   text-decoration: underline;
 }
+
 /* Dark sections */
 
 .dark-section {
