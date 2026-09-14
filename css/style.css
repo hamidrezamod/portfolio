@@ -197,6 +197,8 @@ h3 {
   grid-column: 2;
   width: 670px;
   height: 355.77px;
+   align-items: center;
+   object-fit: cover;
 }
 
 /* اگر قبلاً order گذاشتی، بی‌اثر/خنثی شود */
