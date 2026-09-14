@@ -229,6 +229,91 @@ h3 {
 
 
 /* Dark sections */
+/* =========================
+   SHORT FILM (match Figma)
+========================= */
+
+/* اگر خواستی سریع عرض پلیر را تغییر بدی، فقط این را عوض کن */
+:root{
+  --shortfilm-player-w: 677px;     /* اگر واقعاً منظورت 380px "عرض" بود، اینجا بکن 380px */
+  --shortfilm-player-h: 380.81px;  /* ارتفاع پلیر */
+}
+
+.short-film .container > h2{
+  /* title is already styled by h2 global */
+}
+
+.short-film__layout{
+  margin-top: 160px;               /* title -> content */
+  display: grid;
+  grid-template-columns: 1fr var(--shortfilm-player-w);
+  column-gap: 32px;                /* text -> player */
+  align-items: center;
+}
+
+/* Title + year */
+.short-film__title{
+  margin: 0;
+  font-size: 40px;
+  line-height: 44px;
+  font-weight: 600;
+}
+
+.short-film__year{
+  margin-left: 8px;                /* last word -> year */
+  font-size: 20px;                 /* card body size */
+  font-weight: 400;
+  line-height: normal;
+}
+
+/* Subtitle spacing: 8px under title */
+.short-film__subtitle{
+  margin: 8px 0 0;
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 400;
+}
+
+/* Watch on spacing: 64px under subtitle, icons 16px from label, 16px between icons */
+.short-film__watch{
+  margin-top: 64px;
+  display: flex;
+  align-items: center;
+  gap: 16px;                       /* label -> icons */
+}
+
+.short-film__watch-label{
+  font-size: 19px;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.short-film__icons{
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;                       /* icons gap */
+}
+
+.short-film__icon-link{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.short-film__icon{
+  height: 28px;                    /* اگر سایز دقیق آیکون‌ها را دادی، دقیق می‌کنم */
+  width: auto;
+  display: block;
+}
+
+/* Player size */
+.short-film__player.video-embed{
+  width: var(--shortfilm-player-w);
+  height: var(--shortfilm-player-h);
+}
+
+
 
 .dark-section {
   margin-top: 320px;
