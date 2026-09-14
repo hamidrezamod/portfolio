@@ -18,22 +18,19 @@ document.querySelectorAll("[data-video-embed]").forEach((wrap) => {
   function openMenu() {
     dock.classList.add("is-open");
     toggle.setAttribute("aria-expanded", "true");
-    menu.hidden = false;
   }
 
   function closeMenu() {
     dock.classList.remove("is-open");
     toggle.setAttribute("aria-expanded", "false");
-    menu.hidden = true;
   }
 
   toggle.addEventListener("click", (e) => {
     e.preventDefault();
-    const isOpen = toggle.getAttribute("aria-expanded") === "true";
-    isOpen ? closeMenu() : openMenu();
+    dock.classList.contains("is-open") ? closeMenu() : openMenu();
   });
 
-  // Smooth scroll for navbar links (no jump)
+  // Smooth scroll for all nav links (no jump)
   dock.querySelectorAll('a[href^="#"]').forEach((a) => {
     a.addEventListener("click", (e) => {
       const href = a.getAttribute("href");
@@ -44,12 +41,7 @@ document.querySelectorAll("[data-video-embed]").forEach((wrap) => {
 
       e.preventDefault();
 
-      target.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-
-      // update URL hash without jumping
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
       history.pushState(null, "", href);
 
       closeMenu();
