@@ -1,1 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hamid Reza Mohammadi</title>
 
+  <!-- فعلاً برای اینکه ظاهر دقیق بیاید از Google Fonts استفاده شده.
+       وقتی فایل فونت را داخل assets/fonts گذاشتی، این لینک را حذف می‌کنیم و لوکال لود می‌کنیم. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <main>
+    <header class="hero container">
+      <div class="portrait">
+        <span aria-hidden="true"></span>
+        <img src="assets/portrait.jpg" alt="Hamid Reza Mohammadi">
+      </div>
+
+      <h1>Hamid Reza Mohammadi</h1>
+      <p>Dramaturge &amp; Designer</p>
+
+      <a class="scroll-arrow" href="#about" aria-label="Scroll to About">
+        <!-- placeholder icon; later you can replace with your SVG file -->
+        <svg width="38" height="34" viewBox="0 0 38 34" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M6 10L19 23L32 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M6 18L19 31L32 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </header>
+
+    <section id="about" class="section container two-columns about-section">
+      <div>
+        <h2>About Me</h2>
+
+        <div class="section-copy">
+          <p>
+            It’s strange, I know, to start with the weather. But I love cloudy
+            days... a soft rain, a little mist, the smell of wet grass, and a
+            slow, cold wind. Maybe because this kind of weather has always been
+            a character in my creativity. It’s dramatic enough to hold love,
+            fear, sadness, joy, and curiosity.
+          </p>
+
+          <p>
+            I’m Hamid Reza, born in 1997. I studied Acting &amp; Directing for
+            my BA and Cinema for my MA. My main interests are design,
+            dramaturgy, and object theatre. I write, direct, and make short
+            films, exploring stories across different forms and mediums.
+          </p>
+        </div>
+      </div>
+
+      <img class="about-image" src="assets/about.jpg" alt="Hamid outdoors">
+    </section>
+
+    <section class="section container">
+      <h2 class="align-right">Writings</h2>
+
+      <div class="writing-list">
+        <article class="project" data-popup="article-pathology">
+          <img src="assets/writing-iranian-cinema.jpg" alt="">
+          <div>
+            <h3>A Pathology of Iranian Underground Cinema</h3>
+            <a href="#" aria-label="Read in Farsi">Read in Farsi ↗</a>
+          </div>
+        </article>
+
+        <article class="project project-reversed" data-popup="article-stand-by-me">
+          <img src="assets/writing-american-dream.jpg" alt="">
+          <div>
+            <h3>Stand by Me: In Search of the American Dream</h3>
+            <a href="#" aria-label="Read in Farsi">Read in Farsi ↗</a>
+          </div>
+        </article>
+
+        <article class="project" data-popup="article-outcry">
+          <img src="assets/writing-outcry.jpg" alt="">
+          <div>
+            <h3>Outcry: A Film Not Made for Us</h3>
+            <a href="#" aria-label="Read in Farsi">Read in Farsi ↗</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="dark-section">
+      <div class="container">
+        <h2>Short Film</h2>
+
+        <article class="featured">
+          <div>
+            <div class="featured-title-row">
+              <h3>The Problem Statement: Reframing Migration</h3>
+              <p class="year">2024</p>
+            </div>
+
+            <p class="role">Director &amp; Writer</p>
+
+            <p class="links">
+              Watch on:
+              <span class="watch-icons">
+                <!-- بعداً آیکن‌های SVG واقعی را جایگزین می‌کنی -->
+                <a class="icon-link" href="https://vimeo.com/" target="_blank" rel="noopener noreferrer" aria-label="Vimeo">
+                  <span class="icon-placeholder">V</span>
+                </a>
+                <a class="icon-link" href="#" aria-label="Google Drive">
+                  <span class="icon-placeholder">D</span>
+                </a>
+              </span>
+            </p>
+          </div>
+
+          <!-- Vimeo player + poster fallback -->
+          <div class="video-embed" data-video-embed>
+            <!-- اگر ویمئو لود نشه، این تصویر می‌مونه -->
+            <img class="video-poster" src="assets/short-film.jpg" alt="The Problem Statement poster">
+
+            <iframe
+              src="https://player.vimeo.com/video/1225059359?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+              width="1920"
+              height="1080"
+              frameborder="0"
+              allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              title="The Problem Statement: Reframing Migration"
+              loading="lazy"
+            ></iframe>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section container">
+      <h2 class="align-right">Theatre</h2>
+
+      <div class="theatre-grid">
+        <div class="theatre-column">
+          <article class="theatre-item" data-popup="theatre-relingo">
+            <img src="assets/relingo.jpg" alt="">
+            <h3>Relingo <span>2022</span></h3>
+            <p>Assistant Director</p>
+          </article>
+
+          <article class="theatre-item" data-popup="theatre-dollear">
+            <img src="assets/dollear.jpg" alt="">
+            <h3>Dollear <span>2019</span></h3>
+            <p>Director, Dramaturge &amp; Actor</p>
+          </article>
+
+          <article class="theatre-item" data-popup="theatre-bi">
+            <img src="assets/bi.jpg" alt="">
+            <h3>Bi <span>2018</span></h3>
+            <p>Designer</p>
+          </article>
+
+          <article class="theatre-item" data-popup="theatre-retreating-world">
+            <img src="assets/retreating-world.jpg" alt="">
+            <h3>The Retreating World <span>2017</span></h3>
+            <p>Actor</p>
+          </article>
+        </div>
+
+        <div class="theatre-column theatre-offset">
+          <article class="theatre-item" data-popup="theatre-extraneous">
+            <img src="assets/extraneous.jpg" alt="">
+            <h3>Extraneous <span>2020</span></h3>
+            <p>Director &amp; Dramaturge</p>
+          </article>
+
+          <article class="theatre-item" data-popup="theatre-assoiffes">
+            <img src="assets/assoiffes.jpg" alt="">
+            <h3>Assoiffés <span>2017</span></h3>
+            <p>Actor</p>
+          </article>
+
+          <article class="theatre-item" data-popup="theatre-soug-soroud">
+            <img src="assets/soug-soroud.jpg" alt="">
+            <h3>Soug Soroud <span>2017</span></h3>
+            <p>Actor &amp; Set Builder</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="dark-section">
+      <div class="container">
+        <h2>Podcast</h2>
+
+        <article class="featured podcast">
+          <div>
+            <h3>A Symbol of Modernity or a Disgrace for the City</h3>
+            <p>Researcher &amp; Content Consultant</p>
+            <p class="links">
+              <a href="#">Listen on Castbox</a><br>
+              <a href="#">Podgard on Instagram</a>
+            </p>
+          </div>
+
+          <img src="assets/podcast.jpg" alt="Podgard podcast">
+        </article>
+      </div>
+    </section>
+
+    <section class="section container resume">
+      <h2>Resume</h2>
+
+      <div class="resume-content">
+        <div>
+          <h3>Education</h3>
+          <p><strong>Master: Cinema</strong> — 2020–2023<br>Sooreh University</p>
+          <p><strong>Bachelor: Directing and Acting</strong> — 2015–2020<br>University of Tehran</p>
+        </div>
+
+        <div>
+          <h3>Experience</h3>
+          <ul>
+            <li>Freelance UI/UX Designer — 2024–Present</li>
+            <li>Content Creator &amp; Consultant, Podgard Art Podcast — 2022–2025</li>
+            <li>Literary Editor, Enba Magazine — 2018–2020</li>
+            <li>Editorial Board Member, Practical Examination Guide — 2018</li>
+            <li>Theatre Venue Supervisor, 19th Experience Theatre Festival — 2019</li>
+            <li>Workshop &amp; Panel Coordinator, 18th Experience Theatre Festival — 2018</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Software Skills</h3>
+          <p><strong>Design:</strong> Figma, Premiere Pro, Illustrator, Photoshop</p>
+          <p><strong>Project Management:</strong> Notion, Atlassian, Google Calendar</p>
+          <p><strong>Writing &amp; Content:</strong> Microsoft Word, Google Docs</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container">
+      <h2 class="align-right">Awards &amp; Certificates</h2>
+
+      <div class="certificate-grid">
+        <img src="assets/certificate-1.jpg" alt="Certificate">
+        <img src="assets/certificate-2.jpg" alt="Certificate">
+        <img src="assets/certificate-3.jpg" alt="Certificate">
+        <img src="assets/certificate-4.jpg" alt="Certificate">
+        <img src="assets/certificate-5.jpg" alt="Certificate">
+      </div>
+    </section>
+
+    <section class="contact container">
+      <h2>Contact Info</h2>
+
+      <div class="contact-grid">
+        <a href="tel:+989358502657">☎ +98 935 850 2657</a>
+        <a href="mailto:Hamid.r.mod@gmail.com">✉ Hamid.r.mod@gmail.com</a>
+        <a href="#">Instagram</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">Dribbble</a>
+        <a href="#">Letterboxd</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>Designed &amp; built by Hamid Reza Mohammadi</footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
