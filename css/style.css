@@ -151,82 +151,55 @@ h3 {
 }
 
 /* =========================
-   WRITINGS (REPLACE ALL OLD WRITINGS CSS WITH THIS)
+   WRITINGS (FINAL - ALL CARDS SAME)
 ========================= */
 
 .writing-list{
-  margin-top: 160px;        /* title -> first card */
+  margin-top: 160px;   /* title -> first card */
   display: grid;
-  row-gap: 200px;           /* distance between cards */
+  row-gap: 200px;      /* gap between cards */
 }
 
-/* shared: every card is a 2-column grid and centered vertically */
 .writing-list .project{
-  margin: 0;
   display: grid;
-  width: 100%;
-  column-gap: 2px;          /* gap between image and text area */
-  align-items: center;      /* text and image aligned from the middle */
+  grid-template-columns: 670px 418px; /* image + text */
+  column-gap: 32px;                  /* text to image gap */
+  align-items: center;               /* center text with image vertically */
 }
 
-/* shared sizes */
-.writing-list .project > img{
+.writing-list .project img{
   width: 670px;
   height: 355.77px;
   object-fit: cover;
-  display: block;
 }
 
-.writing-list .project > div{
-  width: 418px;
-}
-
-/* shared spacing inside text */
 .writing-list .project h3{
   margin: 0;
 }
 
-.writing-list .project a{
-  display: inline-block;
-  margin-top: 8px;          /* title -> Read in Farsi */
+.writing-list .read-link{
+  margin-top: 8px;                 /* title -> Read in Farsi */
+  display: inline-flex;
+  align-items: center;             /* icon aligned with the text line */
+  gap: 8px;                        /* text -> icon gap */
+
   font-size: 19px;
   font-weight: 500;
-  line-height: normal;      /* closest to "Auto" */
+  line-height: normal;             /* closest to "auto" */
   text-decoration: none;
 }
 
-.writing-list .project a:hover{
+.writing-list .read-link:hover{
   text-decoration: underline;
 }
 
-/* -------- Card 1 (image left, text right) -------- */
-.writing-list .project:nth-child(1){
-  grid-template-columns: 670px 418px;
+.writing-list .read-link__icon{
+  width: 20.3px;
+  height: 20.3px;
+  display: block;
 }
 
-.writing-list .project:nth-child(1) > img{ grid-column: 1; }
-.writing-list .project:nth-child(1) > div{ grid-column: 2; }
 
-/* -------- Card 2 (text left, image right) -------- */
-.writing-list .project:nth-child(2){
-  grid-template-columns: 418px 670px;
-}
-
-.writing-list .project:nth-child(2) > div{ grid-column: 1; }
-.writing-list .project:nth-child(2) > img{ grid-column: 2; }
-
-/* اگر قبلاً برای ریورس order گذاشتی، اینجا خنثی می‌کنیم */
-.writing-list .project:nth-child(2) > img{
-  order: 0;
-}
-
-/* -------- Card 3 (image left, text right) -------- */
-.writing-list .project:nth-child(3){
-  grid-template-columns: 670px 418px;
-}
-
-.writing-list .project:nth-child(3) > img{ grid-column: 1; }
-.writing-list .project:nth-child(3) > div{ grid-column: 2; }
 /* Dark sections */
 
 .dark-section {
