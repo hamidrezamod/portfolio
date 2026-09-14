@@ -817,33 +817,7 @@ footer {
   text-decoration: underline;
 }
 
-/* =========================
-   Sticky titles with 100px headroom + full-bleed background
-   (Writings, Theatre, Resume)
-========================= */
 
-.sticky-title{
-  position: sticky;
-  top: 100px;          /* خودِ تیتر 100px پایین‌تر می‌ایستد */
-  z-index: 500;
-  isolation: isolate;  /* تا بکگراند پشتش درست لایه‌بندی شود */
-}
-
-/* بکگراند سرتاسری + پوشش دادن فضای 100px بالای تیتر */
-.sticky-title::before{
-  content: "";
-  position: absolute;
-
-  /* full-bleed بدون ایجاد اسکرول افقی */
-  left: calc(50% - 50vw);
-  right: calc(50% - 50vw);
-
-  top: -100px;         /* بکگراند تا بالای صفحه */
-  bottom: 0;           /* تا پایین خود تیتر */
-
-  background: var(--background);
-  z-index: -1;
-}
 /* موبایل فعلاً غیرفعال است (Stage 1)
 @media (...) { ... }
 */
