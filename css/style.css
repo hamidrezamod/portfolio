@@ -25,6 +25,83 @@ body {
 
 }
 
+
+
+
+/* =========================
+   DoranFaNum (Persian) — Local Fonts
+   Path: assets/fonts/*.woff2
+   Note: style.css is in /css/ so we use ../assets/...
+========================= */
+
+@font-face{
+  font-family: "Doran";
+  src: url("../assets/fonts/DoranFaNum-Thin.woff2") format("woff2");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face{
+  font-family: "Doran";
+  src: url("../assets/fonts/DoranFaNum-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face{
+  font-family: "Doran";
+  src: url("../assets/fonts/DoranFaNum-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face{
+  font-family: "Doran";
+  src: url("../assets/fonts/DoranFaNum-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face{
+  font-family: "Doran";
+  src: url("../assets/fonts/DoranFaNum-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face{
+  font-family: "Doran";
+  src: url("../assets/fonts/DoranFaNum-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face{
+  font-family: "Doran";
+  src: url("../assets/fonts/DoranFaNum-Black.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ExtraBlack: weight 950 (valid in CSS) */
+@font-face{
+  font-family: "Doran";
+  src: url("../assets/fonts/DoranFaNum-ExtraBlack.woff2") format("woff2");
+  font-weight: 950;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+
+
 img {
   display: block;
   max-width: 100%;
@@ -1028,6 +1105,247 @@ footer {
 @media (prefers-reduced-motion: reduce){
   .scroll-indicator__chev{ animation: none; opacity: 1; transform: none; }
 }
+
+
+
+
+
+/* =========================
+   ARTICLE POPUP (Stage 2)
+========================= */
+
+:root{
+  --article-bg: #F3E9DC;
+  --article-ink: #413F3E;
+  --article-shadow: 0 0 20px rgba(0,0,0,0.20);
+  --ease-apple: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* prevent background scroll */
+body.is-modal-open{
+  overflow: hidden;
+}
+
+/* blur background (main page) */
+body.is-modal-open main,
+body.is-modal-open footer,
+body.is-modal-open .dock-nav{
+  filter: blur(7px);
+  transition: filter 700ms var(--ease-apple);
+  pointer-events: none;
+}
+
+main, footer, .dock-nav{
+  transition: filter 700ms var(--ease-apple);
+}
+
+/* overlay wrapper */
+.article-modal{
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+
+  padding: 24px 0;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 700ms var(--ease-apple);
+}
+
+.article-modal.is-active{
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* darken behind */
+.article-modal__backdrop{
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0);
+  transition: background 700ms var(--ease-apple);
+}
+
+.article-modal.is-active .article-modal__backdrop{
+  background: rgba(0,0,0,0.18);
+}
+
+/* panel (sheet) */
+.article-modal__panel{
+  position: relative;
+
+  width: 1376px;
+  max-width: calc(100% - 64px);
+
+  max-height: calc(100vh - 48px);
+  overflow: auto;
+
+  background: var(--article-bg);
+  color: var(--article-ink);
+  box-shadow: var(--article-shadow);
+
+  transform: translateY(90px);
+  opacity: 0;
+  transition: transform 800ms var(--ease-apple), opacity 800ms var(--ease-apple);
+  will-change: transform, opacity;
+}
+
+.article-modal.is-active .article-modal__panel{
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* close area (sticky) */
+.article-modal__closebar{
+  position: sticky;
+  top: 0;
+  z-index: 5;
+
+  height: 88px;
+  padding: 32px 128px 16px; /* top/right-left/bottom */
+
+  background: var(--article-bg);
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.article-modal__close{
+  width: 40px;
+  height: 40px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.article-modal__close img,
+.article-modal__close svg{
+  width: 40px;
+  height: 40px;
+  display: block;
+}
+
+/* inner content width (1120) */
+.article-modal__content{
+  width: 1120px;
+  max-width: calc(100% - 256px); /* 128 + 128 */
+  margin: 64px auto 120px;       /* closebar -> cover = 64 */
+}
+
+/* =========================
+   Article sheet layout
+========================= */
+
+.article-sheet__hero{
+  display: grid;
+  grid-template-columns: 548px 1fr;
+  column-gap: 32px; /* cover -> text */
+  align-items: start;
+}
+
+.article-sheet__cover{
+  width: 548px;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* English title */
+.article-sheet__title-en{
+  margin: 0;
+  font-family: "Crimson Pro", serif;
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 44px;
+  color: var(--article-ink);
+}
+
+/* Persian title */
+.article-sheet__title-fa{
+  margin: 16px 0 0;  /* gap between EN/FA = 16 */
+  font-family: "Doran", sans-serif;
+  font-size: 30px;
+  font-weight: 700; /* closest to 600 with your available files */
+  line-height: 44px;
+  color: var(--article-ink);
+}
+
+/* meta labels under cover */
+.article-sheet__meta{
+  margin-top: 8px; /* labels -> cover = 8 */
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px; /* labels gap */
+
+  font-family: "Doran", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 48px;
+  color: var(--article-ink);
+}
+
+.article-meta__divider{
+  width: 1px;
+  height: 18px;
+  background: var(--article-ink);
+  opacity: 0.5;
+}
+
+.article-meta__tag{
+  display: inline-flex;
+  align-items: center;
+  gap: 4px; /* icon -> text = 4 */
+}
+
+.article-meta__icon{
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+/* body spacing */
+.article-sheet__body{
+  margin-top: 64px; /* labels -> text = 64 */
+}
+
+/* section title + paragraphs spacing */
+.article-sec__title{
+  margin: 0 0 16px; /* title -> paragraph = 16 */
+  font-family: "Doran", sans-serif;
+  font-size: 20px;
+  font-weight: 800; /* ExtraBold */
+  line-height: 48px;
+  color: var(--article-ink);
+}
+
+.article-sec__p{
+  margin: 0 0 16px; /* paragraph -> paragraph = 16 */
+  font-family: "Doran", sans-serif;
+  font-size: 16px;
+  font-weight: 700; /* Bold */
+  line-height: 48px;
+  color: var(--article-ink);
+  text-align: justify;
+}
+
+/* reduce motion */
+@media (prefers-reduced-motion: reduce){
+  .article-modal,
+  .article-modal__backdrop,
+  .article-modal__panel,
+  main, footer, .dock-nav{
+    transition: none !important;
+  }
+}
+
+
+
 
 /* موبایل فعلاً غیرفعال است (Stage 1)
 @media (...) { ... }
