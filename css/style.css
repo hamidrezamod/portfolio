@@ -177,6 +177,11 @@ h3 {
 .project a {
   font-size: 19px;
 }
+.writing-list .project .read-link__icon{
+  width: 20.3px;
+  height: 20.3px;
+  display: block;
+}
 
 /* Dark sections */
 
