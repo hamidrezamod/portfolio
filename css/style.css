@@ -992,14 +992,16 @@ footer {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 50px;
-  height: 475px;
+  width: 37.56px;
+  height: 34.35px;
   line-height: 0;
 }
 
 .scroll-indicator__icon{
-  width: 50px;
-  height: 475px;
+  width: 37.56px;
+  height: 34.35px;
+    transform: scale(2);
+  transform-origin: center;
   display: block;
 }
 
