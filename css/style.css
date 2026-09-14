@@ -818,27 +818,28 @@ footer {
 }
 
 /* =========================
-   STICKY SECTION TITLES
+   Sticky titles with 100px headroom + full-bleed background
    (Writings, Theatre, Resume)
 ========================= */
 
 .sticky-title{
   position: sticky;
-  top: 100px;              /* فاصله از بالای صفحه */
-  z-index: 200;
-  isolation: isolate;      /* برای اینکه بکگراند ::before درست پشتش بیفتد */
+  top: 100px;          /* خودِ تیتر 100px پایین‌تر می‌ایستد */
+  z-index: 500;
+  isolation: isolate;  /* تا بکگراند پشتش درست لایه‌بندی شود */
 }
 
-/* بکگراند سرتاسری پشت تیتر (full-bleed) */
+/* بکگراند سرتاسری + پوشش دادن فضای 100px بالای تیتر */
 .sticky-title::before{
   content: "";
   position: absolute;
-  top: 0;
-  bottom: 0;
 
-  width: 100vw;
-  left: 50%;
-  transform: translateX(-50%);
+  /* full-bleed بدون ایجاد اسکرول افقی */
+  left: calc(50% - 50vw);
+  right: calc(50% - 50vw);
+
+  top: -100px;         /* بکگراند تا بالای صفحه */
+  bottom: 0;           /* تا پایین خود تیتر */
 
   background: var(--background);
   z-index: -1;
