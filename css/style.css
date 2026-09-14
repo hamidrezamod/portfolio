@@ -152,6 +152,7 @@ h3 {
 
 /* Writings */
 
+
 .writing-list {
   display: grid;
   gap: 200px;
@@ -165,6 +166,8 @@ h3 {
   gap: 32px;
 }
 
+/* نکته مهم:
+   ریورس فقط جای عکس و متن را عوض می‌کند، نه اندازه‌ها را */
 .project-reversed img {
   order: 2;
 }
@@ -172,12 +175,31 @@ h3 {
 .project img {
   width: 670px;
   height: 355.77px;
+  object-fit: cover;
+}
+
+/* یکسان‌سازی عرض ناحیه متن در هر دو حالت */
+.project > div {
+  width: 418px;
+}
+
+/* فاصله عنوان تا دکمه باید 16px باشد */
+.project h3 {
+  margin: 0;
 }
 
 .project a {
-  font-size: 19px;
+  display: inline-block;
+  margin-top: 16px;   /* title -> Read in Farsi */
+  font-size: 19px;    /* Button size */
+  font-weight: 500;   /* Button weight */
+  line-height: normal;/* معادل Auto */
+  text-decoration: none;
 }
 
+.project a:hover {
+  text-decoration: underline;
+}
 /* Dark sections */
 
 .dark-section {
