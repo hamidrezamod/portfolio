@@ -149,6 +149,10 @@ h3 {
   height: 629.26px;
   margin-top: 69px;
 }
+/* About - align title top with image top */
+.about-section h2{
+  margin-top: 69px;
+}
 
 /* =========================
    WRITINGS (FINAL - FLEX, STABLE)
