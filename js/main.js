@@ -33,13 +33,31 @@ document.querySelectorAll("[data-video-embed]").forEach((wrap) => {
     isOpen ? closeMenu() : openMenu();
   });
 
+  // Smooth scroll for navbar links (no jump)
+  dock.querySelectorAll('a[href^="#"]').forEach((a) => {
+    a.addEventListener("click", (e) => {
+      const href = a.getAttribute("href");
+      if (!href || href === "#") return;
+
+      const target = document.querySelector(href);
+      if (!target) return;
+
+      e.preventDefault();
+
+      target.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+
+      // update URL hash without jumping
+      history.pushState(null, "", href);
+
+      closeMenu();
+    });
+  });
+
   // close when clicking outside
   document.addEventListener("click", (e) => {
     if (!dock.contains(e.target)) closeMenu();
-  });
-
-  // close when selecting a works link
-  menu.querySelectorAll("a").forEach((a) => {
-    a.addEventListener("click", () => closeMenu());
   });
 })();
