@@ -816,6 +816,92 @@ footer {
 .dock-nav__menu-link:hover{
   text-decoration: underline;
 }
+/* =========================
+   Hover effects: Writings + Theatre
+   Default: grayscale
+   Hover: color + slight zoom + slight text zoom
+========================= */
+
+:root{
+  --card-hover-scale-img: 1.04;   /* چند درصد بزرگ شود */
+  --card-hover-scale-text: 1.02;  /* چند درصد متن بزرگ شود */
+  --card-hover-time: 320ms;
+  --card-hover-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* --- WRITINGS --- */
+
+/* قاب عکس تا زوم داخلش بماند */
+.writing-list .project > img{
+  filter: grayscale(100%);
+  transform: scale(1);
+  transition:
+    transform var(--card-hover-time) var(--card-hover-ease),
+    filter var(--card-hover-time) var(--card-hover-ease);
+}
+
+/* چون img مستقیم داخل کارت است، برای اینکه "داخل قاب" بماند:
+   روی خود کارت clip می‌کنیم */
+.writing-list .project{
+  overflow: hidden; /* اجازه نمی‌دهد تصویر از کادر بیرون بزند */
+}
+
+/* هاور: رنگی + زوم */
+.writing-list .project:hover > img{
+  filter: grayscale(0%);
+  transform: scale(var(--card-hover-scale-img));
+}
+
+/* متن کمی بزرگ‌تر */
+.writing-list .project > div{
+  transform: scale(1);
+  transform-origin: left center;
+  transition: transform var(--card-hover-time) var(--card-hover-ease);
+}
+
+.writing-list .project:hover > div{
+  transform: scale(var(--card-hover-scale-text));
+}
+
+/* کارت ریورس (متن سمت چپ) */
+.writing-list .project.project-reversed > div{
+  transform-origin: left center;
+}
+
+/* --- THEATRE --- */
+
+/* برای اینکه زوم داخل قاب بماند، روی خود آیتم clip کنیم */
+.theatre-item{
+  overflow: hidden;
+}
+
+/* تصویر تئاتر: سیاه و سفید + ترنزیشن */
+.theatre-item img{
+  filter: grayscale(100%);
+  transform: scale(1);
+  transition:
+    transform var(--card-hover-time) var(--card-hover-ease),
+    filter var(--card-hover-time) var(--card-hover-ease);
+}
+
+/* هاور تئاتر: رنگی + زوم */
+.theatre-item:hover img{
+  filter: grayscale(0%);
+  transform: scale(var(--card-hover-scale-img));
+}
+
+/* متن تئاتر: کمی بزرگ‌تر */
+.theatre-item h3,
+.theatre-item p{
+  transition: transform var(--card-hover-time) var(--card-hover-ease);
+  transform: scale(1);
+  transform-origin: left top;
+}
+
+.theatre-item:hover h3,
+.theatre-item:hover p{
+  transform: scale(var(--card-hover-scale-text));
+}
 
 /* موبایل فعلاً غیرفعال است (Stage 1)
 @media (...) { ... }
