@@ -163,7 +163,7 @@ h3 {
   display: grid;
   width: 100%;
   grid-template-columns: 670px 418px; /* image + text */
-  column-gap: 2px;                   /* gap between image and text */
+  column-gap: 32px;                   /* gap between image and text */
   align-items: center;               /* vertical center */
 }
 
@@ -177,7 +177,7 @@ h3 {
 
 .writing-list .project > div{
   grid-column: 2;
-  width: 416px;
+  width: 425px;
 }
 
 /* Reversed card (Stand by Me): text left, image right (same sizes) */
