@@ -193,10 +193,12 @@ h3 {
   text-decoration: underline;
 }
 
+
 .writing-list .read-link__icon{
   width: 20.3px;
   height: 20.3px;
   display: block;
+  flex: 0 0 20.3px;
 }
 
 
