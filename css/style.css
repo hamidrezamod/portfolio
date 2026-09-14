@@ -150,86 +150,83 @@ h3 {
   margin-top: 69px;
 }
 
-/* Writings */
-/* ===== WRITINGS: fixed widths + correct reverse + center align ===== */
-.writing-list {
+/* =========================
+   WRITINGS (REPLACE ALL OLD WRITINGS CSS WITH THIS)
+========================= */
+
+.writing-list{
+  margin-top: 160px;        /* title -> first card */
   display: grid;
-  gap: 200px;
-  margin-top: 160px;
+  row-gap: 200px;           /* distance between cards */
 }
 
-
+/* shared: every card is a 2-column grid and centered vertically */
 .writing-list .project{
+  margin: 0;
   display: grid;
   width: 100%;
-  grid-template-columns: 670px 418px; /* image + text */
-  column-gap: 32px;                   /* gap between image and text */
-  align-items: center;               /* vertical center */
+  column-gap: 2px;          /* gap between image and text area */
+  align-items: center;      /* text and image aligned from the middle */
 }
 
-/* Normal card positions */
+/* shared sizes */
 .writing-list .project > img{
-  grid-column: 1;
   width: 670px;
   height: 355.77px;
   object-fit: cover;
+  display: block;
 }
 
 .writing-list .project > div{
-  grid-column: 2;
-  width: 418px;
-  align-items: center;
-}
-
-/* Reversed card (Stand by Me): text left, image right (same sizes) */
-.writing-list .project.project-reversed{
-  grid-template-columns: 418px 670px; /* text + image */
-  align-items: center;
-}
-
-.writing-list .project.project-reversed > div{
-  grid-column: 1;
   width: 418px;
 }
 
-.writing-list .project.project-reversed > img{
-  grid-column: 2;
-  width: 670px;
-  height: 355.77px;
-}
-
-/* اگر قبلاً order گذاشتی، بی‌اثر/خنثی شود */
-.writing-list .project.project-reversed img{
-  order: 0;
-}
-
-/* Title -> Read in Farsi = 8px (برای همه کارت‌ها) */
+/* shared spacing inside text */
 .writing-list .project h3{
   margin: 0;
 }
 
-.writing-list .project .read-link{
-  margin-top: 8px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-
+.writing-list .project a{
+  display: inline-block;
+  margin-top: 8px;          /* title -> Read in Farsi */
   font-size: 19px;
   font-weight: 500;
-  line-height: normal; /* closest to "Auto" */
+  line-height: normal;      /* closest to "Auto" */
   text-decoration: none;
 }
 
-.writing-list .project .read-link:hover{
+.writing-list .project a:hover{
   text-decoration: underline;
 }
 
-.writing-list .project .read-link__icon{
-  width: 20.3px;
-  height: 20.3px;
-  display: block;
+/* -------- Card 1 (image left, text right) -------- */
+.writing-list .project:nth-child(1){
+  grid-template-columns: 670px 418px;
 }
 
+.writing-list .project:nth-child(1) > img{ grid-column: 1; }
+.writing-list .project:nth-child(1) > div{ grid-column: 2; }
+
+/* -------- Card 2 (text left, image right) -------- */
+.writing-list .project:nth-child(2){
+  grid-template-columns: 418px 670px;
+}
+
+.writing-list .project:nth-child(2) > div{ grid-column: 1; }
+.writing-list .project:nth-child(2) > img{ grid-column: 2; }
+
+/* اگر قبلاً برای ریورس order گذاشتی، اینجا خنثی می‌کنیم */
+.writing-list .project:nth-child(2) > img{
+  order: 0;
+}
+
+/* -------- Card 3 (image left, text right) -------- */
+.writing-list .project:nth-child(3){
+  grid-template-columns: 670px 418px;
+}
+
+.writing-list .project:nth-child(3) > img{ grid-column: 1; }
+.writing-list .project:nth-child(3) > div{ grid-column: 2; }
 /* Dark sections */
 
 .dark-section {
