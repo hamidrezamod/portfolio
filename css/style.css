@@ -1547,6 +1547,7 @@ main, footer, .dock-nav{
     flex-direction: column;
     align-items: stretch;
     overflow: visible;
+     gap: 16px 
   }
   .writing-list .project > img,
   .writing-list .project > div{
