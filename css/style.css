@@ -1408,6 +1408,281 @@ main, footer, .dock-nav{
 }
 
 
+/* =========================
+   THEATRE POPUP (same shell as articles)
+========================= */
+
+:root{
+  --theatre-bg: #F3E9DC;
+  --theatre-ink: #413F3E;
+  --theatre-shadow: 0 0 20px rgba(0,0,0,0.20);
+  --ease-apple: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* overlay */
+.theatre-modal{
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+
+  padding: 24px 0;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 650ms var(--ease-apple);
+}
+
+.theatre-modal.is-active{
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.theatre-modal__backdrop{
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0);
+  transition: background 650ms var(--ease-apple);
+}
+
+.theatre-modal.is-active .theatre-modal__backdrop{
+  background: rgba(0,0,0,0.18);
+}
+
+/* panel */
+.theatre-modal__panel{
+  position: relative;
+
+  width: 1376px;
+  max-width: calc(100% - 64px);
+
+  max-height: calc(100vh - 48px);
+  overflow: auto;
+
+  background: var(--theatre-bg);
+  color: var(--theatre-ink);
+  box-shadow: var(--theatre-shadow);
+
+  border-radius: 8px;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+
+  transform: translateY(90px);
+  opacity: 0;
+  transition: transform 800ms var(--ease-apple), opacity 800ms var(--ease-apple);
+  will-change: transform, opacity;
+}
+
+.theatre-modal.is-active .theatre-modal__panel{
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* minimal scrollbar (panel only) */
+.theatre-modal__panel{
+  scrollbar-width: thin;
+  scrollbar-color: rgba(65,63,62,0.35) transparent;
+}
+
+.theatre-modal__panel::-webkit-scrollbar{ width: 12px; }
+.theatre-modal__panel::-webkit-scrollbar-track{ background: transparent; }
+.theatre-modal__panel::-webkit-scrollbar-thumb{
+  background: rgba(65,63,62,0.35);
+  border-radius: 999px;
+  border: 4px solid transparent;
+  background-clip: content-box;
+}
+
+/* close bar */
+.theatre-modal__closebar{
+  position: sticky;
+  top: 0;
+  z-index: 5;
+
+  height: 88px;
+  padding: 32px 128px 16px;
+
+  background: var(--theatre-bg);
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.theatre-modal__close{
+  width: 40px;
+  height: 40px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.theatre-modal__close img{
+  width: 40px;
+  height: 40px;
+  display: block;
+}
+
+/* content area width */
+.theatre-modal__content{
+  width: 1120px;
+  max-width: calc(100% - 256px); /* 128 + 128 */
+  margin: 64px auto 120px;       /* closebar -> hero = 64 */
+}
+
+/* loader (reuse same look as article loader) */
+.theatre-loader{
+  min-height: 360px;
+  display: grid;
+  place-items: center;
+}
+
+.theatre-loader__spinner{
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  border: 2px solid rgba(65,63,62,0.22);
+  border-top-color: rgba(65,63,62,0.85);
+  animation: theatreSpin 900ms linear infinite;
+}
+
+@keyframes theatreSpin{ to{ transform: rotate(360deg); } }
+
+
+/* =========================
+   THEATRE SHEET (base)
+========================= */
+
+.theatre-sheet{
+  color: var(--theatre-ink);
+}
+
+/* hero layout: poster left (448), gap 72, text */
+.theatre-sheet__hero{
+  display: grid;
+  grid-template-columns: 448px 1fr;
+  column-gap: 72px;
+  align-items: center; /* text column vertically centered with poster */
+}
+
+.theatre-sheet__poster{
+  width: 448px;
+  height: auto;       /* height = poster natural size */
+  display: block;
+  object-fit: cover;
+}
+
+/* title + year */
+.theatre-sheet__title{
+  margin: 0;
+  font-family: "Crimson Pro", serif;
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 44px;
+
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px; /* year to title = 8 */
+}
+
+.theatre-sheet__year{
+  font-size: 20px;     /* body size */
+  font-weight: 400;
+  line-height: 31px;
+}
+
+/* type and place */
+.theatre-sheet__type{
+  margin: 16px 0 0;    /* title -> type = 16 */
+  font-size: 24px;     /* card subtitle */
+  line-height: 30px;
+  font-weight: 400;
+}
+
+.theatre-sheet__place{
+  margin: 8px 0 0;     /* type -> place = 8 */
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 400;
+}
+
+/* data table */
+.theatre-data{
+  margin: 120px 0 0;   /* image -> table = 120 */
+  padding: 0;
+}
+
+.theatre-data__row{
+  display: grid;
+  grid-template-columns: 190px 1fr; /* fixed label column so all names align */
+  column-gap: 16px;
+  align-items: baseline;
+}
+
+.theatre-data__row + .theatre-data__row{
+  margin-top: 16px; /* row gap */
+}
+
+.theatre-data dt,
+.theatre-data dd{
+  margin: 0;
+  font-size: 20px;     /* body */
+  line-height: 31px;
+}
+
+.theatre-data dt{
+  font-weight: 400;    /* titles */
+}
+
+.theatre-data dd{
+  font-weight: 700;    /* names */
+}
+
+/* description */
+.theatre-description{
+  margin-top: 120px; /* table -> description = 120 */
+  font-size: 20px;   /* body */
+  line-height: 31px;
+  font-weight: 400;
+}
+
+.theatre-description p{
+  margin: 0;
+}
+
+.theatre-description p + p{
+  margin-top: 16px;
+}
+
+/* gallery base */
+.theatre-gallery{
+  margin-top: 120px; /* description -> images = 120 */
+}
+
+/* =========================
+   SOUG SOROUD gallery layout
+   4 images 544, last 1120
+========================= */
+.theatre-gallery--soug{
+  display: grid;
+  grid-template-columns: 544px 544px; /* 544 + 32 + 544 = 1120 */
+  gap: 32px; /* between images */
+}
+
+.theatre-gallery--soug .theatre-photo{
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.theatre-gallery--soug .theatre-photo--wide{
+  grid-column: 1 / -1;
+}
+
 
 
 /* موبایل فعلاً غیرفعال است (Stage 1)
