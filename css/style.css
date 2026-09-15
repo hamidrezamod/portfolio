@@ -820,7 +820,7 @@ h3 {
 
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-between; 
 
   background: #343333;
   color: #F7F4EF;
@@ -868,7 +868,7 @@ h3 {
 
   display: inline-flex;
   align-items: center;
-  gap: 16px;
+  gap: 8px;
 
   cursor: pointer;
 }
