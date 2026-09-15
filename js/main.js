@@ -483,3 +483,66 @@ function unlockPageScroll() {
 
   setTimeout(() => runSequence(0), startDelay);
 })();
+
+/* =========================
+   Certificates lightbox
+========================= */
+(function () {
+  const imgs = Array.from(document.querySelectorAll(".certificate-grid img"));
+  if (!imgs.length) return;
+
+  const modal = document.getElementById("certModal");
+  const modalImg = document.getElementById("certModalImg");
+  if (!modal || !modalImg) return;
+
+  const closeEls = modal.querySelectorAll("[data-cert-close]");
+  const prevBtn = modal.querySelector("[data-cert-prev]");
+  const nextBtn = modal.querySelector("[data-cert-next]");
+
+  let index = 0;
+
+  function render() {
+    const img = imgs[index];
+    modalImg.src = img.currentSrc || img.src;
+    modalImg.alt = img.alt || "Certificate";
+  }
+
+  function openAt(i) {
+    index = i;
+    render();
+    lockPageScroll();
+    modal.classList.add("is-active");
+    modal.setAttribute("aria-hidden", "false");
+  }
+
+  function close() {
+    modal.classList.remove("is-active");
+    modal.setAttribute("aria-hidden", "true");
+    unlockPageScroll();
+  }
+
+  function prev() {
+    index = (index - 1 + imgs.length) % imgs.length;
+    render();
+  }
+
+  function next() {
+    index = (index + 1) % imgs.length;
+    render();
+  }
+
+  imgs.forEach((img, i) => {
+    img.addEventListener("click", () => openAt(i));
+  });
+
+  closeEls.forEach((el) => el.addEventListener("click", close));
+  prevBtn?.addEventListener("click", prev);
+  nextBtn?.addEventListener("click", next);
+
+  document.addEventListener("keydown", (e) => {
+    if (!modal.classList.contains("is-active")) return;
+    if (e.key === "Escape") close();
+    if (e.key === "ArrowLeft") prev();
+    if (e.key === "ArrowRight") next();
+  });
+})();
