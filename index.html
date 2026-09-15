@@ -380,7 +380,10 @@
 </section>
   </main>
 
-  <footer>Designed &amp; built by Hamid Reza Mohammadi</footer>
+ <footer class="site-footer">
+  <div class="site-footer__designed">Designed &amp; built by Hamid Reza Mohammadi</div>
+  <div class="site-footer__copy">© 2026 All rights reserved.</div>
+</footer>
  <nav class="dock-nav" aria-label="Site navigation">
   <a class="dock-nav__link" href="#top">Home</a>
 
@@ -406,7 +409,8 @@
   </div>
 
   <a class="dock-nav__link" href="#resume">Resume</a>
-  <a class="dock-nav__cta" href="#contact">contact</a>
+<a class="dock-nav__link" href="#about">About Me</a>
+<a class="dock-nav__cta" href="#contact">contact</a>
 </nav>
 
   <div class="article-modal" id="articleModal" aria-hidden="true">
@@ -440,7 +444,28 @@
   </div>
 </div>
   
-  
+  <!-- =========================
+     CERTIFICATES LIGHTBOX
+========================= -->
+<div class="cert-modal" id="certModal" aria-hidden="true">
+  <div class="cert-modal__backdrop" data-cert-close></div>
+
+  <div class="cert-modal__panel" role="dialog" aria-modal="true" aria-label="Certificate preview">
+    <button class="cert-modal__close" type="button" aria-label="Close" data-cert-close>
+      <img src="assets/icons/close.svg" alt="" aria-hidden="true" width="40" height="40">
+    </button>
+
+    <button class="cert-modal__nav cert-modal__nav--prev" type="button" aria-label="Previous" data-cert-prev>
+      ‹
+    </button>
+
+    <img class="cert-modal__img" id="certModalImg" src="" alt="">
+
+    <button class="cert-modal__nav cert-modal__nav--next" type="button" aria-label="Next" data-cert-next>
+      ›
+    </button>
+  </div>
+</div>
   
   <script src="js/main.js"></script>
 </body>
