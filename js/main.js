@@ -71,9 +71,8 @@ window.SmoothScrollEngine = (() => {
     rafId = requestAnimationFrame(animate);
   }
 
-  if (!enabled) {
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  window.scrollTo({ top: y, behavior: reduceMotion ? "auto" : "smooth" });
+if (!enabled) {
+  window.scrollTo(0, y);
   return;
 }
     if (paused) return;
