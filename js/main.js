@@ -10,53 +10,23 @@ document.querySelectorAll("[data-video-embed]").forEach((wrap) => {
   });
 });
 
-/* =========================
-   SmoothScroll controller helpers (fix jump-to-top after modals)
-   - Works even if you don't use inertial smooth scroll.
-========================= */
-window.SiteScroll = (function () {
-  // If you have a smooth scroll engine, we will try to control it:
-  // expected methods: pause(), resume(), sync(), stop()
-  function pause() {
-    try { window.SmoothScrollEngine?.pause?.(); } catch(e) {}
-    try { window.SmoothScroll?.pause?.(); } catch(e) {}
-  }
-
-  function resume() {
-    try { window.SmoothScrollEngine?.resume?.(); } catch(e) {}
-    try { window.SmoothScroll?.resume?.(); } catch(e) {}
-  }
-
-  function sync() {
-    try { window.SmoothScrollEngine?.sync?.(); } catch(e) {}
-    try { window.SmoothScroll?.sync?.(); } catch(e) {}
-  }
-
-  function stop() {
-    try { window.SmoothScrollEngine?.stop?.(); } catch(e) {}
-    try { window.SmoothScroll?.stop?.(); } catch(e) {}
-  }
-
-  return { pause, resume, sync, stop };
-})();
 
 /* =========================
    Smooth scroll (inertial) — desktop only
+   Exposed as window.SmoothScrollEngine
 ========================= */
-const SmoothScroll = (() => {
+window.SmoothScrollEngine = (() => {
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const isCoarse = window.matchMedia("(pointer: coarse)").matches; // avoid on touch devices
-  if (reduceMotion || isCoarse) {
-    return { to: (y) => window.scrollTo(0, y) };
-  }
+  const isCoarse = window.matchMedia("(pointer: coarse)").matches;
+  const enabled = !(reduceMotion || isCoarse);
 
   let current = window.scrollY;
   let target = window.scrollY;
   let rafId = null;
+  let paused = false;
 
-  // tuning
-  const EASE = 0.12;          // smaller = slower, larger = snappier (0.08–0.18 good range)
-  const WHEEL_MULT = 1.0;     // wheel sensitivity
+  const EASE = 0.12;
+  const WHEEL_MULT = 1.0;
 
   function maxScroll() {
     return Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
@@ -66,10 +36,24 @@ const SmoothScroll = (() => {
     target = Math.max(0, Math.min(target, maxScroll()));
   }
 
+  function stop() {
+    if (rafId) cancelAnimationFrame(rafId);
+    rafId = null;
+  }
+
+  function sync() {
+    current = window.scrollY;
+    target = window.scrollY;
+  }
+
   function animate() {
+    if (paused) {
+      rafId = null;
+      return;
+    }
+
     const diff = target - current;
 
-    // stop condition
     if (Math.abs(diff) < 0.5) {
       current = target;
       window.scrollTo(0, Math.round(current));
@@ -87,64 +71,83 @@ const SmoothScroll = (() => {
     rafId = requestAnimationFrame(animate);
   }
 
-  // wheel -> target
-  window.addEventListener(
-    "wheel",
-    (e) => {
-      // allow normal scroll inside scrollable elements if any
-      // (if later you add a popup with its own scroll, this prevents breaking it)
-      const scrollable = e.target.closest("[data-native-scroll]");
-      if (scrollable) return;
-
-      e.preventDefault();
-      target += e.deltaY * WHEEL_MULT;
-      clampTarget();
-      requestTick();
-    },
-    { passive: false }
-  );
-
-  // keyboard (optional, helps feel consistent)
-  window.addEventListener("keydown", (e) => {
-    const keys = ["ArrowDown", "ArrowUp", "PageDown", "PageUp", "Home", "End", " "];
-    if (!keys.includes(e.key)) return;
-
-    // if focused on input/textarea, do nothing
-    const tag = document.activeElement?.tagName?.toLowerCase();
-    if (tag === "input" || tag === "textarea") return;
-
-    e.preventDefault();
-
-    const vh = window.innerHeight;
-    const step = 120;
-
-    if (e.key === "ArrowDown") target += step;
-    if (e.key === "ArrowUp") target -= step;
-    if (e.key === "PageDown") target += vh * 0.9;
-    if (e.key === "PageUp") target -= vh * 0.9;
-    if (e.key === "Home") target = 0;
-    if (e.key === "End") target = maxScroll();
-    if (e.key === " ") target += (e.shiftKey ? -1 : 1) * vh * 0.9;
-
-    clampTarget();
-    requestTick();
-  });
-
-  // keep in sync if user drags scrollbar
-  window.addEventListener("scroll", () => {
-    if (rafId) return; // during our animation, ignore
-    current = window.scrollY;
-    target = window.scrollY;
-  });
-
-  // public API: scroll to y
   function to(y) {
+    if (!enabled) {
+      window.scrollTo(0, y);
+      return;
+    }
+    if (paused) return;
+
     target = y;
     clampTarget();
     requestTick();
   }
 
-  return { to };
+  function pause() {
+    paused = true;
+    stop();
+  }
+
+  function resume() {
+    paused = false;
+    sync();
+  }
+
+  if (enabled) {
+    window.addEventListener(
+      "wheel",
+      (e) => {
+        if (paused) return;
+        if (document.body.classList.contains("is-modal-open")) return;
+        if (document.body.classList.contains("is-preloading")) return;
+
+        const scrollable = e.target.closest("[data-native-scroll]");
+        if (scrollable) return;
+
+        e.preventDefault();
+        target += e.deltaY * WHEEL_MULT;
+        clampTarget();
+        requestTick();
+      },
+      { passive: false }
+    );
+
+    window.addEventListener("scroll", () => {
+      if (rafId) return;
+      if (paused) return;
+      sync();
+    });
+
+    window.addEventListener("keydown", (e) => {
+      if (paused) return;
+      if (document.body.classList.contains("is-modal-open")) return;
+      if (document.body.classList.contains("is-preloading")) return;
+
+      const keys = ["ArrowDown", "ArrowUp", "PageDown", "PageUp", "Home", "End", " "];
+      if (!keys.includes(e.key)) return;
+
+      const tag = document.activeElement?.tagName?.toLowerCase();
+      if (tag === "input" || tag === "textarea") return;
+
+      e.preventDefault();
+
+      const vh = window.innerHeight;
+      const step = 120;
+
+      if (e.key === "ArrowDown") target += step;
+      if (e.key === "ArrowUp") target -= step;
+      if (e.key === "PageDown") target += vh * 0.9;
+      if (e.key === "PageUp") target -= vh * 0.9;
+      if (e.key === "Home") target = 0;
+      if (e.key === "End") target = maxScroll();
+      if (e.key === " ") target += (e.shiftKey ? -1 : 1) * vh * 0.9;
+
+      clampTarget();
+      requestTick();
+    });
+  }
+
+  return { to, pause, resume, sync, stop };
 })();
 
 
@@ -174,7 +177,6 @@ const SmoothScroll = (() => {
     dock.classList.contains("is-open") ? closeMenu() : openMenu();
   });
 
-  // smooth scroll for ALL hash links in navbar
   dock.querySelectorAll('a[href^="#"]').forEach((a) => {
     a.addEventListener("click", (e) => {
       const href = a.getAttribute("href");
@@ -186,7 +188,7 @@ const SmoothScroll = (() => {
       e.preventDefault();
 
       const y = targetEl.getBoundingClientRect().top + window.scrollY;
-      SmoothScroll.to(y);
+      window.SmoothScrollEngine.to(y);
 
       history.pushState(null, "", href);
       closeMenu();
@@ -198,8 +200,85 @@ const SmoothScroll = (() => {
   });
 })();
 
+
 /* =========================
-   Article modal (external HTML + loader + scroll lock)
+   Scroll guard while any modal is open
+   - blocks background wheel/touch scroll
+   - allows scroll inside [data-native-scroll]
+========================= */
+(function () {
+  function shouldBlock(e) {
+    if (!document.body.classList.contains("is-modal-open")) return false;
+    if (e.target.closest("[data-native-scroll]")) return false;
+    return true;
+  }
+
+  window.addEventListener(
+    "wheel",
+    (e) => {
+      if (!shouldBlock(e)) return;
+      e.preventDefault();
+    },
+    { passive: false, capture: true }
+  );
+
+  window.addEventListener(
+    "touchmove",
+    (e) => {
+      if (!shouldBlock(e)) return;
+      e.preventDefault();
+    },
+    { passive: false, capture: true }
+  );
+})();
+
+
+/* =========================
+   Helpers: lock/unlock page scroll (no jump)
+========================= */
+function lockPageScroll() {
+  const y = window.scrollY || 0;
+
+  // stop inertial engine so it doesn't "remember" old target
+  window.SmoothScrollEngine.stop();
+  window.SmoothScrollEngine.pause();
+
+  document.documentElement.classList.add("is-modal-open");
+  document.body.classList.add("is-modal-open", "is-modal-blur");
+
+  document.body.dataset.lockedScrollY = String(y);
+  document.body.style.position = "fixed";
+  document.body.style.top = `-${y}px`;
+  document.body.style.left = "0";
+  document.body.style.right = "0";
+  document.body.style.width = "100%";
+}
+
+function unlockPageScroll() {
+  const y = parseInt(document.body.dataset.lockedScrollY || "0", 10) || 0;
+
+  document.documentElement.classList.remove("is-modal-open");
+  document.body.classList.remove("is-modal-open");
+  document.body.classList.remove("is-modal-blur");
+
+  document.body.style.position = "";
+  document.body.style.top = "";
+  document.body.style.left = "";
+  document.body.style.right = "";
+  document.body.style.width = "";
+  delete document.body.dataset.lockedScrollY;
+
+  window.scrollTo(0, y);
+
+  // re-sync inertial engine to restored position
+  window.SmoothScrollEngine.stop();
+  window.SmoothScrollEngine.sync();
+  window.SmoothScrollEngine.resume();
+}
+
+
+/* =========================
+   Article modal (external HTML + loader)
 ========================= */
 (function () {
   const modal = document.getElementById("articleModal");
@@ -209,47 +288,8 @@ const SmoothScroll = (() => {
 
   const closeEls = modal.querySelectorAll("[data-article-close]");
   let isClosing = false;
-  let lockedScrollY = 0;
 
-  function lockPageScroll() {
-    lockedScrollY = window.scrollY || 0;
-
-    document.documentElement.classList.add("is-modal-open");
-    document.body.classList.add("is-modal-open");
-
-    // robust lock (prevents any background movement)
-    document.body.style.position = "fixed";
-    document.body.style.top = `-${lockedScrollY}px`;
-    document.body.style.left = "0";
-    document.body.style.right = "0";
-    document.body.style.width = "100%";
-  }
-
-  function unlockPageScroll() {
-    document.documentElement.classList.remove("is-modal-open");
-    document.body.classList.remove("is-modal-open");
-
-    document.body.style.position = "";
-    document.body.style.top = "";
-    document.body.style.left = "";
-    document.body.style.right = "";
-    document.body.style.width = "";
-
-    window.scrollTo(0, lockedScrollY);
-  }
-SiteScroll.stop();   // make sure no old animation continues
-SiteScroll.sync();   // sync engine to restored scroll position
-SiteScroll.resume(); // enable smooth scroll again
-  function showModalShellWithLoader() {
-    // open immediately (no fetch delay)
-    lockPageScroll();
-
-    modal.classList.add("is-active");
-    modal.setAttribute("aria-hidden", "false");
-
-    // reset panel scroll
-    panel.scrollTop = 0;
-
+  function showLoader() {
     content.innerHTML = `
       <div class="article-loader" aria-label="Loading">
         <div class="article-loader__spinner" aria-hidden="true"></div>
@@ -257,50 +297,45 @@ SiteScroll.resume(); // enable smooth scroll again
     `;
   }
 
-  async function loadArticleIntoModal(url) {
-    const res = await fetch(url, { cache: "no-cache" });
-    if (!res.ok) throw new Error("Failed to load article: " + url);
-    const html = await res.text();
-    content.innerHTML = html;
-    panel.scrollTop = 0;
-  }
-
   async function openArticle(url) {
-    try {
-      showModalShellWithLoader();
-      await loadArticleIntoModal(url);
+    lockPageScroll();
 
-      // focus close button (optional)
-      const closeBtn = modal.querySelector(".article-modal__close");
-      closeBtn?.focus();
+    modal.classList.add("is-active");
+    modal.setAttribute("aria-hidden", "false");
+    panel.scrollTop = 0;
+
+    showLoader();
+
+    try {
+      const res = await fetch(url, { cache: "no-cache" });
+      if (!res.ok) throw new Error("Failed to load article: " + url);
+      content.innerHTML = await res.text();
+      panel.scrollTop = 0;
+
+      modal.querySelector(".article-modal__close")?.focus();
     } catch (err) {
       console.error(err);
       content.innerHTML = `<div style="padding:40px">Could not load this article.</div>`;
     }
   }
 
-function closeArticle() {
-  if (isClosing) return;
-  isClosing = true;
+  function closeArticle() {
+    if (isClosing) return;
+    isClosing = true;
 
-  // hide modal immediately
-  modal.classList.remove("is-active");
-  modal.setAttribute("aria-hidden", "true");
+    modal.classList.remove("is-active");
+    modal.setAttribute("aria-hidden", "true");
 
-  // remove blur immediately so page comes back fast
-  document.body.classList.remove("is-modal-blur");
+    // unlock immediately (no annoying wait)
+    unlockPageScroll();
 
-  // IMPORTANT: unlock scroll immediately (no waiting)
-  unlockPageScroll();
+    // clear after transition
+    window.setTimeout(() => {
+      content.innerHTML = "";
+      isClosing = false;
+    }, 650);
+  }
 
-  // clear content after animation finishes (only visual cleanup)
-  window.setTimeout(() => {
-    content.innerHTML = "";
-    isClosing = false;
-  }, 650);
-}
-
-  // open on click writing cards
   document.querySelectorAll(".writing-list .project[data-article-src]").forEach((card) => {
     card.style.cursor = "pointer";
     card.addEventListener("click", (e) => {
@@ -311,21 +346,16 @@ function closeArticle() {
     });
   });
 
-  // close
   closeEls.forEach((el) => el.addEventListener("click", closeArticle));
 
-  // ESC
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && modal.classList.contains("is-active")) {
-      closeArticle();
-    }
+    if (e.key === "Escape" && modal.classList.contains("is-active")) closeArticle();
   });
 })();
-SiteScroll.stop();   // cancel any running smooth scroll animation
-SiteScroll.pause();  // stop smooth scroll while modal open
+
 
 /* =========================
-   Theatre modal (external HTML + loader + scroll lock)
+   Theatre modal (external HTML + loader)
 ========================= */
 (function () {
   const modal = document.getElementById("theatreModal");
@@ -335,96 +365,52 @@ SiteScroll.pause();  // stop smooth scroll while modal open
 
   const closeEls = modal.querySelectorAll("[data-theatre-close]");
   let isClosing = false;
-  let lockedScrollY = 0;
 
-  function lockPageScroll() {
-    lockedScrollY = window.scrollY || 0;
-
-    document.documentElement.classList.add("is-modal-open");
-    document.body.classList.add("is-modal-open");
-
-    document.body.style.position = "fixed";
-    document.body.style.top = `-${lockedScrollY}px`;
-    document.body.style.left = "0";
-    document.body.style.right = "0";
-    document.body.style.width = "100%";
-  }
-
-  function unlockPageScroll() {
-    document.documentElement.classList.remove("is-modal-open");
-    document.body.classList.remove("is-modal-open");
-
-    document.body.style.position = "";
-    document.body.style.top = "";
-    document.body.style.left = "";
-    document.body.style.right = "";
-    document.body.style.width = "";
-
-    window.scrollTo(0, lockedScrollY);
-  }
-
-  function showLoaderShell() {
-    lockPageScroll();
-
-    modal.classList.add("is-active");
-    modal.setAttribute("aria-hidden", "false");
-
-    panel.scrollTop = 0;
-
+  function showLoader() {
     content.innerHTML = `
       <div class="theatre-loader" aria-label="Loading">
         <div class="theatre-loader__spinner" aria-hidden="true"></div>
       </div>
     `;
   }
-   SiteScroll.stop();   // make sure no old animation continues
-SiteScroll.sync();   // sync engine to restored scroll position
-SiteScroll.resume(); // enable smooth scroll again
-
-  async function loadTheatre(url) {
-    const res = await fetch(url, { cache: "no-cache" });
-    if (!res.ok) throw new Error("Failed to load theatre: " + url);
-
-    const html = await res.text();
-    content.innerHTML = html;
-    panel.scrollTop = 0;
-
-    const closeBtn = modal.querySelector(".theatre-modal__close");
-    closeBtn?.focus();
-  }
 
   async function openTheatre(url) {
+    lockPageScroll();
+
+    modal.classList.add("is-active");
+    modal.setAttribute("aria-hidden", "false");
+    panel.scrollTop = 0;
+
+    showLoader();
+
     try {
-      showLoaderShell();
-      await loadTheatre(url);
+      const res = await fetch(url, { cache: "no-cache" });
+      if (!res.ok) throw new Error("Failed to load theatre: " + url);
+      content.innerHTML = await res.text();
+      panel.scrollTop = 0;
+
+      modal.querySelector(".theatre-modal__close")?.focus();
     } catch (err) {
       console.error(err);
       content.innerHTML = `<div style="padding:40px">Could not load this project.</div>`;
     }
   }
 
- function closetheatre() {
-  if (isClosing) return;
-  isClosing = true;
+  function closeTheatre() {
+    if (isClosing) return;
+    isClosing = true;
 
-  // hide modal immediately
-  modal.classList.remove("is-active");
-  modal.setAttribute("aria-hidden", "true");
+    modal.classList.remove("is-active");
+    modal.setAttribute("aria-hidden", "true");
 
-  // remove blur immediately so page comes back fast
-  document.body.classList.remove("is-modal-blur");
+    unlockPageScroll();
 
-  // IMPORTANT: unlock scroll immediately (no waiting)
-  unlockPageScroll();
+    window.setTimeout(() => {
+      content.innerHTML = "";
+      isClosing = false;
+    }, 650);
+  }
 
-  // clear content after animation finishes (only visual cleanup)
-  window.setTimeout(() => {
-    content.innerHTML = "";
-    isClosing = false;
-  }, 650);
-}
-
-  // open on click theatre cards
   document.querySelectorAll(".theatre-item[data-theatre-src]").forEach((card) => {
     card.addEventListener("click", () => {
       const url = card.getAttribute("data-theatre-src");
@@ -433,27 +419,16 @@ SiteScroll.resume(); // enable smooth scroll again
     });
   });
 
-  // close handlers
   closeEls.forEach((el) => el.addEventListener("click", closeTheatre));
 
-  // ESC
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && modal.classList.contains("is-active")) {
-      closeTheatre();
-    }
+    if (e.key === "Escape" && modal.classList.contains("is-active")) closeTheatre();
   });
 })();
 
-SiteScroll.stop();   // cancel any running smooth scroll animation
-SiteScroll.pause();  // stop smooth scroll while modal open
 
 /* =========================
    PRELOADER: [ Lights Fade In. ]
-   - delay 800ms
-   - each word 300ms easeOutBack
-   - right bracket moves with FLIP
-   - after done: wait 500ms
-   - then site fades in (800ms)
 ========================= */
 (function () {
   const preloader = document.getElementById("preloader");
@@ -468,30 +443,23 @@ SiteScroll.pause();  // stop smooth scroll while modal open
   const afterDoneDelay = 500;
 
   function insertWord(wordText) {
-    // position before insertion
     const before = rightBracket.getBoundingClientRect().left;
 
-    // create word
     const w = document.createElement("span");
     w.className = "preloader__word";
     w.textContent = wordText;
 
-    // insert before right bracket
     line.insertBefore(w, rightBracket);
 
-    // new position after insertion
     const after = rightBracket.getBoundingClientRect().left;
 
-    // FLIP: move bracket back by delta then animate to 0
     const delta = before - after;
     rightBracket.style.transition = "none";
     rightBracket.style.transform = `translateX(${delta}px)`;
-    // force reflow
     rightBracket.getBoundingClientRect();
     rightBracket.style.transition = "";
     rightBracket.style.transform = "translateX(0)";
 
-    // animate word in
     requestAnimationFrame(() => w.classList.add("is-in"));
   }
 
@@ -501,12 +469,10 @@ SiteScroll.pause();  // stop smooth scroll while modal open
     if (i < words.length - 1) {
       setTimeout(() => runSequence(i + 1), wordDur);
     } else {
-      // after last word finishes
       setTimeout(() => {
         document.body.classList.add("is-site-ready");
         preloader.classList.add("is-hidden");
 
-        // cleanup after fade
         setTimeout(() => {
           document.body.classList.remove("is-preloading");
           preloader.remove();
@@ -515,30 +481,5 @@ SiteScroll.pause();  // stop smooth scroll while modal open
     }
   }
 
-  // start
   setTimeout(() => runSequence(0), startDelay);
-})();
-
-/* =========================
-   Scroll guard while any modal is open
-   - blocks background wheel/touch scroll
-   - allows scroll inside elements with [data-native-scroll]
-========================= */
-(function () {
-  function shouldBlock(e){
-    if (!document.body.classList.contains("is-modal-open")) return false;
-    // allow scrolling inside modal panels (they have data-native-scroll)
-    if (e.target.closest("[data-native-scroll]")) return false;
-    return true;
-  }
-
-  window.addEventListener("wheel", (e) => {
-    if (!shouldBlock(e)) return;
-    e.preventDefault();
-  }, { passive: false, capture: true });
-
-  window.addEventListener("touchmove", (e) => {
-    if (!shouldBlock(e)) return;
-    e.preventDefault();
-  }, { passive: false, capture: true });
 })();
