@@ -1078,7 +1078,7 @@ footer {
 .scroll-indicator__icon{
   width: 37.56px;
   height: 45px;
-    transform: scale(2);
+    transform: scale(1.5);
   transform-origin: center;
   display: block;
 }
