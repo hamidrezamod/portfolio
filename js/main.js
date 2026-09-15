@@ -396,4 +396,74 @@ const SmoothScroll = (() => {
   });
 })();
 
+/* =========================
+   PRELOADER: [ Lights Fade In. ]
+   - delay 800ms
+   - each word 300ms easeOutBack
+   - right bracket moves with FLIP
+   - after done: wait 500ms
+   - then site fades in (800ms)
+========================= */
+(function () {
+  const preloader = document.getElementById("preloader");
+  const rightBracket = document.getElementById("preloaderRightBracket");
+  const line = preloader?.querySelector(".preloader__line");
+  if (!preloader || !rightBracket || !line) return;
 
+  const words = ["Lights", "Fade", "In."];
+
+  const startDelay = 800;
+  const wordDur = 300;
+  const afterDoneDelay = 500;
+
+  function insertWord(wordText) {
+    // position before insertion
+    const before = rightBracket.getBoundingClientRect().left;
+
+    // create word
+    const w = document.createElement("span");
+    w.className = "preloader__word";
+    w.textContent = wordText;
+
+    // insert before right bracket
+    line.insertBefore(w, rightBracket);
+
+    // new position after insertion
+    const after = rightBracket.getBoundingClientRect().left;
+
+    // FLIP: move bracket back by delta then animate to 0
+    const delta = before - after;
+    rightBracket.style.transition = "none";
+    rightBracket.style.transform = `translateX(${delta}px)`;
+    // force reflow
+    rightBracket.getBoundingClientRect();
+    rightBracket.style.transition = "";
+    rightBracket.style.transform = "translateX(0)";
+
+    // animate word in
+    requestAnimationFrame(() => w.classList.add("is-in"));
+  }
+
+  function runSequence(i = 0) {
+    insertWord(words[i]);
+
+    if (i < words.length - 1) {
+      setTimeout(() => runSequence(i + 1), wordDur);
+    } else {
+      // after last word finishes
+      setTimeout(() => {
+        document.body.classList.add("is-site-ready");
+        preloader.classList.add("is-hidden");
+
+        // cleanup after fade
+        setTimeout(() => {
+          document.body.classList.remove("is-preloading");
+          preloader.remove();
+        }, 900);
+      }, wordDur + afterDoneDelay);
+    }
+  }
+
+  // start
+  setTimeout(() => runSequence(0), startDelay);
+})();
