@@ -1862,8 +1862,8 @@ body.is-site-ready .dock-nav{
   gap: 16px; /* فاصله بین تمام آیتم‌ها (کروشه/کلمات/کروشه) */
 
   font-family: "Crimson Pro", serif;
-  font-size: 34px;
-  line-height: 38px;
+  font-size: 20px;
+  line-height: 31px;
   font-weight: 400;
 }
 
