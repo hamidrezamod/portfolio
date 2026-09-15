@@ -170,36 +170,81 @@ const SmoothScroll = (() => {
 })();
 
 /* =========================
-   Article modal (loads external HTML files)
+   Article modal (external HTML + loader + scroll lock)
 ========================= */
 (function () {
   const modal = document.getElementById("articleModal");
+  const panel = modal?.querySelector(".article-modal__panel");
   const content = document.getElementById("articleModalContent");
-  if (!modal || !content) return;
+  if (!modal || !panel || !content) return;
 
   const closeEls = modal.querySelectorAll("[data-article-close]");
   let isClosing = false;
+  let lockedScrollY = 0;
+
+  function lockPageScroll() {
+    lockedScrollY = window.scrollY || 0;
+
+    document.documentElement.classList.add("is-modal-open");
+    document.body.classList.add("is-modal-open");
+
+    // robust lock (prevents any background movement)
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${lockedScrollY}px`;
+    document.body.style.left = "0";
+    document.body.style.right = "0";
+    document.body.style.width = "100%";
+  }
+
+  function unlockPageScroll() {
+    document.documentElement.classList.remove("is-modal-open");
+    document.body.classList.remove("is-modal-open");
+
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.left = "";
+    document.body.style.right = "";
+    document.body.style.width = "";
+
+    window.scrollTo(0, lockedScrollY);
+  }
+
+  function showModalShellWithLoader() {
+    // open immediately (no fetch delay)
+    lockPageScroll();
+
+    modal.classList.add("is-active");
+    modal.setAttribute("aria-hidden", "false");
+
+    // reset panel scroll
+    panel.scrollTop = 0;
+
+    content.innerHTML = `
+      <div class="article-loader" aria-label="Loading">
+        <div class="article-loader__spinner" aria-hidden="true"></div>
+      </div>
+    `;
+  }
+
+  async function loadArticleIntoModal(url) {
+    const res = await fetch(url, { cache: "no-cache" });
+    if (!res.ok) throw new Error("Failed to load article: " + url);
+    const html = await res.text();
+    content.innerHTML = html;
+    panel.scrollTop = 0;
+  }
 
   async function openArticle(url) {
     try {
-      content.innerHTML = ""; // clear
+      showModalShellWithLoader();
+      await loadArticleIntoModal(url);
 
-      // fetch article html
-      const res = await fetch(url, { cache: "no-cache" });
-      if (!res.ok) throw new Error("Failed to load article: " + url);
-
-      const html = await res.text();
-      content.innerHTML = html;
-
-      document.body.classList.add("is-modal-open");
-      modal.classList.add("is-active");
-      modal.setAttribute("aria-hidden", "false");
+      // focus close button (optional)
+      const closeBtn = modal.querySelector(".article-modal__close");
+      closeBtn?.focus();
     } catch (err) {
       console.error(err);
-      content.innerHTML = "<div style='padding:40px'>Could not load this article.</div>";
-      document.body.classList.add("is-modal-open");
-      modal.classList.add("is-active");
-      modal.setAttribute("aria-hidden", "false");
+      content.innerHTML = `<div style="padding:40px">Could not load this article.</div>`;
     }
   }
 
@@ -209,11 +254,11 @@ const SmoothScroll = (() => {
 
     modal.classList.remove("is-active");
     modal.setAttribute("aria-hidden", "true");
-    document.body.classList.remove("is-modal-open");
 
-    // wait for animation to finish, then clear
+    // wait for transition end, then cleanup
     window.setTimeout(() => {
       content.innerHTML = "";
+      unlockPageScroll();
       isClosing = false;
     }, 850);
   }
@@ -222,19 +267,17 @@ const SmoothScroll = (() => {
   document.querySelectorAll(".writing-list .project[data-article-src]").forEach((card) => {
     card.style.cursor = "pointer";
     card.addEventListener("click", (e) => {
-      // if user clicks the inner link, prevent jump but still open
       if (e.target.closest("a")) e.preventDefault();
-
       const url = card.getAttribute("data-article-src");
       if (!url) return;
       openArticle(url);
     });
   });
 
-  // close handlers
+  // close
   closeEls.forEach((el) => el.addEventListener("click", closeArticle));
 
-  // ESC close
+  // ESC
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && modal.classList.contains("is-active")) {
       closeArticle();
