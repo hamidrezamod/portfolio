@@ -1,20 +1,18 @@
-/* =========================================
-   VARIABLES
-========================================= */
 :root {
-  /* colors */
-  --background: #F7F4EF;
-  --ink: #413F3E;
-  --beige: #F3E9DC;
-
-  /* layout */
+  --background: #f7f4ef;
+  --ink: #413f3e;
+  --beige: #f3e9dc;
   --content-width: 1120px;
 
-  /* animation easing */
-  --ease-apple: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-out-back: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  /* short film player (as you set) */
+  --shortfilm-player-w: 677px;
+  --shortfilm-player-h: 380.81px;
 
-  /* hover */
+  /* dock */
+  --dock-height: 52px;
+  --dock-bottom: 40px;
+
+  /* hover (final tuned) */
   --hover-img-scale: 1.035;
   --hover-text-scale: 1.02;
   --hover-dur: 520ms;
@@ -32,17 +30,28 @@
   /* preloader */
   --preloader-bg: #413F3E;
   --preloader-fg: #F7F4EF;
-
-  /* dock */
-  --dock-height: 52px;
-  --dock-bottom: 40px;
+  --ease-out-back: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --ease-apple: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* =========================================
-   FONTS — DoranFaNum (local)
-   Path: assets/fonts/*.woff2
-   style.css is in /css/ => use ../assets/...
-========================================= */
+html { scroll-behavior: auto; }
+
+* { box-sizing: border-box; }
+
+html, body { overflow-x: hidden; }
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--background);
+  font-family: "Crimson Pro", Georgia, serif;
+  font-size: 20px;
+  line-height: 1.55;
+}
+
+/* =========================
+   DoranFaNum (Persian) — Local Fonts
+========================= */
 @font-face{
   font-family: "Doran";
   src: url("../assets/fonts/DoranFaNum-Thin.woff2") format("woff2");
@@ -100,27 +109,10 @@
   font-display: swap;
 }
 
-/* =========================================
-   BASE
-========================================= */
-html { scroll-behavior: auto; }
-* { box-sizing: border-box; }
-
-html, body { overflow-x: hidden; }
-
-body {
-  margin: 0;
-  color: var(--ink);
-  background: var(--background);
-  font-family: "Crimson Pro", Georgia, serif;
-  font-size: 20px;
-  line-height: 1.55;
-}
-
-/* images: do NOT force object-fit globally (prevents icon issues) */
 img {
   display: block;
   max-width: 100%;
+  object-fit: cover;
 }
 
 a {
@@ -153,16 +145,17 @@ h3 {
 }
 
 .container{
-  width: min(var(--content-width), calc(100% - 32px)); /* default: 16px + 16px */
+  width: min(var(--content-width), calc(100% - 32px));
   margin-inline: auto;
 }
 
 .section { margin-top: 320px; }
+
 .align-right { text-align: right; }
 
-/* =========================================
+/* =========================
    HERO
-========================================= */
+========================= */
 .hero {
   padding-top: 120px;
   padding-bottom: 336px;
@@ -187,7 +180,6 @@ h3 {
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
 }
 
 .hero > p {
@@ -203,46 +195,9 @@ h3 {
   line-height: 0;
 }
 
-/* animated scroll indicator */
-.scroll-indicator{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 37.56px;
-  height: 45px;
-  line-height: 0;
-}
-
-.scroll-indicator__icon{
-  width: 37.56px;
-  height: 45px;
-  transform: scale(1.5);
-  transform-origin: center;
-  display: block;
-}
-
-.scroll-indicator__chev{
-  opacity: 0.25;
-  transform: translateY(0px);
-  animation: scrollChev 1.35s var(--ease-apple) infinite;
-}
-
-.scroll-indicator__chev--2{ animation-delay: 0.18s; }
-
-@keyframes scrollChev{
-  0%   { opacity: 0.15; transform: translateY(-1px); }
-  25%  { opacity: 1;    transform: translateY(2px); }
-  55%  { opacity: 0.15; transform: translateY(7px); }
-  100% { opacity: 0.15; transform: translateY(7px); }
-}
-
-@media (prefers-reduced-motion: reduce){
-  .scroll-indicator__chev{ animation: none; opacity: 1; transform: none; }
-}
-
-/* =========================================
+/* =========================
    ABOUT
-========================================= */
+========================= */
 .about-section.section { margin-top: 0; }
 
 .two-columns {
@@ -257,21 +212,21 @@ h3 {
   text-align: justify;
   margin-bottom: 0;
 }
+
 .section-copy p + p { margin-top: 16px; }
 
 .about-image {
   width: 537.74px;
   height: 629.26px;
   margin-top: 69px;
-  object-fit: cover;
 }
 
-/* align About title to top of image */
+/* About - align title top with image top */
 .about-section h2{ margin-top: 69px; }
 
-/* =========================================
-   WRITINGS (Desktop)
-========================================= */
+/* =========================
+   WRITINGS (FINAL - FLEX, STABLE)
+========================= */
 .writing-list{
   margin-top: 160px;
   display: flex;
@@ -280,49 +235,30 @@ h3 {
 }
 
 .writing-list .project{
-  display: flex;
+  display: flex !important;
   flex-direction: row;
   align-items: center;
   gap: 32px;
   width: 100%;
-  overflow: hidden; /* for hover zoom */
 }
 
+/* main image */
 .writing-list .project > img{
   width: 670px;
   height: 355.77px;
   flex: 0 0 670px;
   object-fit: cover;
-
-  filter: grayscale(100%);
-  transform: scale(1);
-  will-change: transform, filter;
-  transition:
-    transform var(--hover-dur) var(--hover-ease),
-    filter var(--hover-dur) var(--hover-ease);
+  display: block;
 }
 
+/* text box */
 .writing-list .project > div{
   width: 418px;
   flex: 0 0 418px;
-
-  transform: scale(1);
-  transform-origin: left center;
-  will-change: transform;
-  transition: transform var(--hover-dur) var(--hover-ease);
-}
-
-.writing-list .project:hover > img{
-  filter: grayscale(0%);
-  transform: scale(var(--hover-img-scale));
-}
-
-.writing-list .project:hover > div{
-  transform: scale(var(--hover-text-scale));
 }
 
 .writing-list .project.project-reversed{
-  flex-direction: row-reverse;
+  flex-direction: row-reverse !important;
 }
 
 .writing-list .project h3{ margin: 0; }
@@ -347,23 +283,13 @@ h3 {
   object-fit: contain;
 }
 
-/* =========================================
-   DARK SECTIONS (base)
-========================================= */
-.dark-section {
-  margin-top: 320px;
-  padding: 72px 0;
-  color: var(--background);
-  background: var(--ink);
-}
-
-/* =========================================
-   SHORT FILM (Desktop)
-========================================= */
+/* =========================
+   SHORT FILM
+========================= */
 .short-film__layout{
   margin-top: 160px;
   display: grid;
-  grid-template-columns: 1fr 677px;
+  grid-template-columns: 1fr var(--shortfilm-player-w);
   column-gap: 32px;
   align-items: center;
 }
@@ -408,13 +334,33 @@ h3 {
   gap: 16px;
 }
 
+.short-film__icon-link{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
 .short-film__icon{
-  width: 19.22px;
-  height: 19.22px;
+  height: 28px;
+  width: auto;
   display: block;
 }
 
-/* Vimeo embed */
+.short-film__player.video-embed{
+  width: var(--shortfilm-player-w);
+  height: var(--shortfilm-player-h);
+}
+
+/* Dark sections */
+.dark-section {
+  margin-top: 320px;
+  padding: 72px 0;
+  color: var(--background);
+  background: var(--ink);
+}
+
+/* Vimeo embed + poster fallback */
 .video-embed{
   width: 677px;
   height: 380.81px;
@@ -445,9 +391,9 @@ h3 {
   pointer-events: none;
 }
 
-/* =========================================
-   THEATRE (Desktop grid)
-========================================= */
+/* =========================
+   THEATRE
+========================= */
 .theatre-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 448px));
@@ -467,8 +413,6 @@ h3 {
   font-family: inherit;
   text-align: left;
   cursor: pointer;
-
-  overflow: hidden; /* hover zoom */
 }
 
 .theatre-item:focus-visible {
@@ -480,47 +424,14 @@ h3 {
   width: 100%;
   max-height: 632px;
   display: block;
-  object-fit: cover;
-
-  filter: grayscale(100%);
-  transform: scale(1);
-  will-change: transform, filter;
-  transition:
-    transform var(--hover-dur) var(--hover-ease),
-    filter var(--hover-dur) var(--hover-ease);
 }
 
-.theatre-item:hover img{
-  filter: grayscale(0%);
-  transform: scale(var(--hover-img-scale));
-}
-
-/* Desktop: image -> title 32, title->sub 8, year gap 8 */
+/* spacing as in your current code */
 .theatre-item h3 {
-  margin: 32px 0 8px;
+  margin: 16px 0 8px;
   display: inline-flex;
   align-items: baseline;
   gap: 8px;
-
-  transition: transform var(--hover-dur) var(--hover-ease);
-  transform: scale(1);
-  transform-origin: left top;
-}
-
-.theatre-item p {
-  margin: 0;
-  font-size: 24px;
-  line-height: 30px;
-  font-weight: 400;
-
-  transition: transform var(--hover-dur) var(--hover-ease);
-  transform: scale(1);
-  transform-origin: left top;
-}
-
-.theatre-item:hover h3,
-.theatre-item:hover p{
-  transform: scale(var(--hover-text-scale));
 }
 
 .theatre-item h3 span {
@@ -529,9 +440,16 @@ h3 {
   font-weight: 400;
 }
 
-/* =========================================
-   PODCAST (Desktop)
-========================================= */
+.theatre-item p {
+  margin: 0;
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 400;
+}
+
+/* =========================
+   PODCAST
+========================= */
 .podcast-featured{
   margin-top: 160px;
   display: grid;
@@ -565,7 +483,6 @@ h3 {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-
   font-size: 19px;
   font-weight: 500;
   line-height: normal;
@@ -574,18 +491,21 @@ h3 {
 .podcast-link__icon{
   width: 19.22px;
   height: 19.22px;
-  flex: 0 0 19.22px;
+  display: block;
+  flex: 0 0 20px;
+  object-fit: contain;
 }
 
 .podcast-featured__image{
   width: 448px;
   height: 444px;
+  display: block;
   object-fit: cover;
 }
 
-/* =========================================
-   RESUME (Desktop)
-========================================= */
+/* =========================
+   RESUME
+========================= */
 .resume__stack{
   margin-top: 160px;
   display: flex;
@@ -607,7 +527,10 @@ h3 {
 }
 
 .resume-item__top{ margin: 0; }
-.resume-item__sub{ margin: 8px 0 0; }
+
+.resume-item__sub{
+  margin: 8px 0 0;
+}
 
 .resume-list{
   list-style: none;
@@ -618,47 +541,54 @@ h3 {
   gap: 16px;
 }
 
-/* Software skills */
+/* Software skills row */
 .skills-row{
   display: flex;
   align-items: center;
   gap: 32px;
   flex-wrap: nowrap;
+}
 
-  justify-content: flex-end; /* ✅ right aligned */
-  direction: rtl;            /* ✅ helps align groups to the right */
+/* ✅ RIGHT ALIGN software skills (no size changes) */
+.skills-row{
+  justify-content: flex-end;
+}
+.skills-group{
+  justify-content: flex-end;
+}
+.skills-group__label{
+  text-align: right;
 }
 
 .skills-group{
   display: inline-flex;
   align-items: center;
   gap: 16px;
-  justify-content: flex-end;
 }
 
 .skills-group__label{
   font-size: 20px;
   line-height: 31px;
   font-weight: 400;
-  text-align: right;
 }
 
 .skills-group__icons{
   display: inline-flex;
   align-items: center;
   gap: 16px;
-  direction: ltr; /* keep icons order normal */
 }
 
 .skill-icon{
   width: 22.17px;
   height: 22.17px;
+  display: block;
   flex: 0 0 22.17px;
+  object-fit: contain;
 }
 
-/* =========================================
-   CERTIFICATES GRID (Desktop)
-========================================= */
+/* =========================
+   CERTIFICATES
+========================= */
 .certificate-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -673,9 +603,9 @@ h3 {
   cursor: zoom-in;
 }
 
-/* =========================================
-   CONTACT (Desktop)
-========================================= */
+/* =========================
+   CONTACT
+========================= */
 .contact{
   margin-top: 320px;
   padding-bottom: 120px;
@@ -705,18 +635,21 @@ h3 {
   font-size: 19px;
   font-weight: 500;
   line-height: normal;
+  text-decoration: none;
   white-space: nowrap;
 }
 
 .contact-link__icon{
   width: 22.17px;
   height: 22.17px;
+  display: block;
   flex: 0 0 22.17px;
+  object-fit: contain;
 }
 
-/* =========================================
-   FOOTER (Desktop)
-========================================= */
+/* =========================
+   FOOTER
+========================= */
 .site-footer{
   position: relative;
   background: var(--ink);
@@ -744,15 +677,14 @@ h3 {
   bottom: 10px;
   width: calc(100% - 48px);
   opacity: 0.95;
-
   font-size: 16px;
   font-weight: 500;
   line-height: normal;
 }
 
-/* =========================================
+/* =========================
    DOCK NAV (Desktop)
-========================================= */
+========================= */
 .dock-nav{
   position: fixed;
   left: 50%;
@@ -766,7 +698,7 @@ h3 {
 
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-between; 
 
   background: #343333;
   color: #F7F4EF;
@@ -781,6 +713,7 @@ h3 {
   font-weight: 500;
   line-height: normal;
   color: inherit;
+  text-decoration: none;
 }
 
 .dock-nav__cta{
@@ -837,6 +770,7 @@ h3 {
 
   background: #343333;
   box-shadow: 0 0 7px rgba(0,0,0,0.3);
+
   border-radius: 16px 16px 0 0;
 
   display: none;
@@ -853,188 +787,76 @@ h3 {
   color: #F7F4EF;
 }
 
-/* =========================================
-   PRELOADER
-========================================= */
-body.is-preloading main,
-body.is-preloading footer,
-body.is-preloading .dock-nav{
-  opacity: 0;
-}
-
-body.is-site-ready main,
-body.is-site-ready footer,
-body.is-site-ready .dock-nav{
-  opacity: 1;
-  transition: opacity 800ms var(--ease-apple);
-}
-
-.preloader{
-  position: fixed;
-  inset: 0;
-  z-index: 1000000;
-
-  background: var(--preloader-bg);
-  color: var(--preloader-fg);
-
-  display: grid;
-  place-items: center;
-
-  opacity: 1;
-  transition: opacity 800ms var(--ease-apple);
-}
-
-.preloader.is-hidden{
-  opacity: 0;
-  pointer-events: none;
-}
-
-.preloader__line{
-  display: flex;
-  align-items: center;
-  gap: 16px;
-
-  font-family: "Crimson Pro", serif;
-  font-size: 34px;
-  line-height: 38px;
-  font-weight: 400;
-}
-
-.preloader__bracket--right{
-  will-change: transform;
-  transition: transform 300ms var(--ease-out-back);
-}
-
-.preloader__word{
-  opacity: 0;
-  transform: translateY(10px) scale(0.98);
-  will-change: transform, opacity;
-}
-
-.preloader__word.is-in{
-  animation: preloaderWordIn 300ms var(--ease-out-back) forwards;
-}
-
-@keyframes preloaderWordIn{
-  0%   { opacity: 0; transform: translateY(10px) scale(0.98); }
-  70%  { opacity: 1; transform: translateY(-2px) scale(1.02); }
-  100% { opacity: 1; transform: translateY(0px) scale(1); }
-}
-
+/* =========================
+   HOVER (kept only the final tuned version)
+========================= */
 @media (prefers-reduced-motion: reduce){
-  .preloader__bracket--right{ transition: none; }
-  .preloader__word.is-in{ animation: none; opacity: 1; transform: none; }
-  body.is-site-ready main,
-  body.is-site-ready footer,
-  body.is-site-ready .dock-nav,
-  .preloader{ transition: none; }
+  :root{ --hover-dur: 1ms; }
 }
 
-/* =========================================
-   CERTIFICATES LIGHTBOX
-========================================= */
-.cert-modal{
-  position: fixed;
-  inset: 0;
-  z-index: 100000;
-  display: grid;
-  place-items: center;
-
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 450ms var(--ease-apple);
+/* WRITINGS hover */
+.writing-list .project > img{
+  filter: grayscale(100%);
+  transform: scale(1);
+  will-change: transform, filter;
+  transition:
+    transform var(--hover-dur) var(--hover-ease),
+    filter var(--hover-dur) var(--hover-ease);
 }
 
-.cert-modal.is-active{
-  opacity: 1;
-  pointer-events: auto;
+.writing-list .project > div{
+  transform: scale(1);
+  transform-origin: left center;
+  will-change: transform;
+  transition: transform var(--hover-dur) var(--hover-ease);
 }
 
-.cert-modal__backdrop{
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.22);
-  backdrop-filter: blur(7px);
+.writing-list .project:hover > img{
+  filter: grayscale(0%);
+  transform: scale(var(--hover-img-scale));
 }
 
-.cert-modal__panel{
-  position: relative;
-  z-index: 1;
-
-  max-width: min(92vw, 1100px);
-  max-height: 86vh;
-
-  display: grid;
-  place-items: center;
-
-  padding: 18px 56px;
+.writing-list .project:hover > div{
+  transform: scale(var(--hover-text-scale));
 }
 
-.cert-modal__img{
-  max-width: 100%;
-  max-height: 86vh;
-  width: auto;
-  height: auto;
-
-  box-shadow: 0 0 20px rgba(0,0,0,0.20);
-  border-radius: 8px;
-  background: var(--background);
+/* THEATRE hover */
+.theatre-item img{
+  filter: grayscale(100%);
+  transform: scale(1);
+  will-change: transform, filter;
+  transition:
+    transform var(--hover-dur) var(--hover-ease),
+    filter var(--hover-dur) var(--hover-ease);
 }
 
-.cert-modal__close{
-  position: absolute;
-  top: 0;
-  right: 0;
-
-  width: 40px;
-  height: 40px;
-  border: 0;
-  padding: 0;
-  background: transparent;
-  cursor: pointer;
+.theatre-item h3,
+.theatre-item p{
+  transform: scale(1);
+  transform-origin: left top;
+  will-change: transform;
+  transition: transform var(--hover-dur) var(--hover-ease);
 }
 
-.cert-modal__close img{
-  width: 40px;
-  height: 40px;
+.theatre-item:hover img{
+  filter: grayscale(0%);
+  transform: scale(var(--hover-img-scale));
 }
 
-.cert-modal__nav{
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-
-  width: 40px;
-  height: 40px;
-  border: 0;
-  border-radius: 10px;
-
-  background: rgba(52,51,51,0.85);
-  color: var(--background);
-
-  cursor: pointer;
-  display: grid;
-  place-items: center;
-
-  font-size: 24px;
-  line-height: 1;
+.theatre-item:hover h3,
+.theatre-item:hover p{
+  transform: scale(var(--hover-text-scale));
 }
 
-.cert-modal__nav--prev{ left: 0; }
-.cert-modal__nav--next{ right: 0; }
-
-/* =========================================
-   MODALS (Desktop): article + theatre
-========================================= */
-
-/* lock scroll when any modal open */
+/* =========================
+   MODALS — shared lock/blur (used by JS)
+========================= */
 html.is-modal-open,
 body.is-modal-open{
   height: 100%;
   overflow: hidden;
 }
 
-/* blur background */
 body.is-modal-blur main,
 body.is-modal-blur footer,
 body.is-modal-blur .dock-nav{
@@ -1047,7 +869,9 @@ main, footer, .dock-nav{
   transition: filter 350ms var(--ease-apple);
 }
 
-/* ---------- ARTICLE MODAL (desktop) ---------- */
+/* =========================
+   ARTICLE MODAL (Desktop)
+========================= */
 .article-modal{
   position: fixed;
   inset: 0;
@@ -1108,11 +932,11 @@ main, footer, .dock-nav{
   opacity: 1;
 }
 
-/* minimal scrollbar (panel) */
 .article-modal__panel{
   scrollbar-width: thin;
   scrollbar-color: rgba(65,63,62,0.35) transparent;
 }
+
 .article-modal__panel::-webkit-scrollbar{ width: 12px; }
 .article-modal__panel::-webkit-scrollbar-track{ background: transparent; }
 .article-modal__panel::-webkit-scrollbar-thumb{
@@ -1149,6 +973,7 @@ main, footer, .dock-nav{
 .article-modal__close svg{
   width: 40px;
   height: 40px;
+  display: block;
 }
 
 .article-modal__content{
@@ -1163,102 +988,21 @@ main, footer, .dock-nav{
   display: grid;
   place-items: center;
 }
+
 .article-loader__spinner{
   width: 26px;
   height: 26px;
   border-radius: 999px;
   border: 2px solid rgba(65,63,62,0.22);
   border-top-color: rgba(65,63,62,0.85);
-  animation: spin 900ms linear infinite;
-}
-@keyframes spin{ to{ transform: rotate(360deg); } }
-
-/* article inner layout (desktop) */
-.article-sheet__hero{
-  display: grid;
-  grid-template-columns: 548px 1fr;
-  column-gap: 32px;
-  align-items: center;
+  animation: articleSpin 900ms linear infinite;
 }
 
-.article-sheet__media{ width: 548px; }
+@keyframes articleSpin{ to{ transform: rotate(360deg); } }
 
-.article-sheet__cover{
-  width: 548px;
-  height: auto;
-  object-fit: cover;
-}
-
-.article-sheet__meta{
-  margin-top: 8px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 16px;
-
-  font-family: "Doran", sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 48px;
-  text-align: right;
-}
-
-.article-meta__divider{
-  width: 1px;
-  height: 18px;
-  background: var(--article-ink);
-  opacity: 0.5;
-}
-
-.article-meta__tag{
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-.article-meta__icon{
-  width: 16px;
-  height: 16px;
-}
-
-.article-sheet__headings{ text-align: right; }
-
-.article-sheet__title-en{
-  margin: 0;
-  font-size: 40px;
-  font-weight: 600;
-  line-height: 44px;
-  text-align: right;
-}
-
-.article-sheet__title-fa{
-  margin: 16px 0 0;
-  font-family: "Doran", sans-serif;
-  font-size: 30px;
-  font-weight: 700;
-  line-height: 44px;
-  text-align: right;
-}
-
-.article-sheet__body{ margin-top: 64px; }
-
-.article-sec__title{
-  margin: 0 0 16px;
-  font-family: "Doran", sans-serif;
-  font-size: 20px;
-  font-weight: 800;
-  line-height: 48px;
-}
-
-.article-sec__p{
-  margin: 0 0 16px;
-  font-family: "Doran", sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 48px;
-  text-align: justify;
-}
-
-/* ---------- THEATRE MODAL (desktop) ---------- */
+/* =========================
+   THEATRE MODAL (Desktop)
+========================= */
 .theatre-modal{
   position: fixed;
   inset: 0;
@@ -1319,11 +1063,11 @@ main, footer, .dock-nav{
   opacity: 1;
 }
 
-/* minimal scrollbar (panel) */
 .theatre-modal__panel{
   scrollbar-width: thin;
   scrollbar-color: rgba(65,63,62,0.35) transparent;
 }
+
 .theatre-modal__panel::-webkit-scrollbar{ width: 12px; }
 .theatre-modal__panel::-webkit-scrollbar-track{ background: transparent; }
 .theatre-modal__panel::-webkit-scrollbar-thumb{
@@ -1356,7 +1100,11 @@ main, footer, .dock-nav{
   cursor: pointer;
 }
 
-.theatre-modal__close img{ width: 40px; height: 40px; }
+.theatre-modal__close img{
+  width: 40px;
+  height: 40px;
+  display: block;
+}
 
 .theatre-modal__content{
   width: 1120px;
@@ -1364,234 +1112,134 @@ main, footer, .dock-nav{
   margin: 64px auto 120px;
 }
 
-/* loader */
 .theatre-loader{
   min-height: 360px;
   display: grid;
   place-items: center;
 }
+
 .theatre-loader__spinner{
   width: 26px;
   height: 26px;
   border-radius: 999px;
   border: 2px solid rgba(65,63,62,0.22);
   border-top-color: rgba(65,63,62,0.85);
-  animation: spin 900ms linear infinite;
+  animation: theatreSpin 900ms linear infinite;
+}
+@keyframes theatreSpin{ to{ transform: rotate(360deg); } }
+
+/* =========================
+   PRELOADER
+========================= */
+body.is-preloading main,
+body.is-preloading footer,
+body.is-preloading .dock-nav{
+  opacity: 0;
 }
 
-/* theatre inner layout (desktop) */
-.theatre-sheet__hero{
+body.is-site-ready main,
+body.is-site-ready footer,
+body.is-site-ready .dock-nav{
+  opacity: 1;
+  transition: opacity 800ms var(--ease-apple);
+}
+
+.preloader{
+  position: fixed;
+  inset: 0;
+  z-index: 1000000;
+  background: var(--preloader-bg);
+  color: var(--preloader-fg);
   display: grid;
-  grid-template-columns: 448px 1fr;
-  column-gap: 72px;
+  place-items: center;
+  opacity: 1;
+  transition: opacity 800ms var(--ease-apple);
+}
+
+.preloader.is-hidden{
+  opacity: 0;
+  pointer-events: none;
+}
+
+.preloader__line{
+  display: flex;
   align-items: center;
-}
-
-.theatre-sheet__poster{
-  width: 448px;
-  height: auto;
-  object-fit: cover;
-}
-
-.theatre-sheet__title{
-  margin: 0;
-  font-size: 40px;
-  font-weight: 600;
-  line-height: 44px;
-
-  display: inline-flex;
-  align-items: baseline;
-  gap: 8px;
-}
-
-.theatre-sheet__year{
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 31px;
-}
-
-.theatre-sheet__type{
-  margin: 16px 0 0;
-  font-size: 24px;
-  line-height: 30px;
-  font-weight: 400;
-}
-
-.theatre-sheet__place{
-  margin: 8px 0 0;
-  font-size: 24px;
-  line-height: 30px;
-  font-weight: 400;
-}
-
-.theatre-data{
-  margin: 120px 0 0;
-  padding: 0;
-}
-
-.theatre-data__row{
-  display: grid;
-  grid-template-columns: 190px 1fr;
-  column-gap: 16px;
-  align-items: baseline;
-}
-
-.theatre-data__row + .theatre-data__row{ margin-top: 16px; }
-
-.theatre-data dt,
-.theatre-data dd{
-  margin: 0;
-  font-size: 20px;
-  line-height: 31px;
-}
-
-.theatre-data dt{ font-weight: 400; }
-.theatre-data dd{ font-weight: 700; }
-
-.theatre-description{
-  margin-top: 120px;
+  gap: 16px;
+  font-family: "Crimson Pro", serif;
   font-size: 20px;
   line-height: 31px;
   font-weight: 400;
 }
 
-.theatre-description p{ margin: 0; }
-.theatre-description p + p{ margin-top: 16px; }
-
-.theatre-gallery{ margin-top: 120px; }
-
-/* Desktop theatre galleries (existing layouts) */
-.theatre-gallery--soug{
-  display: grid;
-  grid-template-columns: 544px 544px;
-  gap: 32px;
-}
-.theatre-gallery--soug .theatre-photo{
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
-.theatre-gallery--soug .theatre-photo--wide{ grid-column: 1 / -1; }
-
-.theatre-gallery--relingo{
-  display: grid;
-  grid-template-columns: 544px 544px;
-  gap: 32px;
-}
-.theatre-gallery--relingo .theatre-photo{ width: 100%; height: auto; }
-
-.theatre-gallery--extraneous{
-  display: grid;
-  grid-template-columns: 544px 544px;
-  gap: 32px;
-}
-.theatre-gallery--extraneous .theatre-photo{ width: 100%; height: auto; }
-.theatre-gallery--extraneous .theatre-photo--wide{ grid-column: 1 / -1; }
-
-.theatre-gallery--dollear{
-  display: grid;
-  justify-items: center;
-  gap: 32px;
-}
-.theatre-gallery--dollear .theatre-photo{ width: 544px; height: auto; }
-
-.theatre-gallery--assoiffes{
-  display: grid;
-  grid-template-columns: 544px 544px;
-  column-gap: 32px;
-  align-items: stretch;
-}
-.theatre-gallery--assoiffes .theatre-gallery__stack{
-  display: grid;
-  row-gap: 32px;
-}
-.theatre-gallery--assoiffes .theatre-photo{ width: 100%; height: auto; }
-.theatre-gallery--assoiffes .theatre-photo--tall{
-  width: 544px;
-  height: 100%;
-  object-fit: cover;
+.preloader__bracket--right{
+  will-change: transform;
+  transition: transform 300ms var(--ease-out-back);
 }
 
-.theatre-gallery--bi{
-  display: grid;
-  grid-template-columns: 544px 544px;
-  gap: 32px;
-}
-.theatre-gallery--bi .theatre-photo{ width: 100%; height: auto; }
-.theatre-gallery--bi .theatre-photo--center{
-  grid-column: 1 / -1;
-  width: 605px;
-  justify-self: center;
+.preloader__word{
+  opacity: 0;
+  transform: translateY(10px) scale(0.98);
+  will-change: transform, opacity;
 }
 
-.theatre-gallery--retreating-world{
-  display: grid;
-  grid-template-columns: 544px 544px;
-  gap: 32px;
-}
-.theatre-gallery--retreating-world .theatre-photo{ width: 100%; height: auto; }
-.theatre-gallery--retreating-world .theatre-photo--center{
-  grid-column: 1 / -1;
-  width: 545px;
-  justify-self: center;
+.preloader__word.is-in{
+  animation: preloaderWordIn 300ms var(--ease-out-back) forwards;
 }
 
-/* =========================================
-   RESPONSIVE: <= 900px (tablet)
-========================================= */
-@media (max-width: 900px){
-  .two-columns{ grid-template-columns: 1fr; }
-  .about-image{ width: 100%; height: auto; margin-top: 0; }
-
-  .writing-list .project{
-    flex-direction: column;
-    align-items: stretch;
-    overflow: visible;
-  }
-  .writing-list .project > img,
-  .writing-list .project > div{
-    width: 100%;
-    flex: 0 0 auto;
-  }
+@keyframes preloaderWordIn{
+  0%   { opacity: 0; transform: translateY(10px) scale(0.98); }
+  70%  { opacity: 1; transform: translateY(-2px) scale(1.02); }
+  100% { opacity: 1; transform: translateY(0px) scale(1); }
 }
 
-/* =========================================
-   MOBILE: <= 600px (site layout + typography)
-   (Your mobile table + spacing rules)
-========================================= */
+/* =========================
+   MOBILE — (kept as you had)
+========================= */
 @media (max-width: 600px){
-
-  /* page side padding 16 */
   .container{ width: calc(100% - 32px); }
-
-  /* hide dock nav on mobile (temporary) */
   .dock-nav{ display: none !important; }
-
-  /* titles centered */
   .align-right{ text-align: center; }
   h2{ text-align: center; }
 
-  /* spacing */
   .section{ margin-top: 160px; }
   .dark-section{ margin-top: 160px; }
 
-  /* typography (your table) */
-  body{ font-size: 17px; line-height: 27px; }
   h1{ font-size: 56px; line-height: 58px; }
-  .hero > p{ font-size: 23px; line-height: 30px; }
+  .hero > p{ font-size: 23px; line-height: 30px; font-weight: 400; }
 
-  h2{ font-size: 38px; line-height: normal; }
-  h3{ font-size: 27px; line-height: normal; }
+  h2{ font-size: 38px; line-height: normal; font-weight: 600; }
+  h3{ font-size: 27px; line-height: normal; font-weight: 600; }
 
-  .label{ font-size: 13px; line-height: 17px; font-weight: 500; }
+  body{ font-size: 17px; line-height: 27px; }
 
-  /* hero top padding = 64 */
-  .hero{ padding-top: 64px; }
+  .card-subtitle,
+  .podcast-featured__subtitle,
+  .short-film__subtitle,
+  .theatre-item p{
+    font-size: 19px;
+    line-height: 25px;
+    font-weight: 400;
+  }
 
-  /* About title/content spacing = 120 */
-  .two-columns{ grid-template-columns: 1fr; }
-  .about-section h2{ margin-top: 0; }
+  .read-link,
+  .podcast-link,
+  .contact-link{
+    font-size: 16px;
+    line-height: normal;
+    font-weight: 500;
+  }
+
+  .label{
+    font-size: 13px;
+    line-height: 17px;
+    font-weight: 500;
+  }
+
+  .hero{ padding-top: 64px; padding-bottom: 220px; }
+
+  .two-columns{ grid-template-columns: 1fr; gap: 32px; }
   .about-section .section-copy{ margin-top: 120px; }
+  .about-section h2{ text-align: center; margin-top: 0; }
   .about-image{
     width: 100%;
     height: auto;
@@ -1599,30 +1247,14 @@ main, footer, .dock-nav{
     aspect-ratio: 538 / 629;
   }
 
-  /* Writings: title->content 120, gap 160, image->title 16 */
   .writing-list{ margin-top: 120px; gap: 160px; }
-  .writing-list .project{
-    flex-direction: column !important;
-    align-items: stretch !important;
-    overflow: visible !important;
-  }
+  .writing-list .project{ overflow: visible !important; flex-direction: column !important; align-items: stretch !important; }
   .writing-list .project.project-reversed{ flex-direction: column !important; }
-  .writing-list .project > img{
-    width: 100% !important;
-    height: auto !important;
-    flex: 0 0 auto !important;
-  }
-  .writing-list .project > div{
-    width: 100% !important;
-    flex: 0 0 auto !important;
-  }
-  .writing-list .project h3{ margin-top: 16px; }
-  .writing-list .read-link{
-    font-size: 16px;
-    margin-top: 8px;
-  }
+  .writing-list .project > img{ width: 100% !important; height: auto !important; flex: 0 0 auto !important; }
+  .writing-list .project > div{ width: 100% !important; flex: 0 0 auto !important; }
+  .writing-list .project h3{ margin: 16px 0 0; }
+  .writing-list .read-link{ margin-top: 8px; }
 
-  /* Theatre list on mobile */
   .theatre-grid{
     margin-top: 120px;
     display: flex;
@@ -1632,102 +1264,18 @@ main, footer, .dock-nav{
   .theatre-column{ display: contents; }
   .theatre-offset{ padding-top: 0; }
   .theatre-item{ overflow: visible; }
-  .theatre-item h3{ margin: 16px 0 8px; }
-  .theatre-item p{
-    font-size: 19px;
-    line-height: 25px;
-  }
-  .theatre-item h3 span{
-    font-size: 17px;
-    line-height: 27px;
-  }
-
-  /* Podcast mobile */
-  .podcast-featured{
-    margin-top: 80px;
-    grid-template-columns: 1fr;
-  }
-  .podcast-featured__image{
-    width: 100%;
-    height: auto;
-    aspect-ratio: 448 / 444;
-    order: -1;
-  }
-  .podcast-featured__text{ margin-top: 16px; }
-  .podcast-featured__title{ font-size: 27px; }
-  .podcast-featured__subtitle{ font-size: 19px; line-height: 25px; margin-top: 8px; }
-  .podcast-featured__links{ gap: 16px; }
-  .podcast-link{ font-size: 16px; }
-  .podcast-link__icon{ width: 16.43px; height: 16.43px; flex: 0 0 16.43px; }
-
-  /* Resume mobile */
-  .resume__stack{ margin-top: 80px; }
-  .resume-block__title{
-    font-size: 27px;
-    line-height: normal;
-  }
-  .skills-row{
-    flex-direction: column;
-    align-items: flex-end; /* right aligned on mobile too */
-    gap: 16px;
-  }
-  .skills-group__label{ font-size: 17px; line-height: 27px; }
-  .skill-icon{ width: 16.43px; height: 16.43px; flex: 0 0 16.43px; }
-
-  /* Certificates mobile */
-  .certificate-grid{
-    margin-top: 80px;
-    grid-template-columns: 172.5px 172.5px;
-    gap: 16px;
-    justify-content: center;
-  }
-  .certificate-grid img{ width: 172.5px; }
-  .certificate-grid img:last-child{
-    grid-column: 1 / -1;
-    width: 361px;
-    justify-self: center;
-  }
-
-  /* Contact mobile (row gap doubled) */
-  .contact-grid{
-    margin-top: 80px;
-    grid-template-columns: repeat(2, 1fr);
-    column-gap: 16px;
-    row-gap: 32px;
-  }
-  .contact-link{ font-size: 16px; }
-  .contact-link__icon{ width: 16.43px; height: 16.43px; flex: 0 0 16.43px; }
-
-  /* Footer mobile (label font) */
-  .site-footer{
-    min-height: auto;
-    padding: 28px 16px;
-  }
-  .site-footer__designed,
-  .site-footer__copy{
-    position: static;
-    transform: none;
-    width: auto;
-    font-size: 13px;
-    line-height: 17px;
-    font-weight: 500;
-  }
-  .site-footer__copy{ margin-top: 8px; }
-
-  /* Preloader mobile font = Hero Subtitle */
-  .preloader__line{
-    font-size: 23px;
-    line-height: 30px;
-  }
+  .theatre-item h3{ margin: 16px 0 8px; gap: 8px; }
 }
 
-/* =========================================
-   MOBILE MODALS — FULL WIDTH + STICKY CLOSEBAR (64px)
-   ✅ no side/bottom gaps
-   ✅ closebar sticky like desktop
-========================================= */
+/* =========================================================
+   ✅ NEW: MOBILE MODALS FULL WIDTH + NO GAPS
+   + sticky closebar like desktop
+   + closebar height = 64px (as requested)
+   (Does NOT change your inner 361 content widths)
+========================================================= */
 @media (max-width: 600px){
 
+  /* full screen overlay with no padding */
   .article-modal,
   .theatre-modal{
     padding: 0 !important;
@@ -1738,17 +1286,19 @@ main, footer, .dock-nav{
   .theatre-modal__panel{
     width: 100% !important;
     max-width: 100% !important;
+
     height: 100dvh !important;
     max-height: 100dvh !important;
+
     border-radius: 0 !important;
   }
 
-  /* sticky close bar with height 64 */
+  /* sticky closebar */
   .article-modal__closebar,
   .theatre-modal__closebar{
     position: sticky !important;
     top: 0;
-    z-index: 30;
+    z-index: 50;
 
     height: 64px !important;
     padding: 16px 16px 0 !important;
@@ -1761,167 +1311,95 @@ main, footer, .dock-nav{
   .article-modal__closebar{ background: var(--article-bg) !important; }
   .theatre-modal__closebar{ background: var(--theatre-bg) !important; }
 
-  /* close icon 32.4 */
-  .article-modal__close,
-  .theatre-modal__close{
-    width: 32.4px !important;
-    height: 32.4px !important;
+  /* keep close icon size you already use in HTML on mobile (we don't change it here) */
+  /* If you want 32.4 icon size in mobile too, tell me and I’ll add it here. */
+}
+
+
+/* =========================================
+   FIXES (MOBILE)
+   1) Article/Theatre popup full width/height, no gaps
+   2) Sticky closebar like desktop
+   3) Resume software skills: LTR, label then icons, left aligned
+========================================= */
+
+@media (max-width: 600px){
+
+  /* ---------- 1) Popups full width (no side/bottom gaps) ---------- */
+  .article-modal,
+  .theatre-modal{
+    padding: 0 !important;
+    align-items: stretch !important;
   }
 
-  .article-modal__close img,
-  .theatre-modal__close img{
-    width: 32.4px !important;
-    height: 32.4px !important;
-  }
+  .article-modal__panel,
+  .theatre-modal__panel{
+    width: 100% !important;
+    max-width: 100% !important;
 
-  /* content width 361 centered */
-  .article-modal__content,
-  .theatre-modal__content{
-    width: 361px !important;
-    max-width: 361px !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
 
-    /* ✅ فاصله تیتر تا closebar = 32 */
-    margin: 32px auto 64px !important;
-  }
-
-  /* Article mobile layout from your spec */
-  .article-sheet__hero{
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-  }
-
-  .article-sheet__media{ width: 361px !important; }
-  .article-sheet__cover{ width: 361px !important; height: auto !important; }
-
-  .article-sheet__meta{
-    margin-top: 4px !important;
-    gap: 8px !important;
-    justify-content: center !important;
-
-    font-family: "Doran", sans-serif;
-    font-size: 12px !important;
-    font-weight: 500 !important;
-    line-height: 48px !important;
-    text-align: center !important;
-  }
-
-  .article-meta__icon{ width: 13px !important; height: 13px !important; }
-
-  .article-sheet__headings{
-    margin-top: 8px !important;
-    text-align: center !important;
-  }
-
-  .article-sheet__title-en{ display: none !important; }
-
-  .article-sheet__title-fa{
     margin: 0 !important;
-    font-family: "Doran", sans-serif !important;
-    font-size: 36px !important;
-    font-weight: 700 !important;
-    line-height: 48px !important;
-    text-align: center !important;
+
+    /* چون به لبه‌های صفحه چسبیده */
+    border-radius: 0 !important;
   }
 
-  .article-sheet__body{ margin-top: 72px !important; }
+  /* ---------- 2) Sticky close icon area like desktop (height=64) ---------- */
+  .article-modal__closebar,
+  .theatre-modal__closebar{
+    position: sticky !important;
+    top: 0;
+    z-index: 60;
 
-  .article-sec + .article-sec{ margin-top: 64px !important; }
+    height: 64px !important;
+    padding: 16px 16px 0 !important;
 
-  .article-sec__title{
-    font-family: "Doran", sans-serif !important;
-    font-size: 20px !important;
-    font-weight: 900 !important;
-    line-height: 48px !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: flex-start !important;
   }
 
-  .article-sec__p{
-    font-family: "Doran", sans-serif !important;
-    font-size: 16px !important;
-    font-weight: 700 !important;
-    line-height: 48px !important;
-  }
+  .article-modal__closebar{ background: var(--article-bg) !important; }
+  .theatre-modal__closebar{ background: var(--theatre-bg) !important; }
 
-  /* Theatre mobile: force 1-column 361 image list */
-  .theatre-sheet__hero{ display: block !important; }
-  .theatre-sheet__summary{
-    width: 361px !important;
-    margin: 0 auto !important;
-    text-align: center !important;
-  }
+  /* (اختیاری) اگر می‌خوای در موبایل خودِ آیکون هم کوچیک‌تر بشه، بگو تا اضافه کنم.
+     فعلاً اندازه آیکون رو دست نمی‌زنم چون گفتی اعدادت رو خودت تغییر دادی. */
 
-  .theatre-sheet__title{
-    justify-content: center !important;
-    font-size: 27px !important;
-    line-height: normal !important;
-    gap: 8px !important;
-  }
-  .theatre-sheet__year{
-    font-size: 17px !important;
-    line-height: 27px !important;
-    font-weight: 400 !important;
-  }
 
-  .theatre-sheet__poster{
-    width: 206px !important;
-    margin: 16px auto 0 !important;
-  }
+  /* ---------- 3) Resume Software Skills: LEFT aligned, label then icons, LTR ---------- */
+  .skills-row{
+    direction: ltr !important;
+    justify-content: flex-start !important;
+    align-items: flex-start !important;
 
-  .theatre-sheet__type{
-    margin: 16px 0 0 !important;
-    font-size: 19px !important;
-    line-height: 25px !important;
-  }
-  .theatre-sheet__place{
-    margin: 8px 0 0 !important;
-    font-size: 19px !important;
-    line-height: 25px !important;
-  }
-
-  .theatre-data{ margin-top: 64px !important; }
-
-  .theatre-data__row{
+    /* تو موبایل قبلاً ستونی کرده بودی؛ همونو نگه می‌داریم */
     display: flex !important;
     flex-direction: column !important;
-    gap: 8px !important;
-  }
-  .theatre-data__row + .theatre-data__row{ margin-top: 16px !important; }
-
-  .theatre-data dt{
-    font-size: 13px !important;
-    line-height: 17px !important;
-    font-weight: 500 !important;
-  }
-  .theatre-data dd{
-    font-size: 17px !important;
-    line-height: 27px !important;
-    font-weight: 700 !important;
-  }
-
-  .theatre-description{
-    margin-top: 64px !important;
-    font-size: 17px !important;
-    line-height: 27px !important;
-  }
-
-  .theatre-gallery{
-    margin-top: 64px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
     gap: 16px !important;
   }
-  .theatre-gallery__stack{ display: contents !important; }
 
-  .theatre-gallery img,
-  .theatre-photo{
-    width: 361px !important;
-    height: auto !important;
+  .skills-group{
+    direction: ltr !important;
+    display: flex !important;
+    flex-direction: row !important;   /* label then icons */
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 16px !important;
   }
-  .theatre-photo--wide,
-  .theatre-photo--center,
-  .theatre-photo--tall{
-    width: 361px !important;
-    height: auto !important;
+
+  .skills-group__label{
+    order: 0 !important;
+    text-align: left !important;
+    white-space: nowrap;
+  }
+
+  .skills-group__icons{
+    order: 1 !important;
+    direction: ltr !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 16px !important;
   }
 }
