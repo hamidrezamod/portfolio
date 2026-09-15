@@ -498,3 +498,91 @@ if (window.innerWidth <= 600) {
     runSequence(0);
   }, startDelay);
 })();
+
+/* =========================
+   Certificates lightbox (robust)
+========================= */
+(function () {
+  const modal = document.getElementById("certModal");
+  const modalImg = document.getElementById("certModalImg");
+  if (!modal || !modalImg) return;
+
+  const prevBtn = modal.querySelector("[data-cert-prev]");
+  const nextBtn = modal.querySelector("[data-cert-next]");
+  const closeEls = modal.querySelectorAll("[data-cert-close]");
+
+  // IMPORTANT:
+  // اگر کلاس گرید شما فرق دارد، این selector را تغییر بده.
+  // الان فرض: .certificate-grid
+  function getImages() {
+    return Array.from(document.querySelectorAll(".certificate-grid img"));
+  }
+
+  let index = 0;
+
+  function render() {
+    const imgs = getImages();
+    if (!imgs.length) return;
+
+    const img = imgs[index];
+    modalImg.src = img.currentSrc || img.src;
+    modalImg.alt = img.alt || "Certificate";
+  }
+
+  function openAt(i) {
+    const imgs = getImages();
+    if (!imgs.length) return;
+
+    index = Math.max(0, Math.min(i, imgs.length - 1));
+    render();
+
+    lockPageScroll();
+    modal.classList.add("is-active");
+    modal.setAttribute("aria-hidden", "false");
+  }
+
+  function close() {
+    modal.classList.remove("is-active");
+    modal.setAttribute("aria-hidden", "true");
+    unlockPageScroll();
+  }
+
+  function prev() {
+    const imgs = getImages();
+    if (!imgs.length) return;
+    index = (index - 1 + imgs.length) % imgs.length;
+    render();
+  }
+
+  function next() {
+    const imgs = getImages();
+    if (!imgs.length) return;
+    index = (index + 1) % imgs.length;
+    render();
+  }
+
+  // Event delegation: works even if images are wrapped in <a>
+  document.addEventListener("click", (e) => {
+    const img = e.target.closest(".certificate-grid img");
+    if (!img) return;
+
+    e.preventDefault();
+
+    const imgs = getImages();
+    const i = imgs.indexOf(img);
+    if (i === -1) return;
+
+    openAt(i);
+  });
+
+  closeEls.forEach((el) => el.addEventListener("click", close));
+  prevBtn?.addEventListener("click", prev);
+  nextBtn?.addEventListener("click", next);
+
+  document.addEventListener("keydown", (e) => {
+    if (!modal.classList.contains("is-active")) return;
+    if (e.key === "Escape") close();
+    if (e.key === "ArrowLeft") prev();
+    if (e.key === "ArrowRight") next();
+  });
+})();
