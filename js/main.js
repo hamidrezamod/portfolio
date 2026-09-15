@@ -382,6 +382,19 @@ function unlockPageScroll() {
       const res = await fetch(url, { cache: "no-cache" });
       if (!res.ok) throw new Error("Failed to load theatre: " + url);
       content.innerHTML = await res.text();
+       // Mobile reorder: Title -> Poster -> Subtitles (matches mobile design)
+if (window.innerWidth <= 600) {
+  const hero = content.querySelector(".theatre-sheet__hero");
+  const summary = content.querySelector(".theatre-sheet__summary");
+  const title = content.querySelector(".theatre-sheet__title");
+  const poster = content.querySelector(".theatre-sheet__poster");
+  const type = content.querySelector(".theatre-sheet__type");
+
+  if (summary && title && poster && type) {
+    // put poster right after title (before type/place)
+    title.insertAdjacentElement("afterend", poster);
+  }
+}
       panel.scrollTop = 0;
       modal.querySelector(".theatre-modal__close")?.focus();
     } catch (err) {
