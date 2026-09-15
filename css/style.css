@@ -2380,68 +2380,8 @@ body.is-site-ready .dock-nav{
     top: auto !important;
   }
 }
-/* =========================
-   MOBILE MODALS (Articles + Theatre)
-   Based on your specs (361 layout width)
-========================= */
-@media (max-width: 600px){
 
-  /* ===== shared modal shell ===== */
-  .article-modal,
-  .theatre-modal{
-    padding: 16px 0;
-    align-items: center;   /* not stuck to bottom on mobile */
-  }
-
-  .article-modal__panel,
-  .theatre-modal__panel{
-    width: calc(100% - 32px);        /* modal width like mobile */
-    max-width: calc(100% - 32px);
-    max-height: calc(100vh - 32px);
-    border-radius: 8px;
-  }
-
-  /* remove desktop closebar spacing and use absolute close button */
-  .article-modal__closebar,
-  .theatre-modal__closebar{
-    position: static;
-    height: 0;
-    padding: 0;
-  }
-
-  .article-modal__close,
-  .theatre-modal__close{
-    position: absolute;
-    top: 16px;
-    right: 16px;
-
-    width: 32.4px;
-    height: 32.4px;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    cursor: pointer;
-    z-index: 10;
-  }
-
-  .article-modal__close img,
-  .theatre-modal__close img,
-  .article-modal__close svg,
-  .theatre-modal__close svg{
-    width: 32.4px;
-    height: 32.4px;
-    display: block;
-  }
-
-  /* content area = 361, and creates the 32px gap from close button:
-     (button bottom ~48.4, content starts ~80 => ~32 gap) */
-  .article-modal__content,
-  .theatre-modal__content{
-    width: 361px;
-    max-width: 361px;
-    margin: 0 auto 64px;
-    padding-top: 80px;
-  }
+MOBILE MODALS (Articles + Theatre)
 
   /* =========================
      THEATRE SHEET — mobile layout
