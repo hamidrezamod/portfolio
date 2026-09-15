@@ -10,6 +10,35 @@ document.querySelectorAll("[data-video-embed]").forEach((wrap) => {
   });
 });
 
+/* =========================
+   SmoothScroll controller helpers (fix jump-to-top after modals)
+   - Works even if you don't use inertial smooth scroll.
+========================= */
+window.SiteScroll = (function () {
+  // If you have a smooth scroll engine, we will try to control it:
+  // expected methods: pause(), resume(), sync(), stop()
+  function pause() {
+    try { window.SmoothScrollEngine?.pause?.(); } catch(e) {}
+    try { window.SmoothScroll?.pause?.(); } catch(e) {}
+  }
+
+  function resume() {
+    try { window.SmoothScrollEngine?.resume?.(); } catch(e) {}
+    try { window.SmoothScroll?.resume?.(); } catch(e) {}
+  }
+
+  function sync() {
+    try { window.SmoothScrollEngine?.sync?.(); } catch(e) {}
+    try { window.SmoothScroll?.sync?.(); } catch(e) {}
+  }
+
+  function stop() {
+    try { window.SmoothScrollEngine?.stop?.(); } catch(e) {}
+    try { window.SmoothScroll?.stop?.(); } catch(e) {}
+  }
+
+  return { pause, resume, sync, stop };
+})();
 
 /* =========================
    Smooth scroll (inertial) — desktop only
@@ -208,7 +237,9 @@ const SmoothScroll = (() => {
 
     window.scrollTo(0, lockedScrollY);
   }
-
+SiteScroll.stop();   // make sure no old animation continues
+SiteScroll.sync();   // sync engine to restored scroll position
+SiteScroll.resume(); // enable smooth scroll again
   function showModalShellWithLoader() {
     // open immediately (no fetch delay)
     lockPageScroll();
@@ -248,21 +279,23 @@ const SmoothScroll = (() => {
     }
   }
 
- function closeArticle() {
+function closeArticle() {
   if (isClosing) return;
   isClosing = true;
 
-  // 1) hide modal immediately
+  // hide modal immediately
   modal.classList.remove("is-active");
   modal.setAttribute("aria-hidden", "true");
 
-  // 2) REMOVE BLUR IMMEDIATELY (page comes back fast)
+  // remove blur immediately so page comes back fast
   document.body.classList.remove("is-modal-blur");
 
-  // 3) keep scroll-lock until animation finishes
+  // IMPORTANT: unlock scroll immediately (no waiting)
+  unlockPageScroll();
+
+  // clear content after animation finishes (only visual cleanup)
   window.setTimeout(() => {
     content.innerHTML = "";
-    unlockPageScroll(); // this should remove is-modal-open from html/body and restore scrollY
     isClosing = false;
   }, 650);
 }
@@ -288,7 +321,8 @@ const SmoothScroll = (() => {
     }
   });
 })();
-
+SiteScroll.stop();   // cancel any running smooth scroll animation
+SiteScroll.pause();  // stop smooth scroll while modal open
 
 /* =========================
    Theatre modal (external HTML + loader + scroll lock)
@@ -343,6 +377,9 @@ const SmoothScroll = (() => {
       </div>
     `;
   }
+   SiteScroll.stop();   // make sure no old animation continues
+SiteScroll.sync();   // sync engine to restored scroll position
+SiteScroll.resume(); // enable smooth scroll again
 
   async function loadTheatre(url) {
     const res = await fetch(url, { cache: "no-cache" });
@@ -366,19 +403,26 @@ const SmoothScroll = (() => {
     }
   }
 
-  function closeTheatre() {
-    if (isClosing) return;
-    isClosing = true;
+ function closetheatre() {
+  if (isClosing) return;
+  isClosing = true;
 
-    modal.classList.remove("is-active");
-    modal.setAttribute("aria-hidden", "true");
+  // hide modal immediately
+  modal.classList.remove("is-active");
+  modal.setAttribute("aria-hidden", "true");
 
-    window.setTimeout(() => {
-      content.innerHTML = "";
-      unlockPageScroll();
-      isClosing = false;
-    }, 850);
-  }
+  // remove blur immediately so page comes back fast
+  document.body.classList.remove("is-modal-blur");
+
+  // IMPORTANT: unlock scroll immediately (no waiting)
+  unlockPageScroll();
+
+  // clear content after animation finishes (only visual cleanup)
+  window.setTimeout(() => {
+    content.innerHTML = "";
+    isClosing = false;
+  }, 650);
+}
 
   // open on click theatre cards
   document.querySelectorAll(".theatre-item[data-theatre-src]").forEach((card) => {
@@ -399,6 +443,9 @@ const SmoothScroll = (() => {
     }
   });
 })();
+
+SiteScroll.stop();   // cancel any running smooth scroll animation
+SiteScroll.pause();  // stop smooth scroll while modal open
 
 /* =========================
    PRELOADER: [ Lights Fade In. ]
