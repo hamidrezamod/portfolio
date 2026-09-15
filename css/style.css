@@ -1547,7 +1547,7 @@ main, footer, .dock-nav{
     flex-direction: column;
     align-items: stretch;
     overflow: visible;
-     gap: 16px 
+     gap: 0px 
   }
   .writing-list .project > img,
   .writing-list .project > div{
@@ -1588,6 +1588,13 @@ main, footer, .dock-nav{
 
   /* hero top padding = 64 */
   .hero{ padding-top: 64px; }
+
+   .portrait {
+  position: relative;
+  width: 226px;
+  height: 232.38px;
+  margin: 0 auto 16px;
+}
 
   /* About title/content spacing = 120 */
   .two-columns{ grid-template-columns: 1fr; }
