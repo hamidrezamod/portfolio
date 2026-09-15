@@ -248,20 +248,24 @@ const SmoothScroll = (() => {
     }
   }
 
-  function closeArticle() {
-    if (isClosing) return;
-    isClosing = true;
+ function closeArticle() {
+  if (isClosing) return;
+  isClosing = true;
 
-    modal.classList.remove("is-active");
-    modal.setAttribute("aria-hidden", "true");
+  // 1) hide modal immediately
+  modal.classList.remove("is-active");
+  modal.setAttribute("aria-hidden", "true");
 
-    // wait for transition end, then cleanup
-    window.setTimeout(() => {
-      content.innerHTML = "";
-      unlockPageScroll();
-      isClosing = false;
-    }, 850);
-  }
+  // 2) REMOVE BLUR IMMEDIATELY (page comes back fast)
+  document.body.classList.remove("is-modal-blur");
+
+  // 3) keep scroll-lock until animation finishes
+  window.setTimeout(() => {
+    content.innerHTML = "";
+    unlockPageScroll(); // this should remove is-modal-open from html/body and restore scrollY
+    isClosing = false;
+  }, 650);
+}
 
   // open on click writing cards
   document.querySelectorAll(".writing-list .project[data-article-src]").forEach((card) => {
@@ -466,4 +470,28 @@ const SmoothScroll = (() => {
 
   // start
   setTimeout(() => runSequence(0), startDelay);
+})();
+
+/* =========================
+   Scroll guard while any modal is open
+   - blocks background wheel/touch scroll
+   - allows scroll inside elements with [data-native-scroll]
+========================= */
+(function () {
+  function shouldBlock(e){
+    if (!document.body.classList.contains("is-modal-open")) return false;
+    // allow scrolling inside modal panels (they have data-native-scroll)
+    if (e.target.closest("[data-native-scroll]")) return false;
+    return true;
+  }
+
+  window.addEventListener("wheel", (e) => {
+    if (!shouldBlock(e)) return;
+    e.preventDefault();
+  }, { passive: false, capture: true });
+
+  window.addEventListener("touchmove", (e) => {
+    if (!shouldBlock(e)) return;
+    e.preventDefault();
+  }, { passive: false, capture: true });
 })();
