@@ -1698,7 +1698,25 @@ main, footer, .dock-nav{
   display: block;
   object-fit: cover;
 }
+/* =========================
+   EXTRANEOUS gallery layout
+   2 images 544 + last 1120 (wide)
+========================= */
+.theatre-gallery--extraneous{
+  display: grid;
+  grid-template-columns: 544px 544px; /* 544 + 32 + 544 = 1120 */
+  gap: 32px;
+}
 
+.theatre-gallery--extraneous .theatre-photo{
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.theatre-gallery--extraneous .theatre-photo--wide{
+  grid-column: 1 / -1; /* 1120px wide */
+}
 
 
 
