@@ -719,7 +719,7 @@ h3 {
 }
 
 /* =========================
-   CONTACT (match screenshot)
+   CONTACT (left aligned rows inside columns)
 ========================= */
 
 .contact{
@@ -729,10 +729,9 @@ h3 {
 }
 
 .contact__title{
-  text-align: center; /* توی تصویر وسطه */
+  text-align: center;
 }
 
-/* همون ساختار 3 ستونه مثل تصویر */
 .contact-grid{
   margin: 160px auto 0;
   max-width: 760px;
@@ -740,24 +739,25 @@ h3 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 32px;
-  justify-items: center;
+
+  justify-items: start;   /* مهم: آیتم‌ها از چپ یک راستا */
+  text-align: left;       /* مهم: متن داخل هر آیتم چپ */
 }
 
 .contact-link{
   display: inline-flex;
   align-items: center;
-  gap: 8px;              /* فاصله آیکون تا متن */
-  text-decoration: none;
+  justify-content: flex-start;
+  gap: 8px;
 
-  font-size: 19px;       /* Button */
-  font-weight: 500;      /* Button */
+  font-size: 19px;
+  font-weight: 500;
   line-height: normal;
+  text-decoration: none;
   white-space: nowrap;
 }
 
-.contact-link:hover{
-  text-decoration: underline;
-}
+.contact-link:hover{ text-decoration: underline; }
 
 .contact-link__icon{
   width: 22.17px;
@@ -765,18 +765,43 @@ h3 {
   display: block;
   flex: 0 0 22.17px;
 }
-/* Footer */
-
-footer {
-  display: grid;
-  min-height: 126px;
-  place-items: center;
-  padding: 16px 24px 70px;
-  color: var(--background);
-  background: var(--ink);
-  text-align: center;
+/* =========================
+   FOOTER (keeps text clear of dock nav)
+========================= */
+:root{
+  --dock-height: 52px;
+  --dock-bottom: 40px; /* اگر در موبایل bottom=16 داری، تو مدیاکوئری تغییر می‌دیم */
 }
 
+.site-footer{
+  position: relative;
+  background: var(--ink);
+  color: var(--background);
+  text-align: center;
+
+  min-height: 240px;
+  padding: 16px 24px 16px;
+}
+
+.site-footer__designed{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: calc(var(--dock-bottom) + var(--dock-height) + 16px); /* بالای نوبار */
+  width: calc(100% - 48px);
+}
+
+.site-footer__copy{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 10px; /* پایین نوبار (فضای زیر نوبار) */
+  width: calc(100% - 48px);
+  opacity: 0.95;
+  font-size: 16px;     /* Label size */
+  font-weight: 500;    /* مثل Label */
+  line-height: normal; /* Auto */
+}
 
 /* =========================
    DOCK NAV (sticky bottom center)
@@ -1899,6 +1924,109 @@ body.is-site-ready .dock-nav{
   body.is-site-ready .dock-nav,
   .preloader{ transition: none; }
 }
+
+
+/* =========================
+   Certificates Lightbox
+========================= */
+
+.certificate-grid img{
+  cursor: zoom-in;
+}
+
+/* overlay */
+.cert-modal{
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  display: grid;
+  place-items: center;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 450ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cert-modal.is-active{
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.cert-modal__backdrop{
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.22);
+  backdrop-filter: blur(7px);
+}
+
+.cert-modal__panel{
+  position: relative;
+  z-index: 1;
+
+  max-width: min(92vw, 1100px);
+  max-height: 86vh;
+
+  display: grid;
+  place-items: center;
+
+  padding: 18px 56px;
+}
+
+.cert-modal__img{
+  max-width: 100%;
+  max-height: 86vh;
+  width: auto;
+  height: auto;
+  display: block;
+
+  box-shadow: 0 0 20px rgba(0,0,0,0.20);
+  border-radius: 8px;
+  background: #F7F4EF;
+}
+
+.cert-modal__close{
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: 40px;
+  height: 40px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.cert-modal__close img{
+  width: 40px;
+  height: 40px;
+  display: block;
+}
+
+.cert-modal__nav{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 10px;
+
+  background: rgba(52,51,51,0.85);
+  color: #F7F4EF;
+
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+
+  font-size: 24px;
+  line-height: 1;
+}
+
+.cert-modal__nav--prev{ left: 0; }
+.cert-modal__nav--next{ right: 0; }
+
 
 /* موبایل فعلاً غیرفعال است (Stage 1)
 @media (...) { ... }
