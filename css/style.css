@@ -1717,7 +1717,21 @@ main, footer, .dock-nav{
 .theatre-gallery--extraneous .theatre-photo--wide{
   grid-column: 1 / -1; /* 1120px wide */
 }
+/* =========================
+   DOLLEAR gallery layout
+   1 image centered, width 544
+========================= */
+.theatre-gallery--dollear{
+  display: grid;
+  justify-items: center;
+  gap: 32px; /* اگر بعداً چند عکس شد، فاصله آماده است */
+}
 
+.theatre-gallery--dollear .theatre-photo{
+  width: 544px;
+  height: auto;
+  display: block;
+}
 
 
 /* موبایل فعلاً غیرفعال است (Stage 1)
