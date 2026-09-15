@@ -1111,7 +1111,7 @@ footer {
 
 
 /* =========================
-   ARTICLE POPUP (Stage 2)
+   ARTICLE POPUP (Stage 2) — refined
 ========================= */
 
 :root{
@@ -1121,12 +1121,14 @@ footer {
   --ease-apple: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* prevent background scroll */
+/* lock page scroll when modal is open */
+html.is-modal-open,
 body.is-modal-open{
+  height: 100%;
   overflow: hidden;
 }
 
-/* blur background (main page) */
+/* blur background */
 body.is-modal-open main,
 body.is-modal-open footer,
 body.is-modal-open .dock-nav{
@@ -1139,7 +1141,7 @@ main, footer, .dock-nav{
   transition: filter 700ms var(--ease-apple);
 }
 
-/* overlay wrapper */
+/* overlay */
 .article-modal{
   position: fixed;
   inset: 0;
@@ -1153,7 +1155,7 @@ main, footer, .dock-nav{
 
   opacity: 0;
   pointer-events: none;
-  transition: opacity 700ms var(--ease-apple);
+  transition: opacity 650ms var(--ease-apple);
 }
 
 .article-modal.is-active{
@@ -1161,19 +1163,18 @@ main, footer, .dock-nav{
   pointer-events: auto;
 }
 
-/* darken behind */
 .article-modal__backdrop{
   position: absolute;
   inset: 0;
   background: rgba(0,0,0,0);
-  transition: background 700ms var(--ease-apple);
+  transition: background 650ms var(--ease-apple);
 }
 
 .article-modal.is-active .article-modal__backdrop{
   background: rgba(0,0,0,0.18);
 }
 
-/* panel (sheet) */
+/* panel */
 .article-modal__panel{
   position: relative;
 
@@ -1187,6 +1188,10 @@ main, footer, .dock-nav{
   color: var(--article-ink);
   box-shadow: var(--article-shadow);
 
+  border-radius: 8px;                 /* corner radius */
+  overscroll-behavior: contain;       /* prevent scrolling page behind at edges */
+  -webkit-overflow-scrolling: touch;
+
   transform: translateY(90px);
   opacity: 0;
   transition: transform 800ms var(--ease-apple), opacity 800ms var(--ease-apple);
@@ -1198,14 +1203,41 @@ main, footer, .dock-nav{
   opacity: 1;
 }
 
-/* close area (sticky) */
+/* Minimal scrollbar (panel only) */
+.article-modal__panel{
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: rgba(65,63,62,0.35) transparent;
+}
+
+.article-modal__panel::-webkit-scrollbar{
+  width: 12px;
+}
+
+.article-modal__panel::-webkit-scrollbar-track{
+  background: transparent;
+}
+
+.article-modal__panel::-webkit-scrollbar-thumb{
+  background: rgba(65,63,62,0.35);
+  border-radius: 999px;
+  border: 4px solid transparent;
+  background-clip: content-box;
+}
+
+.article-modal__panel::-webkit-scrollbar-thumb:hover{
+  background: rgba(65,63,62,0.50);
+  border: 4px solid transparent;
+  background-clip: content-box;
+}
+
+/* closebar (sticky) */
 .article-modal__closebar{
   position: sticky;
   top: 0;
   z-index: 5;
 
   height: 88px;
-  padding: 32px 128px 16px; /* top/right-left/bottom */
+  padding: 32px 128px 16px;
 
   background: var(--article-bg);
   display: flex;
@@ -1229,22 +1261,46 @@ main, footer, .dock-nav{
   display: block;
 }
 
-/* inner content width (1120) */
+/* content width = 1120 */
 .article-modal__content{
   width: 1120px;
-  max-width: calc(100% - 256px); /* 128 + 128 */
-  margin: 64px auto 120px;       /* closebar -> cover = 64 */
+  max-width: calc(100% - 256px);
+  margin: 64px auto 120px;
+}
+
+/* loader */
+.article-loader{
+  min-height: 360px;
+  display: grid;
+  place-items: center;
+}
+
+.article-loader__spinner{
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  border: 2px solid rgba(65,63,62,0.22);
+  border-top-color: rgba(65,63,62,0.85);
+  animation: articleSpin 900ms linear infinite;
+}
+
+@keyframes articleSpin{
+  to{ transform: rotate(360deg); }
 }
 
 /* =========================
-   Article sheet layout
+   Article layout
 ========================= */
 
 .article-sheet__hero{
   display: grid;
   grid-template-columns: 548px 1fr;
-  column-gap: 32px; /* cover -> text */
-  align-items: start;
+  column-gap: 32px;
+  align-items: center;          /* image column + text column vertically centered */
+}
+
+.article-sheet__media{
+  width: 548px;
 }
 
 .article-sheet__cover{
@@ -1254,40 +1310,20 @@ main, footer, .dock-nav{
   object-fit: cover;
 }
 
-/* English title */
-.article-sheet__title-en{
-  margin: 0;
-  font-family: "Crimson Pro", serif;
-  font-size: 40px;
-  font-weight: 600;
-  line-height: 44px;
-  color: var(--article-ink);
-}
-
-/* Persian title */
-.article-sheet__title-fa{
-  margin: 16px 0 0;  /* gap between EN/FA = 16 */
-  font-family: "Doran", sans-serif;
-  font-size: 30px;
-  font-weight: 700; /* closest to 600 with your available files */
-  line-height: 44px;
-  color: var(--article-ink);
-}
-
-/* meta labels under cover */
+/* labels under image, right-aligned within image column */
 .article-sheet__meta{
-  margin-top: 8px; /* labels -> cover = 8 */
-
+  margin-top: 8px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;    /* align to the right edge of the image column */
   align-items: center;
-  gap: 16px; /* labels gap */
+  gap: 16px;
 
   font-family: "Doran", sans-serif;
   font-size: 14px;
   font-weight: 500;
   line-height: 48px;
   color: var(--article-ink);
+  text-align: right;
 }
 
 .article-meta__divider{
@@ -1300,7 +1336,7 @@ main, footer, .dock-nav{
 .article-meta__tag{
   display: inline-flex;
   align-items: center;
-  gap: 4px; /* icon -> text = 4 */
+  gap: 4px;
 }
 
 .article-meta__icon{
@@ -1309,26 +1345,50 @@ main, footer, .dock-nav{
   display: block;
 }
 
-/* body spacing */
-.article-sheet__body{
-  margin-top: 64px; /* labels -> text = 64 */
+/* headings right aligned (EN + FA) */
+.article-sheet__headings{
+  text-align: right;
 }
 
-/* section title + paragraphs spacing */
+.article-sheet__title-en{
+  margin: 0;
+  font-family: "Crimson Pro", serif;
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 44px;
+  color: var(--article-ink);
+  text-align: right;
+}
+
+.article-sheet__title-fa{
+  margin: 16px 0 0;
+  font-family: "Doran", sans-serif;
+  font-size: 30px;
+  font-weight: 700; /* closest to 600 with your font files */
+  line-height: 44px;
+  color: var(--article-ink);
+  text-align: right;
+}
+
+/* body spacing */
+.article-sheet__body{
+  margin-top: 64px;
+}
+
 .article-sec__title{
-  margin: 0 0 16px; /* title -> paragraph = 16 */
+  margin: 0 0 16px;
   font-family: "Doran", sans-serif;
   font-size: 20px;
-  font-weight: 800; /* ExtraBold */
+  font-weight: 800;
   line-height: 48px;
   color: var(--article-ink);
 }
 
 .article-sec__p{
-  margin: 0 0 16px; /* paragraph -> paragraph = 16 */
+  margin: 0 0 16px;
   font-family: "Doran", sans-serif;
   font-size: 16px;
-  font-weight: 700; /* Bold */
+  font-weight: 700;
   line-height: 48px;
   color: var(--article-ink);
   text-align: justify;
@@ -1341,6 +1401,9 @@ main, footer, .dock-nav{
   .article-modal__panel,
   main, footer, .dock-nav{
     transition: none !important;
+  }
+  .article-loader__spinner{
+    animation: none !important;
   }
 }
 
