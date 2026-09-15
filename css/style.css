@@ -2380,3 +2380,276 @@ body.is-site-ready .dock-nav{
     top: auto !important;
   }
 }
+/* =========================
+   MOBILE MODALS (Articles + Theatre)
+   Based on your specs (361 layout width)
+========================= */
+@media (max-width: 600px){
+
+  /* ===== shared modal shell ===== */
+  .article-modal,
+  .theatre-modal{
+    padding: 16px 0;
+    align-items: center;   /* not stuck to bottom on mobile */
+  }
+
+  .article-modal__panel,
+  .theatre-modal__panel{
+    width: calc(100% - 32px);        /* modal width like mobile */
+    max-width: calc(100% - 32px);
+    max-height: calc(100vh - 32px);
+    border-radius: 8px;
+  }
+
+  /* remove desktop closebar spacing and use absolute close button */
+  .article-modal__closebar,
+  .theatre-modal__closebar{
+    position: static;
+    height: 0;
+    padding: 0;
+  }
+
+  .article-modal__close,
+  .theatre-modal__close{
+    position: absolute;
+    top: 16px;
+    right: 16px;
+
+    width: 32.4px;
+    height: 32.4px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    z-index: 10;
+  }
+
+  .article-modal__close img,
+  .theatre-modal__close img,
+  .article-modal__close svg,
+  .theatre-modal__close svg{
+    width: 32.4px;
+    height: 32.4px;
+    display: block;
+  }
+
+  /* content area = 361, and creates the 32px gap from close button:
+     (button bottom ~48.4, content starts ~80 => ~32 gap) */
+  .article-modal__content,
+  .theatre-modal__content{
+    width: 361px;
+    max-width: 361px;
+    margin: 0 auto 64px;
+    padding-top: 80px;
+  }
+
+  /* =========================
+     THEATRE SHEET — mobile layout
+  ========================= */
+
+  .theatre-sheet__hero{
+    display: block;               /* stop desktop grid */
+  }
+
+  .theatre-sheet__summary{
+    width: 361px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  /* Title font = Card Title (mobile table) */
+  .theatre-sheet__title{
+    justify-content: center;
+    text-align: center;
+
+    font-size: 27px;
+    font-weight: 600;
+    line-height: normal;
+    gap: 8px;
+  }
+
+  /* year = body */
+  .theatre-sheet__year{
+    font-size: 17px;
+    line-height: 27px;
+    font-weight: 400;
+  }
+
+  /* Poster centered width 206
+     (JS will move poster under title for correct order) */
+  .theatre-sheet__poster{
+    width: 206px;
+    height: auto;
+    display: block;
+    margin: 16px auto 0;          /* title -> photo = 16 */
+  }
+
+  /* Subtitles centered (card sub) */
+  .theatre-sheet__type{
+    margin: 16px 0 0;             /* photo -> subtitle = 16 */
+    text-align: center;
+  }
+
+  .theatre-sheet__place{
+    margin: 8px 0 0;              /* between subtitles = 8 */
+    text-align: center;
+  }
+
+  /* subtitles -> table = 64 */
+  .theatre-data{
+    margin-top: 64px;
+  }
+
+  /* table: one column, dt above dd */
+  .theatre-data__row{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;                     /* title -> name = 8 */
+  }
+
+  .theatre-data__row + .theatre-data__row{
+    margin-top: 16px;             /* between rows = 16 */
+  }
+
+  /* dt = Label */
+  .theatre-data dt{
+    font-size: 13px;
+    line-height: 17px;
+    font-weight: 500;
+  }
+
+  /* dd = Card Body bold */
+  .theatre-data dd{
+    font-size: 17px;
+    line-height: 27px;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  /* table -> description = 64 */
+  .theatre-description{
+    margin-top: 64px;
+    font-size: 17px;
+    line-height: 27px;
+    font-weight: 400;
+  }
+
+  /* description -> images = 64 */
+  .theatre-gallery{
+    margin-top: 64px;
+
+    /* force all theatre galleries into 1 column */
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center;
+    gap: 16px;                    /* image gap = 16 */
+  }
+
+  /* flatten special wrappers (assoiffes stack, etc) */
+  .theatre-gallery__stack{ display: contents !important; }
+
+  /* all theatre images width 361 */
+  .theatre-gallery img,
+  .theatre-photo{
+    width: 361px !important;
+    height: auto !important;
+    display: block;
+  }
+
+  /* kill desktop wide/center/tall rules on mobile */
+  .theatre-photo--wide,
+  .theatre-photo--center,
+  .theatre-photo--tall{
+    width: 361px !important;
+    height: auto !important;
+  }
+
+
+  /* =========================
+     ARTICLE SHEET — mobile layout
+  ========================= */
+
+  .article-sheet__hero{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 0;
+  }
+
+  .article-sheet__media{
+    width: 361px;
+  }
+
+  .article-sheet__cover{
+    width: 361px;
+    height: auto;
+    display: block;
+  }
+
+  /* photo -> labels = 4, labels gap = 8 */
+  .article-sheet__meta{
+    margin-top: 4px;
+    gap: 8px;
+    justify-content: center;
+
+    font-family: "Doran", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 48px;
+    text-align: center;
+  }
+
+  .article-meta__icon{
+    width: 13px;
+    height: 13px;
+  }
+
+  /* labels -> title = 8 */
+  .article-sheet__headings{
+    margin-top: 8px;
+    text-align: center;
+  }
+
+  /* hide English title on mobile (matches your screenshot) */
+  .article-sheet__title-en{
+    display: none;
+  }
+
+  /* article title: Doran 36 / 700 */
+  .article-sheet__title-fa{
+    margin: 0;
+    font-family: "Doran", sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 48px;
+    text-align: center;
+  }
+
+  /* title -> body = 72 */
+  .article-sheet__body{
+    margin-top: 72px;
+  }
+
+  /* section spacing = 64 between blocks */
+  .article-sec + .article-sec{
+    margin-top: 64px;
+  }
+
+  /* section titles: Doran 20 / 48 / 900 */
+  .article-sec__title{
+    font-family: "Doran", sans-serif;
+    font-size: 20px;
+    line-height: 48px;
+    font-weight: 900;
+    margin: 0 0 16px;
+  }
+
+  /* body paragraphs: Doran 16 / 48 / 700 */
+  .article-sec__p{
+    font-family: "Doran", sans-serif;
+    font-size: 16px;
+    line-height: 48px;
+    font-weight: 700;
+    margin: 0 0 16px;
+  }
+}
