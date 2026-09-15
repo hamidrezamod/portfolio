@@ -1810,6 +1810,95 @@ main, footer, .dock-nav{
   justify-self: center;
 }
 
+/* =========================
+   PRELOADER
+========================= */
+
+:root{
+  --preloader-bg: #413F3E;
+  --preloader-fg: #F7F4EF;
+  --ease-out-back: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --ease-apple: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* سایت تا پایان پریلودر مخفی */
+body.is-preloading main,
+body.is-preloading footer,
+body.is-preloading .dock-nav{
+  opacity: 0;
+}
+
+body.is-site-ready main,
+body.is-site-ready footer,
+body.is-site-ready .dock-nav{
+  opacity: 1;
+  transition: opacity 800ms var(--ease-apple);
+}
+
+/* خود پریلودر */
+.preloader{
+  position: fixed;
+  inset: 0;
+  z-index: 1000000;
+
+  background: var(--preloader-bg);
+  color: var(--preloader-fg);
+
+  display: grid;
+  place-items: center;
+
+  opacity: 1;
+  transition: opacity 800ms var(--ease-apple);
+}
+
+.preloader.is-hidden{
+  opacity: 0;
+  pointer-events: none;
+}
+
+.preloader__line{
+  display: flex;
+  align-items: center;
+  gap: 16px; /* فاصله بین تمام آیتم‌ها (کروشه/کلمات/کروشه) */
+
+  font-family: "Crimson Pro", serif;
+  font-size: 34px;
+  line-height: 38px;
+  font-weight: 400;
+}
+
+/* کروشه راست باید انیمیشن حرکت داشته باشد */
+.preloader__bracket--right{
+  will-change: transform;
+  transition: transform 300ms var(--ease-out-back);
+}
+
+/* کلمات در لحظه ساخت، مخفی‌اند و بعد انیمیشن می‌گیرند */
+.preloader__word{
+  opacity: 0;
+  transform: translateY(10px) scale(0.98);
+  will-change: transform, opacity;
+}
+
+.preloader__word.is-in{
+  animation: preloaderWordIn 300ms var(--ease-out-back) forwards;
+}
+
+@keyframes preloaderWordIn{
+  0%   { opacity: 0; transform: translateY(10px) scale(0.98); }
+  70%  { opacity: 1; transform: translateY(-2px) scale(1.02); }
+  100% { opacity: 1; transform: translateY(0px) scale(1); }
+}
+
+/* برای کاربرانی که motion نمی‌خوان */
+@media (prefers-reduced-motion: reduce){
+  .preloader__bracket--right{ transition: none; }
+  .preloader__word.is-in{ animation: none; opacity: 1; transform: none; }
+  body.is-site-ready main,
+  body.is-site-ready footer,
+  body.is-site-ready .dock-nav,
+  .preloader{ transition: none; }
+}
 
 /* موبایل فعلاً غیرفعال است (Stage 1)
 @media (...) { ... }
