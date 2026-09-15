@@ -1733,6 +1733,39 @@ main, footer, .dock-nav{
   display: block;
 }
 
+/* =========================
+   ASSOIFFÉS gallery layout
+   Left: 2 images stacked (544)
+   Right: 1 image (544) height = left stack total height (incl. 32 gap)
+========================= */
+
+.theatre-gallery--assoiffes{
+  display: grid;
+  grid-template-columns: 544px 544px; /* 544 + 32 + 544 = 1120 */
+  column-gap: 32px;
+  align-items: stretch;              /* right image stretches to match left column height */
+}
+
+.theatre-gallery--assoiffes .theatre-gallery__stack{
+  display: grid;
+  row-gap: 32px;                     /* gap between the two left images */
+}
+
+.theatre-gallery--assoiffes .theatre-photo{
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Right tall image: match the full height of left stack */
+.theatre-gallery--assoiffes .theatre-photo--tall{
+  width: 544px;
+  height: 100%;
+  object-fit: cover;                 /* needed to fill the tall area like the screenshot */
+  display: block;
+}
+
+
 
 /* موبایل فعلاً غیرفعال است (Stage 1)
 @media (...) { ... }
