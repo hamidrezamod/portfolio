@@ -3,42 +3,15 @@
   --ink: #413f3e;
   --beige: #f3e9dc;
   --content-width: 1120px;
-
-  /* short film player (as you set) */
-  --shortfilm-player-w: 677px;
-  --shortfilm-player-h: 380.81px;
-
-  /* dock */
-  --dock-height: 52px;
-  --dock-bottom: 40px;
-
-  /* hover (final tuned) */
-  --hover-img-scale: 1.035;
-  --hover-text-scale: 1.02;
-  --hover-dur: 520ms;
-  --hover-ease: cubic-bezier(0.16, 1, 0.3, 1);
-
-  /* modals */
-  --article-bg: #F3E9DC;
-  --article-ink: #413F3E;
-  --article-shadow: 0 0 20px rgba(0,0,0,0.20);
-
-  --theatre-bg: #F3E9DC;
-  --theatre-ink: #413F3E;
-  --theatre-shadow: 0 0 20px rgba(0,0,0,0.20);
-
-  /* preloader */
-  --preloader-bg: #413F3E;
-  --preloader-fg: #F7F4EF;
-  --ease-out-back: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  --ease-apple: cubic-bezier(0.16, 1, 0.3, 1);
 }
-
 html { scroll-behavior: auto; }
-
-* { box-sizing: border-box; }
-
+* {
+  box-sizing: border-box;
+}
 html, body { overflow-x: hidden; }
+/* مرحله‌های بعدی (Future Features)
+html { scroll-behavior: smooth; }
+*/
 
 body {
   margin: 0;
@@ -47,11 +20,20 @@ body {
   font-family: "Crimson Pro", Georgia, serif;
   font-size: 20px;
   line-height: 1.55;
+
+  /* فقط دسکتاپ */
+
 }
+
+
+
 
 /* =========================
    DoranFaNum (Persian) — Local Fonts
+   Path: assets/fonts/*.woff2
+   Note: style.css is in /css/ so we use ../assets/...
 ========================= */
+
 @font-face{
   font-family: "Doran";
   src: url("../assets/fonts/DoranFaNum-Thin.woff2") format("woff2");
@@ -59,6 +41,7 @@ body {
   font-style: normal;
   font-display: swap;
 }
+
 @font-face{
   font-family: "Doran";
   src: url("../assets/fonts/DoranFaNum-Light.woff2") format("woff2");
@@ -66,6 +49,7 @@ body {
   font-style: normal;
   font-display: swap;
 }
+
 @font-face{
   font-family: "Doran";
   src: url("../assets/fonts/DoranFaNum-Regular.woff2") format("woff2");
@@ -73,6 +57,7 @@ body {
   font-style: normal;
   font-display: swap;
 }
+
 @font-face{
   font-family: "Doran";
   src: url("../assets/fonts/DoranFaNum-Medium.woff2") format("woff2");
@@ -80,6 +65,7 @@ body {
   font-style: normal;
   font-display: swap;
 }
+
 @font-face{
   font-family: "Doran";
   src: url("../assets/fonts/DoranFaNum-Bold.woff2") format("woff2");
@@ -87,6 +73,7 @@ body {
   font-style: normal;
   font-display: swap;
 }
+
 @font-face{
   font-family: "Doran";
   src: url("../assets/fonts/DoranFaNum-ExtraBold.woff2") format("woff2");
@@ -94,6 +81,7 @@ body {
   font-style: normal;
   font-display: swap;
 }
+
 @font-face{
   font-family: "Doran";
   src: url("../assets/fonts/DoranFaNum-Black.woff2") format("woff2");
@@ -101,6 +89,8 @@ body {
   font-style: normal;
   font-display: swap;
 }
+
+/* ExtraBlack: weight 950 (valid in CSS) */
 @font-face{
   font-family: "Doran";
   src: url("../assets/fonts/DoranFaNum-ExtraBlack.woff2") format("woff2");
@@ -108,6 +98,9 @@ body {
   font-style: normal;
   font-display: swap;
 }
+
+
+
 
 img {
   display: block;
@@ -120,9 +113,14 @@ a {
   font-weight: 500;
   text-decoration: none;
 }
-a:hover { text-decoration: underline; }
 
-h1, h2, h3, p { margin-top: 0; }
+a:hover {
+  text-decoration: underline;
+}
+
+h1, h2, h3, p {
+  margin-top: 0;
+}
 
 h1 {
   margin-bottom: 16px;
@@ -145,20 +143,24 @@ h3 {
 }
 
 .container{
-  width: min(var(--content-width), calc(100% - 32px));
+  width: min(var(--content-width), calc(100% - 32px)); /* 16px + 16px */
   margin-inline: auto;
+
 }
 
-.section { margin-top: 320px; }
+.section {
+  margin-top: 320px;
+}
 
-.align-right { text-align: right; }
+.align-right {
+  text-align: right;
+}
 
-/* =========================
-   HERO
-========================= */
+/* Hero */
+
 .hero {
   padding-top: 120px;
-  padding-bottom: 336px;
+  padding-bottom: 336px; /* فاصله آیکون تا About */
   text-align: center;
 }
 
@@ -166,7 +168,7 @@ h3 {
   position: relative;
   width: 348px;
   height: 358px;
-  margin: 0 auto 16px;
+  margin: 0 auto 16px; /* فاصله عکس تا تایتل = 16 */
 }
 
 .portrait span {
@@ -183,7 +185,7 @@ h3 {
 }
 
 .hero > p {
-  margin: 0;
+  margin: 0;               /* فاصله تایتل تا سابتایتل با margin-bottom h1 کنترل شد */
   font-size: 34px;
   line-height: 38px;
   font-weight: 400;
@@ -191,109 +193,143 @@ h3 {
 
 .scroll-arrow {
   display: block;
-  margin-top: 92px;
+  margin-top: 92px; /* فاصله سابتایتل تا آیکون */
   line-height: 0;
 }
 
-/* =========================
-   ABOUT
-========================= */
-.about-section.section { margin-top: 0; }
+/* About */
+
+.about-section.section {
+  margin-top: 0; /* چون فاصله را از Hero با padding-bottom گرفتیم */
+}
 
 .two-columns {
   display: grid;
-  grid-template-columns: 550.26px 537.74px;
-  gap: 32px;
+  grid-template-columns: 550.26px 537.74px; /* کل عرض 1120 با gap 32 */
+  gap: 32px; /* فاصله متن تا عکس */
 }
 
-.section-copy { margin-top: 160px; }
+.section-copy {
+  margin-top: 160px; /* فاصله تایتل تا بدنه */
+}
 
 .section-copy p {
   text-align: justify;
   margin-bottom: 0;
 }
 
-.section-copy p + p { margin-top: 16px; }
+.section-copy p + p {
+  margin-top: 16px; /* فاصله بین پاراگراف‌ها */
+}
 
 .about-image {
   width: 537.74px;
   height: 629.26px;
   margin-top: 69px;
 }
-
 /* About - align title top with image top */
-.about-section h2{ margin-top: 69px; }
+.about-section h2{
+  margin-top: 69px;
+}
 
 /* =========================
    WRITINGS (FINAL - FLEX, STABLE)
+   total row = 1120
+   image = 670
+   text  = 418
+   gap   = 32
 ========================= */
+
 .writing-list{
-  margin-top: 160px;
+  margin-top: 160px;   /* فاصله تیتر Writings تا کارت اول */
   display: flex;
   flex-direction: column;
-  gap: 200px;
+  gap: 200px;          /* فاصله بین کارت‌ها */
 }
 
 .writing-list .project{
   display: flex !important;
   flex-direction: row;
-  align-items: center;
-  gap: 32px;
+  align-items: center;     /* متن دقیقاً وسطِ عکس (عمودی) */
+  gap: 32px;               /* فاصله متن و عکس */
   width: 100%;
 }
 
-/* main image */
+/* عکس اصلی کارت (فقط عکس مستقیم داخل کارت، نه آیکون) */
 .writing-list .project > img{
   width: 670px;
   height: 355.77px;
-  flex: 0 0 670px;
+  flex: 0 0 670px;         /* اجازه نده باریک/کشیده شود */
   object-fit: cover;
   display: block;
 }
 
-/* text box */
+/* باکس متن */
 .writing-list .project > div{
   width: 418px;
-  flex: 0 0 418px;
+  flex: 0 0 418px;         /* ثابت مثل فیگما */
 }
 
+/* کارت دوم: متن چپ / عکس راست */
 .writing-list .project.project-reversed{
   flex-direction: row-reverse !important;
 }
 
-.writing-list .project h3{ margin: 0; }
+/* فاصله تیتر تا Read in Farsi = 8px */
+.writing-list .project h3{
+  margin: 0;
+}
 
 .writing-list .read-link{
   margin-top: 8px;
   display: inline-flex;
-  align-items: center;
+  align-items: center;  /* آیکون در امتداد متن */
   gap: 8px;
 
   font-size: 19px;
   font-weight: 500;
-  line-height: normal;
+  line-height: normal;  /* معادل Auto */
   white-space: nowrap;
   text-decoration: none;
+}
+
+.writing-list .read-link:hover{
+  text-decoration: underline;
 }
 
 .writing-list .read-link__icon{
   width: 20.3px;
   height: 20.3px;
   flex: 0 0 20.3px;
+  display: block;
   object-fit: contain;
 }
 
+
+/* Dark sections */
 /* =========================
-   SHORT FILM
+   SHORT FILM (match Figma)
 ========================= */
+
+/* اگر خواستی سریع عرض پلیر را تغییر بدی، فقط این را عوض کن */
+:root{
+  --shortfilm-player-w: 677px;     /* اگر واقعاً منظورت 380px "عرض" بود، اینجا بکن 380px */
+  --shortfilm-player-h: 380.81px;  /* ارتفاع پلیر */
+}
+
+.short-film .container > h2{
+  /* title is already styled by h2 global */
+}
+
 .short-film__layout{
-  margin-top: 160px;
+  margin-top: 160px;               /* title -> content */
   display: grid;
   grid-template-columns: 1fr var(--shortfilm-player-w);
-  column-gap: 32px;
+  column-gap: 32px;                /* text -> player */
   align-items: center;
 }
 
+/* Title + year */
 .short-film__title{
   margin: 0;
   font-size: 40px;
@@ -302,12 +338,13 @@ h3 {
 }
 
 .short-film__year{
-  margin-left: 8px;
-  font-size: 20px;
+  margin-left: 8px;                /* last word -> year */
+  font-size: 20px;                 /* card body size */
   font-weight: 400;
   line-height: normal;
 }
 
+/* Subtitle spacing: 8px under title */
 .short-film__subtitle{
   margin: 8px 0 0;
   font-size: 24px;
@@ -315,11 +352,12 @@ h3 {
   font-weight: 400;
 }
 
+/* Watch on spacing: 64px under subtitle, icons 16px from label, 16px between icons */
 .short-film__watch{
   margin-top: 64px;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 16px;                       /* label -> icons */
 }
 
 .short-film__watch-label{
@@ -331,7 +369,7 @@ h3 {
 .short-film__icons{
   display: inline-flex;
   align-items: center;
-  gap: 16px;
+  gap: 16px;                       /* icons gap */
 }
 
 .short-film__icon-link{
@@ -342,22 +380,80 @@ h3 {
 }
 
 .short-film__icon{
-  height: 28px;
+  height: 28px;                    /* اگر سایز دقیق آیکون‌ها را دادی، دقیق می‌کنم */
   width: auto;
   display: block;
 }
 
+/* Player size */
 .short-film__player.video-embed{
   width: var(--shortfilm-player-w);
   height: var(--shortfilm-player-h);
 }
 
-/* Dark sections */
+
+
 .dark-section {
   margin-top: 320px;
   padding: 72px 0;
   color: var(--background);
   background: var(--ink);
+}
+
+.featured {
+  display: grid;
+  grid-template-columns: 411px 677px; /* 411 + 32 + 677 = 1120 */
+  align-items: center;
+  gap: 32px;
+  margin-top: 160px;
+}
+
+/* Short film typography spacing (طبق توضیحات تو) */
+.featured-title-row{
+  display: flex;
+  align-items: baseline;
+  gap: 8px; /* فاصله عنوان تا سال */
+}
+
+.featured .year {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 500;
+}
+
+.featured .role{
+  margin: 8px 0 0; /* فاصله ساب‌تایتل نسبت به عنوان */
+}
+
+.links {
+  margin-top: 64px; /* فاصله ساب‌تایتل تا Watch on */
+  margin-bottom: 0;
+}
+
+.watch-icons{
+  display: inline-flex;
+  gap: 16px; /* فاصله بین آیکون‌ها */
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.icon-link{
+  display: inline-flex;
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-placeholder{
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(247, 244, 239, 0.6);
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  line-height: 1;
 }
 
 /* Vimeo embed + poster fallback */
@@ -391,9 +487,8 @@ h3 {
   pointer-events: none;
 }
 
-/* =========================
-   THEATRE
-========================= */
+/* Theatre */
+
 .theatre-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 448px));
@@ -401,9 +496,16 @@ h3 {
   margin-top: 160px;
 }
 
-.theatre-column { display: grid; gap: 200px; }
-.theatre-offset { padding-top: 196px; }
+.theatre-column {
+  display: grid;
+  gap: 200px;
+}
 
+.theatre-offset {
+  padding-top: 196px;
+}
+
+/* card = clickable button (no default button UI) */
 .theatre-item {
   width: 100%;
   border: 0;
@@ -426,20 +528,25 @@ h3 {
   display: block;
 }
 
-/* spacing as in your current code */
+/* فاصله عکس تا تایتل = 32px
+   فاصله تایتل تا سابتایتل = 8px */
 .theatre-item h3 {
   margin: 16px 0 8px;
   display: inline-flex;
   align-items: baseline;
+
+  /* فاصله عنوان تا سال = 8px */
   gap: 8px;
 }
 
+/* سال: مطابق Card Body */
 .theatre-item h3 span {
   font-size: 20px;
   line-height: 31px;
   font-weight: 400;
 }
 
+/* سابتایتل: مطابق Card Subtitle */
 .theatre-item p {
   margin: 0;
   font-size: 24px;
@@ -447,14 +554,22 @@ h3 {
   font-weight: 400;
 }
 
+/* Podcast */
+
 /* =========================
-   PODCAST
+   PODCAST (match Figma)
 ========================= */
+
+.podcast-section h2{
+  /* h2 global already ok */
+}
+
 .podcast-featured{
-  margin-top: 160px;
+  margin-top: 160px;                 /* title -> content (مثل سکشن‌های دیگه) */
+
   display: grid;
-  grid-template-columns: 640px 448px;
-  column-gap: 32px;
+  grid-template-columns: 640px 448px; /* text + image */
+  column-gap: 32px;                  /* فاصله متن تا عکس */
   align-items: center;
 }
 
@@ -466,104 +581,106 @@ h3 {
 }
 
 .podcast-featured__subtitle{
-  margin: 8px 0 0;
-  font-size: 24px;
+  margin: 8px 0 0;                  /* فاصله تایتل تا ساب‌تایتل */
+  font-size: 24px;                  /* Card Subtitle */
   line-height: 30px;
   font-weight: 400;
 }
 
+/* links block spacing */
 .podcast-featured__links{
-  margin-top: 64px;
+  margin-top: 64px;                 /* فاصله ساب‌تایتل تا دکمه‌ها */
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 16px;                        /* فاصله بین دو دکمه */
 }
 
+/* button style = table Button 19px / 500 */
 .podcast-link{
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 8px;                         /* فاصله آیکون تا نوشته */
+
   font-size: 19px;
   font-weight: 500;
-  line-height: normal;
+  line-height: normal;              /* Auto */
+  text-decoration: none;
+}
+
+.podcast-link:hover{
+  text-decoration: underline;
 }
 
 .podcast-link__icon{
-  width: 19.22px;
+  width: 19.22px;                      /* اگر سایز دقیق دادی، دقیق می‌کنم */
   height: 19.22px;
   display: block;
   flex: 0 0 20px;
-  object-fit: contain;
 }
 
+/* image */
 .podcast-featured__image{
-  width: 448px;
-  height: 444px;
+  width: 448px;                     /* عرض عکس */
+  height: auto;                     /* اگر خواستی مثل قبل فیکس کنیم بگو */
   display: block;
-  object-fit: cover;
 }
 
 /* =========================
-   RESUME
+   RESUME (match screenshot)
 ========================= */
+
 .resume__stack{
-  margin-top: 160px;
+  margin-top: 160px;   /* title -> content */
   display: flex;
   flex-direction: column;
-  gap: 64px;
+  gap: 64px;           /* فاصله بین دسته‌بندی‌ها */
 }
 
+/* عنوان دسته‌بندی‌ها (Education / Experience / Software Skills) */
 .resume-block__title{
-  margin: 0 0 32px;
+  margin: 0 0 32px;    /* فاصله تیتر دسته‌بندی تا محتوا = 32 */
   font-size: 40px;
   line-height: 44px;
   font-weight: 600;
 }
 
+/* Education items */
 .resume-block__content{
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 16px;           /* فاصله آیتم‌ها از هم = 16 */
 }
 
-.resume-item__top{ margin: 0; }
+.resume-item__top{
+  margin: 0;
+}
 
 .resume-item__sub{
-  margin: 8px 0 0;
+  margin: 8px 0 0;     /* فاصله لیبل دانشگاه تا متن بالایی = 8 */
 }
 
+/* Experience list (بدون بولت مثل تصویر) */
 .resume-list{
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 16px;           /* فاصله هر آیتم = 16 */
 }
 
 /* Software skills row */
 .skills-row{
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 32px;           /* فاصله بین گروه‌ها = 32 */
   flex-wrap: nowrap;
-}
-
-/* ✅ RIGHT ALIGN software skills (no size changes) */
-.skills-row{
-  justify-content: flex-end;
-}
-.skills-group{
-  justify-content: flex-end;
-}
-.skills-group__label{
-  text-align: right;
 }
 
 .skills-group{
   display: inline-flex;
   align-items: center;
-  gap: 16px;
+  gap: 16px;           /* فاصله لیبل تا آیکون‌ها (اگر خواستی کمتر/بیشتر بگو) */
 }
 
 .skills-group__label{
@@ -575,20 +692,19 @@ h3 {
 .skills-group__icons{
   display: inline-flex;
   align-items: center;
-  gap: 16px;
+  gap: 16px;           /* فاصله آیکون‌ها از هم = 16 */
 }
 
+/* Icon size: 22.17 × 22.17 */
 .skill-icon{
   width: 22.17px;
   height: 22.17px;
   display: block;
   flex: 0 0 22.17px;
-  object-fit: contain;
 }
 
-/* =========================
-   CERTIFICATES
-========================= */
+/* Certificates */
+
 .certificate-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -600,19 +716,21 @@ h3 {
 .certificate-grid img {
   width: 100%;
   border: 1px solid var(--ink);
-  cursor: zoom-in;
 }
 
 /* =========================
-   CONTACT
+   CONTACT (left aligned rows inside columns)
 ========================= */
+
 .contact{
   margin-top: 320px;
   padding-bottom: 120px;
   text-align: center;
 }
 
-.contact__title{ text-align: center; }
+.contact__title{
+  text-align: center;
+}
 
 .contact-grid{
   margin: 160px auto 0;
@@ -622,8 +740,8 @@ h3 {
   grid-template-columns: repeat(3, 1fr);
   gap: 32px;
 
-  justify-items: start;
-  text-align: left;
+  justify-items: start;   /* مهم: آیتم‌ها از چپ یک راستا */
+  text-align: left;       /* مهم: متن داخل هر آیتم چپ */
 }
 
 .contact-link{
@@ -639,22 +757,28 @@ h3 {
   white-space: nowrap;
 }
 
+.contact-link:hover{ text-decoration: underline; }
+
 .contact-link__icon{
   width: 22.17px;
   height: 22.17px;
   display: block;
   flex: 0 0 22.17px;
-  object-fit: contain;
+}
+/* =========================
+   FOOTER (keeps text clear of dock nav)
+========================= */
+:root{
+  --dock-height: 52px;
+  --dock-bottom: 40px; /* اگر در موبایل bottom=16 داری، تو مدیاکوئری تغییر می‌دیم */
 }
 
-/* =========================
-   FOOTER
-========================= */
 .site-footer{
   position: relative;
   background: var(--ink);
   color: var(--background);
   text-align: center;
+
   min-height: 240px;
   padding: 16px 24px 16px;
 }
@@ -663,32 +787,30 @@ h3 {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  bottom: calc(var(--dock-bottom) + var(--dock-height) + 16px);
+  bottom: calc(var(--dock-bottom) + var(--dock-height) + 16px); /* بالای نوبار */
   width: calc(100% - 48px);
-  font-size: 16px;
-  font-weight: 500;
-  line-height: normal;
 }
 
 .site-footer__copy{
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  bottom: 10px;
+  bottom: 10px; /* پایین نوبار (فضای زیر نوبار) */
   width: calc(100% - 48px);
   opacity: 0.95;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: normal;
+  font-size: 16px;     /* Label size */
+  font-weight: 500;    /* مثل Label */
+  line-height: normal; /* Auto */
 }
 
 /* =========================
-   DOCK NAV (Desktop)
+   DOCK NAV (sticky bottom center)
 ========================= */
+
 .dock-nav{
   position: fixed;
   left: 50%;
-  bottom: var(--dock-bottom);
+  bottom: 40px;                 /* اگر عدد دقیق داری بگو */
   transform: translateX(-50%);
   z-index: 9999;
 
@@ -716,6 +838,8 @@ h3 {
   text-decoration: none;
 }
 
+.dock-nav__link:hover{ text-decoration: underline; }
+
 .dock-nav__cta{
   background: #F7F4EF;
   color: #343333;
@@ -723,6 +847,7 @@ h3 {
   border-radius: 10px;
 }
 
+/* Works */
 .dock-nav__works{
   position: relative;
   height: 52px;
@@ -759,42 +884,152 @@ h3 {
   transform: rotate(180deg);
 }
 
+/* Menu: default hidden (بدون hidden attribute) */
 .dock-nav__menu{
   position: absolute;
   left: 50%;
-  bottom: 52px;
+  bottom: 52px;                 /* دقیقاً چسبیده به بالای navbar */
   transform: translateX(-50%);
 
-  width: 170px;
+  width: 170px;                 /* اگر عرض دقیق داری بگو */
   padding: 14px 18px;
 
   background: #343333;
   box-shadow: 0 0 7px rgba(0,0,0,0.3);
 
-  border-radius: 16px 16px 0 0;
+  border-radius: 16px 16px 0 0; /* بالا گرد، پایین صاف برای اتصال */
 
-  display: none;
+  display: none;                /* مهم: پیش‌فرض بسته */
   flex-direction: column;
   gap: 16px;
 }
 
-.dock-nav.is-open .dock-nav__menu{ display: flex; }
+.dock-nav.is-open .dock-nav__menu{
+  display: flex;                /* فقط وقتی باز شد */
+}
 
 .dock-nav__menu-link{
   font-size: 19px;
   font-weight: 500;
   line-height: normal;
   color: #F7F4EF;
+  text-decoration: none;
+}
+
+.dock-nav__menu-link:hover{
+  text-decoration: underline;
+}
+/* =========================
+   Hover effects: Writings + Theatre
+   Default: grayscale
+   Hover: color + slight zoom + slight text zoom
+========================= */
+
+:root{
+  --card-hover-scale-img: 1.04;   /* چند درصد بزرگ شود */
+  --card-hover-scale-text: 1.02;  /* چند درصد متن بزرگ شود */
+  --card-hover-time: 320ms;
+  --card-hover-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* --- WRITINGS --- */
+
+/* قاب عکس تا زوم داخلش بماند */
+.writing-list .project > img{
+  filter: grayscale(100%);
+  transform: scale(1);
+  transition:
+    transform var(--card-hover-time) var(--card-hover-ease),
+    filter var(--card-hover-time) var(--card-hover-ease);
+}
+
+/* چون img مستقیم داخل کارت است، برای اینکه "داخل قاب" بماند:
+   روی خود کارت clip می‌کنیم */
+.writing-list .project{
+  overflow: hidden; /* اجازه نمی‌دهد تصویر از کادر بیرون بزند */
+}
+
+/* هاور: رنگی + زوم */
+.writing-list .project:hover > img{
+  filter: grayscale(0%);
+  transform: scale(var(--card-hover-scale-img));
+}
+
+/* متن کمی بزرگ‌تر */
+.writing-list .project > div{
+  transform: scale(1);
+  transform-origin: left center;
+  transition: transform var(--card-hover-time) var(--card-hover-ease);
+}
+
+.writing-list .project:hover > div{
+  transform: scale(var(--card-hover-scale-text));
+}
+
+/* کارت ریورس (متن سمت چپ) */
+.writing-list .project.project-reversed > div{
+  transform-origin: left center;
+}
+
+/* --- THEATRE --- */
+
+/* برای اینکه زوم داخل قاب بماند، روی خود آیتم clip کنیم */
+.theatre-item{
+  overflow: hidden;
+}
+
+/* تصویر تئاتر: سیاه و سفید + ترنزیشن */
+.theatre-item img{
+  filter: grayscale(100%);
+  transform: scale(1);
+  transition:
+    transform var(--card-hover-time) var(--card-hover-ease),
+    filter var(--card-hover-time) var(--card-hover-ease);
+}
+
+/* هاور تئاتر: رنگی + زوم */
+.theatre-item:hover img{
+  filter: grayscale(0%);
+  transform: scale(var(--card-hover-scale-img));
+}
+
+/* متن تئاتر: کمی بزرگ‌تر */
+.theatre-item h3,
+.theatre-item p{
+  transition: transform var(--card-hover-time) var(--card-hover-ease);
+  transform: scale(1);
+  transform-origin: left top;
+}
+
+.theatre-item:hover h3,
+.theatre-item:hover p{
+  transform: scale(var(--card-hover-scale-text));
 }
 
 /* =========================
-   HOVER (kept only the final tuned version)
+   Smooth hover tuning (Writings + Theatre)
 ========================= */
-@media (prefers-reduced-motion: reduce){
-  :root{ --hover-dur: 1ms; }
+
+:root{
+  --hover-img-scale: 1.035;  /* زوم ملایم */
+  --hover-text-scale: 1.02;
+  --hover-dur: 520ms;        /* نرم‌تر */
+  --hover-ease: cubic-bezier(0.16, 1, 0.3, 1); /* smooth / modern */
 }
 
-/* WRITINGS hover */
+/* Reduce motion support */
+@media (prefers-reduced-motion: reduce){
+  :root{
+    --hover-dur: 1ms;
+  }
+}
+
+/* --- WRITINGS --- */
+.writing-list .project{
+  /* اگر نمی‌خوای زوم از قاب بیرون بزنه، این رو نگه دار */
+  overflow: hidden;
+}
+
 .writing-list .project > img{
   filter: grayscale(100%);
   transform: scale(1);
@@ -820,7 +1055,11 @@ h3 {
   transform: scale(var(--hover-text-scale));
 }
 
-/* THEATRE hover */
+/* --- THEATRE --- */
+.theatre-item{
+  overflow: hidden;
+}
+
 .theatre-item img{
   filter: grayscale(100%);
   transform: scale(1);
@@ -849,29 +1088,85 @@ h3 {
 }
 
 /* =========================
-   MODALS — shared lock/blur (used by JS)
+   Scroll indicator (minimal modern)
 ========================= */
+
+.scroll-indicator{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 37.56px;
+  height: 45px;
+  line-height: 0;
+}
+
+.scroll-indicator__icon{
+  width: 37.56px;
+  height: 45px;
+    transform: scale(1.5);
+  transform-origin: center;
+  display: block;
+}
+
+/* animate each chevron with a slight delay */
+.scroll-indicator__chev{
+  opacity: 0.25;
+  transform: translateY(0px);
+  animation: scrollChev 1.35s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+.scroll-indicator__chev--2{
+  animation-delay: 0.18s;
+}
+
+@keyframes scrollChev{
+  0%   { opacity: 0.15; transform: translateY(-1px); }
+  25%  { opacity: 1;    transform: translateY(2px); }
+  55%  { opacity: 0.15; transform: translateY(7px); }
+  100% { opacity: 0.15; transform: translateY(7px); }
+}
+
+/* accessibility */
+@media (prefers-reduced-motion: reduce){
+  .scroll-indicator__chev{ animation: none; opacity: 1; transform: none; }
+}
+
+
+
+
+
+/* =========================
+   ARTICLE POPUP (Stage 2) — refined
+========================= */
+
+:root{
+  --article-bg: #F3E9DC;
+  --article-ink: #413F3E;
+  --article-shadow: 0 0 20px rgba(0,0,0,0.20);
+  --ease-apple: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* lock page scroll when modal is open */
 html.is-modal-open,
 body.is-modal-open{
   height: 100%;
   overflow: hidden;
 }
 
+/* blur background */
 body.is-modal-blur main,
 body.is-modal-blur footer,
 body.is-modal-blur .dock-nav{
   filter: blur(7px);
-  transition: filter 350ms var(--ease-apple);
+  transition: filter 350ms cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
 }
 
 main, footer, .dock-nav{
-  transition: filter 350ms var(--ease-apple);
+  transition: filter 350ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* =========================
-   ARTICLE MODAL (Desktop)
-========================= */
+/* overlay */
 .article-modal{
   position: fixed;
   inset: 0;
@@ -904,6 +1199,7 @@ main, footer, .dock-nav{
   background: rgba(0,0,0,0.18);
 }
 
+/* panel */
 .article-modal__panel{
   position: relative;
 
@@ -917,8 +1213,8 @@ main, footer, .dock-nav{
   color: var(--article-ink);
   box-shadow: var(--article-shadow);
 
-  border-radius: 8px;
-  overscroll-behavior: contain;
+  border-radius: 8px;                 /* corner radius */
+  overscroll-behavior: contain;       /* prevent scrolling page behind at edges */
   -webkit-overflow-scrolling: touch;
 
   transform: translateY(90px);
@@ -932,13 +1228,20 @@ main, footer, .dock-nav{
   opacity: 1;
 }
 
+/* Minimal scrollbar (panel only) */
 .article-modal__panel{
-  scrollbar-width: thin;
+  scrollbar-width: thin; /* Firefox */
   scrollbar-color: rgba(65,63,62,0.35) transparent;
 }
 
-.article-modal__panel::-webkit-scrollbar{ width: 12px; }
-.article-modal__panel::-webkit-scrollbar-track{ background: transparent; }
+.article-modal__panel::-webkit-scrollbar{
+  width: 12px;
+}
+
+.article-modal__panel::-webkit-scrollbar-track{
+  background: transparent;
+}
+
 .article-modal__panel::-webkit-scrollbar-thumb{
   background: rgba(65,63,62,0.35);
   border-radius: 999px;
@@ -946,6 +1249,13 @@ main, footer, .dock-nav{
   background-clip: content-box;
 }
 
+.article-modal__panel::-webkit-scrollbar-thumb:hover{
+  background: rgba(65,63,62,0.50);
+  border: 4px solid transparent;
+  background-clip: content-box;
+}
+
+/* closebar (sticky) */
 .article-modal__closebar{
   position: sticky;
   top: 0;
@@ -976,6 +1286,7 @@ main, footer, .dock-nav{
   display: block;
 }
 
+/* content width = 1120 */
 .article-modal__content{
   width: 1120px;
   max-width: calc(100% - 256px);
@@ -998,11 +1309,142 @@ main, footer, .dock-nav{
   animation: articleSpin 900ms linear infinite;
 }
 
-@keyframes articleSpin{ to{ transform: rotate(360deg); } }
+@keyframes articleSpin{
+  to{ transform: rotate(360deg); }
+}
 
 /* =========================
-   THEATRE MODAL (Desktop)
+   Article layout
 ========================= */
+
+.article-sheet__hero{
+  display: grid;
+  grid-template-columns: 548px 1fr;
+  column-gap: 32px;
+  align-items: center;          /* image column + text column vertically centered */
+}
+
+.article-sheet__media{
+  width: 548px;
+}
+
+.article-sheet__cover{
+  width: 548px;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* labels under image, right-aligned within image column */
+.article-sheet__meta{
+  margin-top: 8px;
+  display: flex;
+  justify-content: flex-end;    /* align to the right edge of the image column */
+  align-items: center;
+  gap: 16px;
+
+  font-family: "Doran", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 48px;
+  color: var(--article-ink);
+  text-align: right;
+}
+
+.article-meta__divider{
+  width: 1px;
+  height: 18px;
+  background: var(--article-ink);
+  opacity: 0.5;
+}
+
+.article-meta__tag{
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.article-meta__icon{
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+/* headings right aligned (EN + FA) */
+.article-sheet__headings{
+  text-align: right;
+}
+
+.article-sheet__title-en{
+  margin: 0;
+  font-family: "Crimson Pro", serif;
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 44px;
+  color: var(--article-ink);
+  text-align: right;
+}
+
+.article-sheet__title-fa{
+  margin: 16px 0 0;
+  font-family: "Doran", sans-serif;
+  font-size: 30px;
+  font-weight: 700; /* closest to 600 with your font files */
+  line-height: 44px;
+  color: var(--article-ink);
+  text-align: right;
+}
+
+/* body spacing */
+.article-sheet__body{
+  margin-top: 64px;
+}
+
+.article-sec__title{
+  margin: 0 0 16px;
+  font-family: "Doran", sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 48px;
+  color: var(--article-ink);
+}
+
+.article-sec__p{
+  margin: 0 0 16px;
+  font-family: "Doran", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 48px;
+  color: var(--article-ink);
+  text-align: justify;
+}
+
+/* reduce motion */
+@media (prefers-reduced-motion: reduce){
+  .article-modal,
+  .article-modal__backdrop,
+  .article-modal__panel,
+  main, footer, .dock-nav{
+    transition: none !important;
+  }
+  .article-loader__spinner{
+    animation: none !important;
+  }
+}
+
+
+/* =========================
+   THEATRE POPUP (same shell as articles)
+========================= */
+
+:root{
+  --theatre-bg: #F3E9DC;
+  --theatre-ink: #413F3E;
+  --theatre-shadow: 0 0 20px rgba(0,0,0,0.20);
+  --ease-apple: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* overlay */
 .theatre-modal{
   position: fixed;
   inset: 0;
@@ -1035,6 +1477,7 @@ main, footer, .dock-nav{
   background: rgba(0,0,0,0.18);
 }
 
+/* panel */
 .theatre-modal__panel{
   position: relative;
 
@@ -1063,6 +1506,7 @@ main, footer, .dock-nav{
   opacity: 1;
 }
 
+/* minimal scrollbar (panel only) */
 .theatre-modal__panel{
   scrollbar-width: thin;
   scrollbar-color: rgba(65,63,62,0.35) transparent;
@@ -1077,6 +1521,7 @@ main, footer, .dock-nav{
   background-clip: content-box;
 }
 
+/* close bar */
 .theatre-modal__closebar{
   position: sticky;
   top: 0;
@@ -1106,12 +1551,14 @@ main, footer, .dock-nav{
   display: block;
 }
 
+/* content area width */
 .theatre-modal__content{
   width: 1120px;
-  max-width: calc(100% - 256px);
-  margin: 64px auto 120px;
+  max-width: calc(100% - 256px); /* 128 + 128 */
+  margin: 64px auto 120px;       /* closebar -> hero = 64 */
 }
 
+/* loader (reuse same look as article loader) */
 .theatre-loader{
   min-height: 360px;
   display: grid;
@@ -1126,11 +1573,280 @@ main, footer, .dock-nav{
   border-top-color: rgba(65,63,62,0.85);
   animation: theatreSpin 900ms linear infinite;
 }
+
 @keyframes theatreSpin{ to{ transform: rotate(360deg); } }
+
+
+/* =========================
+   THEATRE SHEET (base)
+========================= */
+
+.theatre-sheet{
+  color: var(--theatre-ink);
+}
+
+/* hero layout: poster left (448), gap 72, text */
+.theatre-sheet__hero{
+  display: grid;
+  grid-template-columns: 448px 1fr;
+  column-gap: 72px;
+  align-items: center; /* text column vertically centered with poster */
+}
+
+.theatre-sheet__poster{
+  width: 448px;
+  height: auto;       /* height = poster natural size */
+  display: block;
+  object-fit: cover;
+}
+
+/* title + year */
+.theatre-sheet__title{
+  margin: 0;
+  font-family: "Crimson Pro", serif;
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 44px;
+
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px; /* year to title = 8 */
+}
+
+.theatre-sheet__year{
+  font-size: 20px;     /* body size */
+  font-weight: 400;
+  line-height: 31px;
+}
+
+/* type and place */
+.theatre-sheet__type{
+  margin: 16px 0 0;    /* title -> type = 16 */
+  font-size: 24px;     /* card subtitle */
+  line-height: 30px;
+  font-weight: 400;
+}
+
+.theatre-sheet__place{
+  margin: 8px 0 0;     /* type -> place = 8 */
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 400;
+}
+
+/* data table */
+.theatre-data{
+  margin: 120px 0 0;   /* image -> table = 120 */
+  padding: 0;
+}
+
+.theatre-data__row{
+  display: grid;
+  grid-template-columns: 190px 1fr; /* fixed label column so all names align */
+  column-gap: 16px;
+  align-items: baseline;
+}
+
+.theatre-data__row + .theatre-data__row{
+  margin-top: 16px; /* row gap */
+}
+
+.theatre-data dt,
+.theatre-data dd{
+  margin: 0;
+  font-size: 20px;     /* body */
+  line-height: 31px;
+}
+
+.theatre-data dt{
+  font-weight: 400;    /* titles */
+}
+
+.theatre-data dd{
+  font-weight: 700;    /* names */
+}
+
+/* description */
+.theatre-description{
+  margin-top: 120px; /* table -> description = 120 */
+  font-size: 20px;   /* body */
+  line-height: 31px;
+  font-weight: 400;
+}
+
+.theatre-description p{
+  margin: 0;
+}
+
+.theatre-description p + p{
+  margin-top: 16px;
+}
+
+/* gallery base */
+.theatre-gallery{
+  margin-top: 120px; /* description -> images = 120 */
+}
+
+/* =========================
+   SOUG SOROUD gallery layout
+   4 images 544, last 1120
+========================= */
+.theatre-gallery--soug{
+  display: grid;
+  grid-template-columns: 544px 544px; /* 544 + 32 + 544 = 1120 */
+  gap: 32px; /* between images */
+}
+
+.theatre-gallery--soug .theatre-photo{
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.theatre-gallery--soug .theatre-photo--wide{
+  grid-column: 1 / -1;
+}
+/* =========================
+   RELINGO gallery layout
+   2 images (same gap = 32)
+========================= */
+.theatre-gallery--relingo{
+  display: grid;
+  grid-template-columns: 544px 544px; /* 544 + 32 + 544 = 1120 */
+  gap: 32px;
+}
+
+.theatre-gallery--relingo .theatre-photo{
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+/* =========================
+   EXTRANEOUS gallery layout
+   2 images 544 + last 1120 (wide)
+========================= */
+.theatre-gallery--extraneous{
+  display: grid;
+  grid-template-columns: 544px 544px; /* 544 + 32 + 544 = 1120 */
+  gap: 32px;
+}
+
+.theatre-gallery--extraneous .theatre-photo{
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.theatre-gallery--extraneous .theatre-photo--wide{
+  grid-column: 1 / -1; /* 1120px wide */
+}
+/* =========================
+   DOLLEAR gallery layout
+   1 image centered, width 544
+========================= */
+.theatre-gallery--dollear{
+  display: grid;
+  justify-items: center;
+  gap: 32px; /* اگر بعداً چند عکس شد، فاصله آماده است */
+}
+
+.theatre-gallery--dollear .theatre-photo{
+  width: 544px;
+  height: auto;
+  display: block;
+}
+
+/* =========================
+   ASSOIFFÉS gallery layout
+   Left: 2 images stacked (544)
+   Right: 1 image (544) height = left stack total height (incl. 32 gap)
+========================= */
+
+.theatre-gallery--assoiffes{
+  display: grid;
+  grid-template-columns: 544px 544px; /* 544 + 32 + 544 = 1120 */
+  column-gap: 32px;
+  align-items: stretch;              /* right image stretches to match left column height */
+}
+
+.theatre-gallery--assoiffes .theatre-gallery__stack{
+  display: grid;
+  row-gap: 32px;                     /* gap between the two left images */
+}
+
+.theatre-gallery--assoiffes .theatre-photo{
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Right tall image: match the full height of left stack */
+.theatre-gallery--assoiffes .theatre-photo--tall{
+  width: 544px;
+  height: 100%;
+  object-fit: cover;                 /* needed to fill the tall area like the screenshot */
+  display: block;
+}
+/* =========================
+   BI gallery layout
+   Row 1: two images 544 + 544
+   Row 2: one image 605 centered
+========================= */
+.theatre-gallery--bi{
+  display: grid;
+  grid-template-columns: 544px 544px; /* 544 + 32 + 544 = 1120 */
+  gap: 32px;
+}
+
+.theatre-gallery--bi .theatre-photo{
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.theatre-gallery--bi .theatre-photo--center{
+  grid-column: 1 / -1;
+  width: 605px;
+  justify-self: center;
+}
+
+/* =========================
+   THE RETREATING WORLD gallery layout
+   Row 1: two images 544 + 544
+   Row 2: one image 545 centered
+========================= */
+.theatre-gallery--retreating-world{
+  display: grid;
+  grid-template-columns: 544px 544px; /* 544 + 32 + 544 = 1120 */
+  gap: 32px;
+}
+
+.theatre-gallery--retreating-world .theatre-photo{
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.theatre-gallery--retreating-world .theatre-photo--center{
+  grid-column: 1 / -1;
+  width: 545px;
+  justify-self: center;
+}
 
 /* =========================
    PRELOADER
 ========================= */
+
+:root{
+  --preloader-bg: #413F3E;
+  --preloader-fg: #F7F4EF;
+  --ease-out-back: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --ease-apple: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* سایت تا پایان پریلودر مخفی */
 body.is-preloading main,
 body.is-preloading footer,
 body.is-preloading .dock-nav{
@@ -1144,14 +1860,18 @@ body.is-site-ready .dock-nav{
   transition: opacity 800ms var(--ease-apple);
 }
 
+/* خود پریلودر */
 .preloader{
   position: fixed;
   inset: 0;
   z-index: 1000000;
+
   background: var(--preloader-bg);
   color: var(--preloader-fg);
+
   display: grid;
   place-items: center;
+
   opacity: 1;
   transition: opacity 800ms var(--ease-apple);
 }
@@ -1164,18 +1884,21 @@ body.is-site-ready .dock-nav{
 .preloader__line{
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 16px; /* فاصله بین تمام آیتم‌ها (کروشه/کلمات/کروشه) */
+
   font-family: "Crimson Pro", serif;
   font-size: 20px;
   line-height: 31px;
   font-weight: 400;
 }
 
+/* کروشه راست باید انیمیشن حرکت داشته باشد */
 .preloader__bracket--right{
   will-change: transform;
   transition: transform 300ms var(--ease-out-back);
 }
 
+/* کلمات در لحظه ساخت، مخفی‌اند و بعد انیمیشن می‌گیرند */
 .preloader__word{
   opacity: 0;
   transform: translateY(10px) scale(0.98);
@@ -1192,26 +1915,152 @@ body.is-site-ready .dock-nav{
   100% { opacity: 1; transform: translateY(0px) scale(1); }
 }
 
+/* برای کاربرانی که motion نمی‌خوان */
+@media (prefers-reduced-motion: reduce){
+  .preloader__bracket--right{ transition: none; }
+  .preloader__word.is-in{ animation: none; opacity: 1; transform: none; }
+  body.is-site-ready main,
+  body.is-site-ready footer,
+  body.is-site-ready .dock-nav,
+  .preloader{ transition: none; }
+}
+
+
 /* =========================
-   MOBILE — (kept as you had)
+   Certificates Lightbox
+========================= */
+
+.certificate-grid img{
+  cursor: zoom-in;
+}
+
+/* overlay */
+.cert-modal{
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  display: grid;
+  place-items: center;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 450ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cert-modal.is-active{
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.cert-modal__backdrop{
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.22);
+  backdrop-filter: blur(7px);
+}
+
+.cert-modal__panel{
+  position: relative;
+  z-index: 1;
+
+  max-width: min(92vw, 1100px);
+  max-height: 86vh;
+
+  display: grid;
+  place-items: center;
+
+  padding: 18px 56px;
+}
+
+.cert-modal__img{
+  max-width: 100%;
+  max-height: 86vh;
+  width: auto;
+  height: auto;
+  display: block;
+
+  box-shadow: 0 0 20px rgba(0,0,0,0.20);
+  border-radius: 8px;
+  background: #F7F4EF;
+}
+
+.cert-modal__close{
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: 40px;
+  height: 40px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.cert-modal__close img{
+  width: 40px;
+  height: 40px;
+  display: block;
+}
+
+.cert-modal__nav{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 10px;
+
+  background: rgba(52,51,51,0.85);
+  color: #F7F4EF;
+
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+
+  font-size: 24px;
+  line-height: 1;
+}
+
+.cert-modal__nav--prev{ left: 0; }
+.cert-modal__nav--next{ right: 0; }
+
+
+/* موبایل فعلاً غیرفعال است (Stage 1)
+@media (...) { ... }
+*/
+
+/* =========================
+   MOBILE — final rules (<= 600px)
 ========================= */
 @media (max-width: 600px){
+
+  /* side padding 16 */
   .container{ width: calc(100% - 32px); }
+
+  /* dock nav hidden on mobile */
   .dock-nav{ display: none !important; }
+
+  /* section titles center */
   .align-right{ text-align: center; }
   h2{ text-align: center; }
 
+  /* section gap */
   .section{ margin-top: 160px; }
   .dark-section{ margin-top: 160px; }
 
+  /* typography (your mobile table) */
   h1{ font-size: 56px; line-height: 58px; }
   .hero > p{ font-size: 23px; line-height: 30px; font-weight: 400; }
 
-  h2{ font-size: 38px; line-height: normal; font-weight: 600; }
-  h3{ font-size: 27px; line-height: normal; font-weight: 600; }
+  h2{ font-size: 38px; line-height: normal; font-weight: 600; }        /* Section Title */
+  h3{ font-size: 27px; line-height: normal; font-weight: 600; }        /* Card Title */
 
-  body{ font-size: 17px; line-height: 27px; }
+  body{ font-size: 17px; line-height: 27px; }                           /* Card Body */
 
+  /* card subtitle */
   .card-subtitle,
   .podcast-featured__subtitle,
   .short-film__subtitle,
@@ -1221,6 +2070,7 @@ body.is-site-ready .dock-nav{
     font-weight: 400;
   }
 
+  /* button */
   .read-link,
   .podcast-link,
   .contact-link{
@@ -1229,177 +2079,579 @@ body.is-site-ready .dock-nav{
     font-weight: 500;
   }
 
+  /* label */
   .label{
     font-size: 13px;
     line-height: 17px;
     font-weight: 500;
   }
 
-  .hero{ padding-top: 64px; padding-bottom: 220px; }
+  /* HERO */
+  .hero{
+    padding-top: 64px;     /* distance hero image to top = 64 */
+    padding-bottom: 220px; /* keep your arrow spacing feel */
+  }
 
-  .two-columns{ grid-template-columns: 1fr; gap: 32px; }
+  /* -------------------------
+     ABOUT (title->content = 120)
+  ------------------------- */
+  .two-columns{
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
   .about-section .section-copy{ margin-top: 120px; }
-  .about-section h2{ text-align: center; margin-top: 0; }
   .about-image{
     width: 100%;
     height: auto;
     margin-top: 0;
     aspect-ratio: 538 / 629;
   }
+  /* About title should be centered in mobile */
+  .about-section h2{ text-align: center; margin-top: 0; }
 
-  .writing-list{ margin-top: 120px; gap: 160px; }
-  .writing-list .project{ overflow: visible !important; flex-direction: column !important; align-items: stretch !important; }
-  .writing-list .project.project-reversed{ flex-direction: column !important; }
-  .writing-list .project > img{ width: 100% !important; height: auto !important; flex: 0 0 auto !important; }
-  .writing-list .project > div{ width: 100% !important; flex: 0 0 auto !important; }
+  /* -------------------------
+     WRITINGS (title->content = 120, gap between articles = 160)
+     IMPORTANT: fix missing title/subtitle on 2nd card
+  ------------------------- */
+  .writing-list{
+    margin-top: 120px;
+    gap: 160px;
+  }
+
+  /* disable hover clipping rules on mobile (can hide content) */
+  .writing-list .project{ overflow: visible !important; }
+
+  .writing-list .project{
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0 !important;
+  }
+
+  /* neutralize any old "reversed" ordering */
+  .writing-list .project.project-reversed > img{ order: 0 !important; }
+
+  .writing-list .project > img{
+    width: 100% !important;
+    height: auto !important;
+    flex: 0 0 auto !important;
+  }
+
+  /* image -> title = 16 */
   .writing-list .project h3{ margin: 16px 0 0; }
+
+  /* title -> Read in Farsi = 8 */
   .writing-list .read-link{ margin-top: 8px; }
 
+  /* -------------------------
+     SHORT FILM (one column, player first)
+     title->content = 80
+  ------------------------- */
+  .short-film__layout{
+    margin-top: 80px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 0 !important;
+  }
+
+  /* player first */
+  .short-film__player{ order: -1; }
+
+  /* player width = 361 */
+  .short-film__player.video-embed,
+  .short-film .video-embed{
+    width: 361px !important;
+    height: auto !important;
+    aspect-ratio: 677 / 380.81;
+  }
+
+  /* player -> title = 16 */
+  .short-film__text{ margin-top: 16px; width: 100%; }
+
+  /* title font = card title */
+  .short-film__title{
+    font-size: 27px;
+    font-weight: 600;
+    line-height: normal;
+    text-align: left; /* داخل کارت مثل اسکرین */
+  }
+
+  /* year = body, gap 8 */
+  .short-film__year{
+    margin-left: 8px;
+    font-size: 17px;
+    line-height: 27px;
+    font-weight: 400;
+  }
+
+  /* title -> subtitle 8 */
+  .short-film__subtitle{ margin-top: 8px !important; }
+
+  /* subtitle -> watch on 32 */
+  .short-film__watch{ margin-top: 32px !important; }
+
+  /* watch icons 1.5x (base icon size 16.43) => 24.645 */
+  .short-film__icon{
+    width: 24.65px !important;
+    height: 24.65px !important;
+    flex: 0 0 24.65px !important;
+  }
+
+  /* -------------------------
+     THEATRE (one column list, order fixed)
+     title->content = 120
+     gap between items = 160
+  ------------------------- */
   .theatre-grid{
     margin-top: 120px;
     display: flex;
     flex-direction: column;
     gap: 160px;
   }
+
+  /* flatten columns so order works */
   .theatre-column{ display: contents; }
   .theatre-offset{ padding-top: 0; }
+
   .theatre-item{ overflow: visible; }
+
+  /* image -> title = 16 */
   .theatre-item h3{ margin: 16px 0 8px; gap: 8px; }
-}
 
-/* =========================================================
-   ✅ NEW: MOBILE MODALS FULL WIDTH + NO GAPS
-   + sticky closebar like desktop
-   + closebar height = 64px (as requested)
-   (Does NOT change your inner 361 content widths)
-========================================================= */
-@media (max-width: 600px){
+  /* title -> subtitle = 8 already via margin */
+  .theatre-item p{ margin: 0; }
 
-  /* full screen overlay with no padding */
-  .article-modal,
-  .theatre-modal{
-    padding: 0 !important;
-    align-items: stretch !important;
+  /* enforce requested order using data-theatre-src */
+  .theatre-item[data-theatre-src="theatre/relingo.html"]{ order: 1; }
+  .theatre-item[data-theatre-src="theatre/extraneous.html"]{ order: 2; }
+  .theatre-item[data-theatre-src="theatre/dollear.html"]{ order: 3; }
+  .theatre-item[data-theatre-src="theatre/assoiffes.html"]{ order: 4; }
+  .theatre-item[data-theatre-src="theatre/bi.html"]{ order: 5; }
+  .theatre-item[data-theatre-src="theatre/soug-soroud.html"]{ order: 6; }
+  .theatre-item[data-theatre-src="theatre/retreating-world.html"]{ order: 7; }
+
+  /* -------------------------
+     PODCAST
+     title->content = 80
+     section title must be section title
+     link gap doubled (8 -> 16)
+  ------------------------- */
+  .podcast-section h2{ font-size: 38px; font-weight: 600; line-height: normal; text-align: center; }
+
+  .podcast-featured{
+    margin-top: 80px !important;
+    grid-template-columns: 1fr !important;
   }
 
-  .article-modal__panel,
-  .theatre-modal__panel{
+  .podcast-featured__image{
+    order: -1;
     width: 100% !important;
-    max-width: 100% !important;
-
-    height: 100dvh !important;
-    max-height: 100dvh !important;
-
-    border-radius: 0 !important;
+    height: auto !important;
+    aspect-ratio: 448 / 444;
   }
 
-  /* sticky closebar */
-  .article-modal__closebar,
-  .theatre-modal__closebar{
-    position: sticky !important;
-    top: 0;
-    z-index: 50;
+  /* image -> title = 16 */
+  .podcast-featured__text{ margin-top: 16px; }
 
-    height: 64px !important;
-    padding: 16px 16px 0 !important;
-
-    display: flex !important;
-    justify-content: flex-end !important;
-    align-items: flex-start !important;
+  .podcast-featured__title{
+    font-size: 27px;
+    line-height: normal;
+    font-weight: 600;
   }
 
-  .article-modal__closebar{ background: var(--article-bg) !important; }
-  .theatre-modal__closebar{ background: var(--theatre-bg) !important; }
-
-  /* keep close icon size you already use in HTML on mobile (we don't change it here) */
-  /* If you want 32.4 icon size in mobile too, tell me and I’ll add it here. */
-}
-
-
-/* =========================================
-   FIXES (MOBILE)
-   1) Article/Theatre popup full width/height, no gaps
-   2) Sticky closebar like desktop
-   3) Resume software skills: LTR, label then icons, left aligned
-========================================= */
-
-@media (max-width: 600px){
-
-  /* ---------- 1) Popups full width (no side/bottom gaps) ---------- */
-  .article-modal,
-  .theatre-modal{
-    padding: 0 !important;
-    align-items: stretch !important;
+  .podcast-featured__subtitle{
+    margin-top: 8px;
   }
 
-  .article-modal__panel,
-  .theatre-modal__panel{
-    width: 100% !important;
-    max-width: 100% !important;
+  /* gap between links doubled */
+  .podcast-featured__links{ gap: 16px !important; }
 
-    height: 100dvh !important;
-    max-height: 100dvh !important;
-
-    margin: 0 !important;
-
-    /* چون به لبه‌های صفحه چسبیده */
-    border-radius: 0 !important;
+  /* icons size 16.43 */
+  .podcast-link__icon{
+    width: 16.43px !important;
+    height: 16.43px !important;
+    flex: 0 0 16.43px !important;
   }
 
-  /* ---------- 2) Sticky close icon area like desktop (height=64) ---------- */
-  .article-modal__closebar,
-  .theatre-modal__closebar{
-    position: sticky !important;
-    top: 0;
-    z-index: 60;
+  /* -------------------------
+     RESUME
+     section title -> content = 80
+     block title = card title
+  ------------------------- */
+  #resume h2{ font-size: 38px; line-height: normal; font-weight: 600; text-align: center; }
 
-    height: 64px !important;
-    padding: 16px 16px 0 !important;
-
-    display: flex !important;
-    justify-content: flex-end !important;
-    align-items: flex-start !important;
+  .resume__stack{
+    margin-top: 80px !important;
+    gap: 64px;
   }
 
-  .article-modal__closebar{ background: var(--article-bg) !important; }
-  .theatre-modal__closebar{ background: var(--theatre-bg) !important; }
+  .resume-block__title{
+    font-size: 27px;
+    line-height: normal;
+    font-weight: 600;
+    margin-bottom: 32px;
+  }
 
-  /* (اختیاری) اگر می‌خوای در موبایل خودِ آیکون هم کوچیک‌تر بشه، بگو تا اضافه کنم.
-     فعلاً اندازه آیکون رو دست نمی‌زنم چون گفتی اعدادت رو خودت تغییر دادی. */
+  .resume-block__content{ gap: 16px; }
+  .resume-list{ gap: 16px; }
 
-
-  /* ---------- 3) Resume Software Skills: LEFT aligned, label then icons, LTR ---------- */
+  /* Skills layout like your screenshot (rows stacked) */
   .skills-row{
-    direction: ltr !important;
-    justify-content: flex-start !important;
-    align-items: flex-start !important;
-
-    /* تو موبایل قبلاً ستونی کرده بودی؛ همونو نگه می‌داریم */
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 16px !important;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
 
   .skills-group{
-    direction: ltr !important;
-    display: flex !important;
-    flex-direction: row !important;   /* label then icons */
-    align-items: center !important;
-    justify-content: flex-start !important;
-    gap: 16px !important;
-  }
-
-  .skills-group__label{
-    order: 0 !important;
-    text-align: left !important;
-    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 16px;
   }
 
   .skills-group__icons{
-    order: 1 !important;
-    direction: ltr !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    gap: 16px !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .skill-icon{
+    width: 16.43px !important;
+    height: 16.43px !important;
+    flex: 0 0 16.43px !important;
+  }
+
+  /* -------------------------
+     AWARDS & CERTIFICATES (grid + click to zoom already exists)
+  ------------------------- */
+  .certificate-grid{
+    margin-top: 80px !important;
+
+    display: grid;
+    grid-template-columns: 172.5px 172.5px; /* 2 cols */
+    gap: 16px;
+    justify-content: center;
+  }
+
+  .certificate-grid img{
+    width: 172.5px;
+    height: auto;
+  }
+
+  .certificate-grid img:last-child{
+    grid-column: 1 / -1;
+    width: 361px;
+    justify-self: center;
+  }
+
+  /* -------------------------
+     CONTACT
+     title->content = 80
+     row gap doubled
+  ------------------------- */
+  .contact-grid{
+    margin-top: 80px !important;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 16px;
+    row-gap: 32px; /* doubled */
+    justify-items: start;
+    text-align: left;
+  }
+
+  .contact-link__icon{
+    width: 16.43px !important;
+    height: 16.43px !important;
+    flex: 0 0 16.43px !important;
+  }
+
+  /* -------------------------
+     FOOTER (label font in mobile)
+  ------------------------- */
+  .site-footer__designed,
+  .site-footer__copy{
+    font-size: 13px;
+    line-height: 17px;
+    font-weight: 500;
+  }
+
+  /* Sticky titles off on mobile (if you enabled sticky earlier) */
+  .sticky-title{
+    position: static !important;
+    top: auto !important;
   }
 }
+/* =========================
+   MOBILE MODALS (Articles + Theatre)
+   Based on your specs (361 layout width)
+========================= */
+@media (max-width: 600px){
+
+  /* ===== shared modal shell ===== */
+  .article-modal,
+  .theatre-modal{
+    padding: 16px 0;
+    align-items: center;   /* not stuck to bottom on mobile */
+  }
+
+  .article-modal__panel,
+  .theatre-modal__panel{
+    width: calc(100% - 32px);        /* modal width like mobile */
+    max-width: calc(100% - 32px);
+    max-height: calc(100vh - 32px);
+    border-radius: 8px;
+  }
+
+  /* remove desktop closebar spacing and use absolute close button */
+  .article-modal__closebar,
+  .theatre-modal__closebar{
+    position: static;
+    height: 0;
+    padding: 0;
+  }
+
+  .article-modal__close,
+  .theatre-modal__close{
+    position: absolute;
+    top: 16px;
+    right: 16px;
+
+    width: 32.4px;
+    height: 32.4px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    z-index: 10;
+  }
+
+  .article-modal__close img,
+  .theatre-modal__close img,
+  .article-modal__close svg,
+  .theatre-modal__close svg{
+    width: 32.4px;
+    height: 32.4px;
+    display: block;
+  }
+
+  /* content area = 361, and creates the 32px gap from close button:
+     (button bottom ~48.4, content starts ~80 => ~32 gap) */
+  .article-modal__content,
+  .theatre-modal__content{
+    width: 361px;
+    max-width: 361px;
+    margin: 0 auto 64px;
+    padding-top: 80px;
+  }
+
+  /* =========================
+     THEATRE SHEET — mobile layout
+  ========================= */
+
+  .theatre-sheet__hero{
+    display: block;               /* stop desktop grid */
+  }
+
+  .theatre-sheet__summary{
+    width: 361px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  /* Title font = Card Title (mobile table) */
+  .theatre-sheet__title{
+    justify-content: center;
+    text-align: center;
+
+    font-size: 27px;
+    font-weight: 600;
+    line-height: normal;
+    gap: 8px;
+  }
+
+  /* year = body */
+  .theatre-sheet__year{
+    font-size: 17px;
+    line-height: 27px;
+    font-weight: 400;
+  }
+
+  /* Poster centered width 206
+     (JS will move poster under title for correct order) */
+  .theatre-sheet__poster{
+    width: 206px;
+    height: auto;
+    display: block;
+    margin: 16px auto 0;          /* title -> photo = 16 */
+  }
+
+  /* Subtitles centered (card sub) */
+  .theatre-sheet__type{
+    margin: 16px 0 0;             /* photo -> subtitle = 16 */
+    text-align: center;
+  }
+
+  .theatre-sheet__place{
+    margin: 8px 0 0;              /* between subtitles = 8 */
+    text-align: center;
+  }
+
+  /* subtitles -> table = 64 */
+  .theatre-data{
+    margin-top: 64px;
+  }
+
+  /* table: one column, dt above dd */
+  .theatre-data__row{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;                     /* title -> name = 8 */
+  }
+
+  .theatre-data__row + .theatre-data__row{
+    margin-top: 16px;             /* between rows = 16 */
+  }
+
+  /* dt = Label */
+  .theatre-data dt{
+    font-size: 13px;
+    line-height: 17px;
+    font-weight: 500;
+  }
+
+  /* dd = Card Body bold */
+  .theatre-data dd{
+    font-size: 17px;
+    line-height: 27px;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  /* table -> description = 64 */
+  .theatre-description{
+    margin-top: 64px;
+    font-size: 17px;
+    line-height: 27px;
+    font-weight: 400;
+  }
+
+  /* description -> images = 64 */
+  .theatre-gallery{
+    margin-top: 64px;
+
+    /* force all theatre galleries into 1 column */
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center;
+    gap: 16px;                    /* image gap = 16 */
+  }
+
+  /* flatten special wrappers (assoiffes stack, etc) */
+  .theatre-gallery__stack{ display: contents !important; }
+
+  /* all theatre images width 361 */
+  .theatre-gallery img,
+  .theatre-photo{
+    width: 361px !important;
+    height: auto !important;
+    display: block;
+  }
+
+  /* kill desktop wide/center/tall rules on mobile */
+  .theatre-photo--wide,
+  .theatre-photo--center,
+  .theatre-photo--tall{
+    width: 361px !important;
+    height: auto !important;
+  }
+
+
+  /* =========================
+     ARTICLE SHEET — mobile layout
+  ========================= */
+
+  .article-sheet__hero{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 0;
+  }
+
+  .article-sheet__media{
+    width: 361px;
+  }
+
+  .article-sheet__cover{
+    width: 361px;
+    height: auto;
+    display: block;
+  }
+
+  /* photo -> labels = 4, labels gap = 8 */
+  .article-sheet__meta{
+    margin-top: 4px;
+    gap: 8px;
+    justify-content: center;
+
+    font-family: "Doran", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 48px;
+    text-align: center;
+  }
+
+  .article-meta__icon{
+    width: 13px;
+    height: 13px;
+  }
+
+  /* labels -> title = 8 */
+  .article-sheet__headings{
+    margin-top: 8px;
+    text-align: center;
+  }
+
+  /* hide English title on mobile (matches your screenshot) */
+  .article-sheet__title-en{
+    display: none;
+  }
+
+  /* article title: Doran 36 / 700 */
+  .article-sheet__title-fa{
+    margin: 0;
+    font-family: "Doran", sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 48px;
+    text-align: center;
+  }
+
+  /* title -> body = 72 */
+  .article-sheet__body{
+    margin-top: 72px;
+  }
+
+  /* section spacing = 64 between blocks */
+  .article-sec + .article-sec{
+    margin-top: 64px;
+  }
+
+  /* section titles: Doran 20 / 48 / 900 */
+  .article-sec__title{
+    font-family: "Doran", sans-serif;
+    font-size: 20px;
+    line-height: 48px;
+    font-weight: 900;
+    margin: 0 0 16px;
+  }
+
+  /* body paragraphs: Doran 16 / 48 / 700 */
+  .article-sec__p{
+    font-family: "Doran", sans-serif;
+    font-size: 16px;
+    line-height: 48px;
+    font-weight: 700;
+    margin: 0 0 16px;
+  }
+}
+
+
