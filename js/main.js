@@ -12,13 +12,14 @@ document.querySelectorAll("[data-video-embed]").forEach((wrap) => {
 
 
 /* =========================
-   Smooth scroll (inertial) — desktop only
-   Exposed as window.SmoothScrollEngine
+   Smooth scroll engine
+   - Desktop: inertial (wheel)
+   - Mobile/Touch: native smooth for anchor jumps (to())
 ========================= */
 window.SmoothScrollEngine = (() => {
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const isCoarse = window.matchMedia("(pointer: coarse)").matches;
-  const enabled = !(reduceMotion || isCoarse);
+  const prefersReduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const isCoarse = window.matchMedia("(pointer: coarse)").matches; // touch devices
+  const enabled = !(prefersReduce || isCoarse);
 
   let current = window.scrollY;
   let target = window.scrollY;
@@ -71,10 +72,14 @@ window.SmoothScrollEngine = (() => {
     rafId = requestAnimationFrame(animate);
   }
 
-if (!enabled) {
-  window.scrollTo(0, y);
-  return;
-}
+  // PUBLIC: scroll to Y
+  function to(y) {
+    // Mobile / reduced motion -> native smooth
+    if (!enabled) {
+      window.scrollTo({ top: y, behavior: prefersReduce ? "auto" : "smooth" });
+      return;
+    }
+
     if (paused) return;
 
     target = y;
@@ -100,8 +105,8 @@ if (!enabled) {
         if (document.body.classList.contains("is-modal-open")) return;
         if (document.body.classList.contains("is-preloading")) return;
 
-        const scrollable = e.target.closest("[data-native-scroll]");
-        if (scrollable) return;
+        // allow native scroll inside modal panels
+        if (e.target.closest("[data-native-scroll]")) return;
 
         e.preventDefault();
         target += e.deltaY * WHEEL_MULT;
@@ -151,7 +156,7 @@ if (!enabled) {
 
 
 /* =========================
-   Dock nav (toggle + smooth anchor)
+   Dock nav (toggle + anchor)
 ========================= */
 (function () {
   const dock = document.querySelector(".dock-nav");
@@ -185,10 +190,8 @@ if (!enabled) {
       if (!targetEl) return;
 
       e.preventDefault();
-
       const y = targetEl.getBoundingClientRect().top + window.scrollY;
       window.SmoothScrollEngine.to(y);
-
       history.pushState(null, "", href);
       closeMenu();
     });
@@ -202,8 +205,6 @@ if (!enabled) {
 
 /* =========================
    Scroll guard while any modal is open
-   - blocks background wheel/touch scroll
-   - allows scroll inside [data-native-scroll]
 ========================= */
 (function () {
   function shouldBlock(e) {
@@ -238,7 +239,7 @@ if (!enabled) {
 function lockPageScroll() {
   const y = window.scrollY || 0;
 
-  // stop inertial engine so it doesn't "remember" old target
+  // stop inertial engine so it doesn't keep old target
   window.SmoothScrollEngine.stop();
   window.SmoothScrollEngine.pause();
 
@@ -269,7 +270,7 @@ function unlockPageScroll() {
 
   window.scrollTo(0, y);
 
-  // re-sync inertial engine to restored position
+  // re-sync inertial engine
   window.SmoothScrollEngine.stop();
   window.SmoothScrollEngine.sync();
   window.SmoothScrollEngine.resume();
@@ -298,7 +299,6 @@ function unlockPageScroll() {
 
   async function openArticle(url) {
     lockPageScroll();
-
     modal.classList.add("is-active");
     modal.setAttribute("aria-hidden", "false");
     panel.scrollTop = 0;
@@ -310,7 +310,6 @@ function unlockPageScroll() {
       if (!res.ok) throw new Error("Failed to load article: " + url);
       content.innerHTML = await res.text();
       panel.scrollTop = 0;
-
       modal.querySelector(".article-modal__close")?.focus();
     } catch (err) {
       console.error(err);
@@ -325,10 +324,8 @@ function unlockPageScroll() {
     modal.classList.remove("is-active");
     modal.setAttribute("aria-hidden", "true");
 
-    // unlock immediately (no annoying wait)
     unlockPageScroll();
 
-    // clear after transition
     window.setTimeout(() => {
       content.innerHTML = "";
       isClosing = false;
@@ -375,7 +372,6 @@ function unlockPageScroll() {
 
   async function openTheatre(url) {
     lockPageScroll();
-
     modal.classList.add("is-active");
     modal.setAttribute("aria-hidden", "false");
     panel.scrollTop = 0;
@@ -387,7 +383,6 @@ function unlockPageScroll() {
       if (!res.ok) throw new Error("Failed to load theatre: " + url);
       content.innerHTML = await res.text();
       panel.scrollTop = 0;
-
       modal.querySelector(".theatre-modal__close")?.focus();
     } catch (err) {
       console.error(err);
@@ -428,6 +423,7 @@ function unlockPageScroll() {
 
 /* =========================
    PRELOADER: [ Lights Fade In. ]
+   + failsafe (in case of errors)
 ========================= */
 (function () {
   const preloader = document.getElementById("preloader");
@@ -436,10 +432,19 @@ function unlockPageScroll() {
   if (!preloader || !rightBracket || !line) return;
 
   const words = ["Lights", "Fade", "In."];
-
   const startDelay = 800;
   const wordDur = 300;
   const afterDoneDelay = 500;
+
+  function finish() {
+    document.body.classList.add("is-site-ready");
+    preloader.classList.add("is-hidden");
+
+    setTimeout(() => {
+      document.body.classList.remove("is-preloading");
+      preloader.remove();
+    }, 900);
+  }
 
   function insertWord(wordText) {
     const before = rightBracket.getBoundingClientRect().left;
@@ -451,8 +456,8 @@ function unlockPageScroll() {
     line.insertBefore(w, rightBracket);
 
     const after = rightBracket.getBoundingClientRect().left;
-
     const delta = before - after;
+
     rightBracket.style.transition = "none";
     rightBracket.style.transform = `translateX(${delta}px)`;
     rightBracket.getBoundingClientRect();
@@ -468,80 +473,15 @@ function unlockPageScroll() {
     if (i < words.length - 1) {
       setTimeout(() => runSequence(i + 1), wordDur);
     } else {
-      setTimeout(() => {
-        document.body.classList.add("is-site-ready");
-        preloader.classList.add("is-hidden");
-
-        setTimeout(() => {
-          document.body.classList.remove("is-preloading");
-          preloader.remove();
-        }, 900);
-      }, wordDur + afterDoneDelay);
+      setTimeout(finish, wordDur + afterDoneDelay);
     }
   }
 
-  setTimeout(() => runSequence(0), startDelay);
-})();
+  // failsafe: never get stuck on preloader
+  const failsafe = setTimeout(finish, 6000);
 
-/* =========================
-   Certificates lightbox
-========================= */
-(function () {
-  const imgs = Array.from(document.querySelectorAll(".certificate-grid img"));
-  if (!imgs.length) return;
-
-  const modal = document.getElementById("certModal");
-  const modalImg = document.getElementById("certModalImg");
-  if (!modal || !modalImg) return;
-
-  const closeEls = modal.querySelectorAll("[data-cert-close]");
-  const prevBtn = modal.querySelector("[data-cert-prev]");
-  const nextBtn = modal.querySelector("[data-cert-next]");
-
-  let index = 0;
-
-  function render() {
-    const img = imgs[index];
-    modalImg.src = img.currentSrc || img.src;
-    modalImg.alt = img.alt || "Certificate";
-  }
-
-  function openAt(i) {
-    index = i;
-    render();
-    lockPageScroll();
-    modal.classList.add("is-active");
-    modal.setAttribute("aria-hidden", "false");
-  }
-
-  function close() {
-    modal.classList.remove("is-active");
-    modal.setAttribute("aria-hidden", "true");
-    unlockPageScroll();
-  }
-
-  function prev() {
-    index = (index - 1 + imgs.length) % imgs.length;
-    render();
-  }
-
-  function next() {
-    index = (index + 1) % imgs.length;
-    render();
-  }
-
-  imgs.forEach((img, i) => {
-    img.addEventListener("click", () => openAt(i));
-  });
-
-  closeEls.forEach((el) => el.addEventListener("click", close));
-  prevBtn?.addEventListener("click", prev);
-  nextBtn?.addEventListener("click", next);
-
-  document.addEventListener("keydown", (e) => {
-    if (!modal.classList.contains("is-active")) return;
-    if (e.key === "Escape") close();
-    if (e.key === "ArrowLeft") prev();
-    if (e.key === "ArrowRight") next();
-  });
+  setTimeout(() => {
+    clearTimeout(failsafe);
+    runSequence(0);
+  }, startDelay);
 })();
