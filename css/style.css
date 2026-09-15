@@ -2033,73 +2033,35 @@ body.is-site-ready .dock-nav{
 */
 
 /* =========================
-   MOBILE (match screenshot)
-   side padding = 16px
+   BREAKPOINT: <= 900px (tablet / small screens)
 ========================= */
-@media (max-width: 560px){
-
-  /* container: 16px from both sides */
+@media (max-width: 900px){
   .container{
-    width: calc(100% - 32px);
+    width: calc(100% - 64px);
   }
 
-  /* general spacing */
-  .section{ margin-top: 180px; }
-  .dark-section{ margin-top: 180px; }
-
-  /* HERO */
-  h1{
-    font-size: 54px;
-    line-height: 52px;
-  }
-
-  .hero{
-    padding-top: 72px;
-    padding-bottom: 220px;
-  }
-
-  .portrait{
-    width: 240px;
-    height: 246px; /* نسبت نزدیک به 348×358 */
-  }
-
-  /* ABOUT: 1 column */
+  /* About -> single column */
   .two-columns{
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 32px;
   }
 
   .about-image{
     width: 100%;
     height: auto;
-    aspect-ratio: 538 / 629;
     margin-top: 0;
   }
 
-  .section-copy{
-    margin-top: 72px;
-  }
-
-  /* WRITINGS: stack (image top, text bottom) */
-  .writing-list{
-    margin-top: 100px;
-    gap: 120px;
-  }
-
+  /* Writings -> stack */
   .writing-list .project{
     flex-direction: column !important;
     align-items: flex-start !important;
     gap: 16px;
   }
 
-  .writing-list .project.project-reversed{
-    flex-direction: column !important;
-  }
-
   .writing-list .project > img{
     width: 100% !important;
     height: auto !important;
-    aspect-ratio: 670 / 355.77;
     flex: 0 0 auto !important;
   }
 
@@ -2108,84 +2070,230 @@ body.is-site-ready .dock-nav{
     flex: 0 0 auto !important;
   }
 
-  /* SHORT FILM: stack */
-  .short-film__layout,
-  .featured{
-    grid-template-columns: 1fr !important;
-    row-gap: 32px;
-  }
-
-  .video-embed{
-    width: 100% !important;
-    height: auto !important;
-    aspect-ratio: 677 / 380.81;
-  }
-
-  .video-embed iframe,
-  .video-poster{
-    width: 100%;
-    height: 100%;
-  }
-
-  /* THEATRE: 2 columns like screenshot */
-  .theatre-grid{
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 16px;
-    margin-top: 100px;
-  }
-
-  .theatre-column{
-    gap: 120px;
-  }
-
-  .theatre-offset{
-    padding-top: 0;
-  }
-
-  .theatre-item h3{
-    margin: 16px 0 8px;
-  }
-
-  /* PODCAST: stack */
+  /* Podcast -> stack */
   .podcast-featured{
     grid-template-columns: 1fr !important;
-    row-gap: 32px;
-    margin-top: 100px;
+  }
+}
+
+
+/* =========================
+   BREAKPOINT: <= 600px (MOBILE — match your screenshots)
+   Side padding = 16px
+========================= */
+@media (max-width: 600px){
+
+  /* side padding 16px */
+  .container{
+    width: calc(100% - 32px);
   }
 
+  /* smooth anchor scroll on mobile */
+  html{ scroll-behavior: smooth; }
+
+  /* hide desktop dock nav on mobile (you asked) */
+  .dock-nav{ display: none !important; }
+
+  /* -------------------------
+     Mobile Typography (your table)
+  ------------------------- */
+  body{
+    font-size: 17px;   /* Card Body */
+    line-height: 27px;
+  }
+
+  h1{
+    font-size: 56px;   /* Hero Title */
+    line-height: 58px;
+  }
+
+  .hero > p{
+    font-size: 23px;   /* Hero Subtitle */
+    line-height: 30px;
+  }
+
+  h2{
+    font-size: 38px;   /* Section Title */
+    line-height: normal; /* auto */
+  }
+
+  h3{
+    font-size: 27px;   /* Card Title */
+    line-height: normal; /* auto */
+  }
+
+  /* Card Subtitle utility (برای جاهایی که p نقش subtitle دارد) */
+  .card-subtitle,
+  .podcast-featured__subtitle,
+  .short-film__subtitle,
+  .theatre-item p{
+    font-size: 19px;
+    line-height: 25px;
+    font-weight: 400;
+  }
+
+  /* buttons/links */
+  .read-link,
+  .podcast-link,
+  .contact-link{
+    font-size: 16px;
+    line-height: normal;
+    font-weight: 500;
+  }
+
+  /* labels */
+  .label{
+    font-size: 13px;
+    line-height: 17px;
+    font-weight: 500;
+  }
+
+  /* -------------------------
+     Mobile Spacing Rules (your list)
+  ------------------------- */
+
+  /* فاصله بین مقاله‌ها و آیتم‌های تئاتر = 160 */
+  .writing-list{ gap: 160px; }
+  .theatre-column{ gap: 160px; }
+
+  /* فاصله title -> content */
+  /* About / Writings / Theatre = 120 */
+  .about-section .section-copy{ margin-top: 120px; }
+  .writing-list{ margin-top: 120px; }
+  .theatre-grid{ margin-top: 120px; }
+
+  /* Short film / Resume / Podcast / Contact / Awards = 80 */
+  .short-film__layout{ margin-top: 80px !important; }
+  .resume__stack{ margin-top: 80px !important; }
+  .podcast-featured{ margin-top: 80px !important; }
+  .contact-grid{ margin-top: 80px !important; }
+  .certificate-grid{ margin-top: 80px !important; }
+
+  /* فاصله title تا عکس (در writings/theatre/podcast/shortfilm) = 16
+     چون در موبایل عکس بالای متن می‌آید، این فاصله = فاصله عکس تا تیتر کارت */
+  .writing-list .project h3{ margin-top: 16px; }
+  .theatre-item h3{ margin-top: 16px; }
+  .podcast-featured__text{ margin-top: 16px; } /* وقتی عکس بالا قرار بگیرد */
+  /* short film: اگر ویدئو بالا باشد، فاصله ویدئو تا عنوان 16 می‌شود (پایین‌تر تنظیم می‌کنیم) */
+
+  /* فاصله سال تا title = 8 */
+  .short-film__year,
+  .theatre-item h3 span{
+    margin-left: 8px;
+  }
+
+  /* فاصله subtitle/button تا title = 8 */
+  .writing-list .read-link{ margin-top: 8px; }
+
+  /* Short film: watch on تا subtitle = 32 */
+  .short-film__watch{ margin-top: 32px !important; }
+
+  /* Podcast: فاصله بین دو لینک = 8 و icon->text = 8 */
+  .podcast-featured__links{ gap: 8px !important; }
+  .podcast-link{ gap: 8px !important; }
+
+  /* Resume spacing */
+  .resume-block__title{ margin-bottom: 32px; }          /* title -> content */
+  .resume__stack{ gap: 64px; }                          /* between headings */
+  .resume-block__content{ gap: 16px; }                  /* internal items */
+  .resume-list{ gap: 16px; }
+
+  /* icons size (resume/contact/shortfilm/podcast) = 16.43 */
+  .skill-icon,
+  .contact-link__icon,
+  .podcast-link__icon,
+  .short-film__icon{
+    width: 16.43px !important;
+    height: 16.43px !important;
+    flex: 0 0 16.43px !important;
+  }
+
+  /* -------------------------
+     Layouts on mobile (match screenshots)
+  ------------------------- */
+
+  /* HERO image sizing (safe) */
+  .portrait{
+    width: min(260px, 78vw);
+    height: auto;
+    aspect-ratio: 348 / 358;
+  }
+
+  /* Section titles centered in mobile screenshots */
+  .align-right{ text-align: center; }
+
+  /* About image below text */
+  .about-image{
+    width: 100%;
+    height: auto;
+    aspect-ratio: 538 / 629;
+  }
+
+  /* Writings cards stack */
+  .writing-list .project{
+    gap: 0; /* gap handled by margin-top on h3 */
+  }
+
+  .writing-list .project > img{
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  /* Theatre becomes ONE column list (like your screenshot) */
+  .theatre-grid{
+    grid-template-columns: 1fr;
+    row-gap: 160px;
+  }
+  .theatre-offset{ padding-top: 0; }
+
+  /* Podcast: image first then text */
+  .podcast-featured{
+    row-gap: 0;
+  }
   .podcast-featured__image{
+    order: -1;
     width: 100% !important;
     height: auto !important;
     aspect-ratio: 448 / 444;
   }
 
-  /* RESUME */
-  .resume__stack{
-    margin-top: 100px;
-  }
-
-  .skills-row{
-    flex-wrap: wrap;
-    row-gap: 16px;
-  }
-
-  /* AWARDS */
+  /* Certificates mobile layout:
+     4 first = 2 columns, gap 16
+     last = 361 wide (full container width), centered */
   .certificate-grid{
     grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-    margin-top: 100px;
+    gap: 16px;
+  }
+  .certificate-grid img{
+    width: 100%;
+  }
+  .certificate-grid img:last-child{
+    grid-column: 1 / -1;
+    width: 361px;
+    justify-self: center;
   }
 
-  /* CONTACT */
+  /* Contact: 2 columns like screenshot */
   .contact-grid{
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    margin-top: 100px;
+    justify-items: start;
+    text-align: left;
+    gap: 16px;
   }
 
-  /* DOCK NAV */
-  .dock-nav{
-    width: calc(100% - 32px);
-    bottom: 16px;
+  /* Footer on mobile: dock removed, so make footer normal flow */
+  .site-footer{
+    min-height: auto;
+    padding: 28px 16px;
   }
+  .site-footer__designed,
+  .site-footer__copy{
+    position: static;
+    transform: none;
+    width: auto;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: normal;
+  }
+  .site-footer__copy{ margin-top: 8px; }
 }
