@@ -1764,6 +1764,28 @@ main, footer, .dock-nav{
   object-fit: cover;                 /* needed to fill the tall area like the screenshot */
   display: block;
 }
+/* =========================
+   BI gallery layout
+   Row 1: two images 544 + 544
+   Row 2: one image 605 centered
+========================= */
+.theatre-gallery--bi{
+  display: grid;
+  grid-template-columns: 544px 544px; /* 544 + 32 + 544 = 1120 */
+  gap: 32px;
+}
+
+.theatre-gallery--bi .theatre-photo{
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.theatre-gallery--bi .theatre-photo--center{
+  grid-column: 1 / -1;
+  width: 605px;
+  justify-self: center;
+}
 
 
 
