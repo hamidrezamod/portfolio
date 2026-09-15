@@ -1787,6 +1787,28 @@ main, footer, .dock-nav{
   justify-self: center;
 }
 
+/* =========================
+   THE RETREATING WORLD gallery layout
+   Row 1: two images 544 + 544
+   Row 2: one image 545 centered
+========================= */
+.theatre-gallery--retreating-world{
+  display: grid;
+  grid-template-columns: 544px 544px; /* 544 + 32 + 544 = 1120 */
+  gap: 32px;
+}
+
+.theatre-gallery--retreating-world .theatre-photo{
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.theatre-gallery--retreating-world .theatre-photo--center{
+  grid-column: 1 / -1;
+  width: 545px;
+  justify-self: center;
+}
 
 
 /* موبایل فعلاً غیرفعال است (Stage 1)
