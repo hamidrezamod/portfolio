@@ -284,3 +284,116 @@ const SmoothScroll = (() => {
     }
   });
 })();
+
+
+/* =========================
+   Theatre modal (external HTML + loader + scroll lock)
+========================= */
+(function () {
+  const modal = document.getElementById("theatreModal");
+  const panel = modal?.querySelector(".theatre-modal__panel");
+  const content = document.getElementById("theatreModalContent");
+  if (!modal || !panel || !content) return;
+
+  const closeEls = modal.querySelectorAll("[data-theatre-close]");
+  let isClosing = false;
+  let lockedScrollY = 0;
+
+  function lockPageScroll() {
+    lockedScrollY = window.scrollY || 0;
+
+    document.documentElement.classList.add("is-modal-open");
+    document.body.classList.add("is-modal-open");
+
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${lockedScrollY}px`;
+    document.body.style.left = "0";
+    document.body.style.right = "0";
+    document.body.style.width = "100%";
+  }
+
+  function unlockPageScroll() {
+    document.documentElement.classList.remove("is-modal-open");
+    document.body.classList.remove("is-modal-open");
+
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.left = "";
+    document.body.style.right = "";
+    document.body.style.width = "";
+
+    window.scrollTo(0, lockedScrollY);
+  }
+
+  function showLoaderShell() {
+    lockPageScroll();
+
+    modal.classList.add("is-active");
+    modal.setAttribute("aria-hidden", "false");
+
+    panel.scrollTop = 0;
+
+    content.innerHTML = `
+      <div class="theatre-loader" aria-label="Loading">
+        <div class="theatre-loader__spinner" aria-hidden="true"></div>
+      </div>
+    `;
+  }
+
+  async function loadTheatre(url) {
+    const res = await fetch(url, { cache: "no-cache" });
+    if (!res.ok) throw new Error("Failed to load theatre: " + url);
+
+    const html = await res.text();
+    content.innerHTML = html;
+    panel.scrollTop = 0;
+
+    const closeBtn = modal.querySelector(".theatre-modal__close");
+    closeBtn?.focus();
+  }
+
+  async function openTheatre(url) {
+    try {
+      showLoaderShell();
+      await loadTheatre(url);
+    } catch (err) {
+      console.error(err);
+      content.innerHTML = `<div style="padding:40px">Could not load this project.</div>`;
+    }
+  }
+
+  function closeTheatre() {
+    if (isClosing) return;
+    isClosing = true;
+
+    modal.classList.remove("is-active");
+    modal.setAttribute("aria-hidden", "true");
+
+    window.setTimeout(() => {
+      content.innerHTML = "";
+      unlockPageScroll();
+      isClosing = false;
+    }, 850);
+  }
+
+  // open on click theatre cards
+  document.querySelectorAll(".theatre-item[data-theatre-src]").forEach((card) => {
+    card.addEventListener("click", () => {
+      const url = card.getAttribute("data-theatre-src");
+      if (!url) return;
+      openTheatre(url);
+    });
+  });
+
+  // close handlers
+  closeEls.forEach((el) => el.addEventListener("click", closeTheatre));
+
+  // ESC
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal.classList.contains("is-active")) {
+      closeTheatre();
+    }
+  });
+})();
+
+
