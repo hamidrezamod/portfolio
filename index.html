@@ -14,7 +14,13 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body>
+<body class="is-preloading">
+  <div class="preloader" id="preloader" aria-hidden="false">
+  <div class="preloader__line" aria-label="Loading">
+    <span class="preloader__bracket preloader__bracket--left">[</span>
+    <span class="preloader__bracket preloader__bracket--right" id="preloaderRightBracket">]</span>
+  </div>
+</div>
   <main>
     <header class="hero container" id="top">
       <div class="portrait">
