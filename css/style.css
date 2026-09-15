@@ -1682,6 +1682,23 @@ main, footer, .dock-nav{
 .theatre-gallery--soug .theatre-photo--wide{
   grid-column: 1 / -1;
 }
+/* =========================
+   RELINGO gallery layout
+   2 images (same gap = 32)
+========================= */
+.theatre-gallery--relingo{
+  display: grid;
+  grid-template-columns: 544px 544px; /* 544 + 32 + 544 = 1120 */
+  gap: 32px;
+}
+
+.theatre-gallery--relingo .theatre-photo{
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
 
 
 
