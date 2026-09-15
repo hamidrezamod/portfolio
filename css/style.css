@@ -868,7 +868,7 @@ h3 {
 
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 16px;
 
   cursor: pointer;
 }
