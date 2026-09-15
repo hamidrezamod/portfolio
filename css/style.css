@@ -1129,16 +1129,16 @@ body.is-modal-open{
 }
 
 /* blur background */
-body.is-modal-open main,
-body.is-modal-open footer,
-body.is-modal-open .dock-nav{
+body.is-modal-blur main,
+body.is-modal-blur footer,
+body.is-modal-blur .dock-nav{
   filter: blur(7px);
-  transition: filter 700ms var(--ease-apple);
+  transition: filter 350ms cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
 }
 
 main, footer, .dock-nav{
-  transition: filter 700ms var(--ease-apple);
+  transition: filter 350ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* overlay */
