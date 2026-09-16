@@ -1776,7 +1776,7 @@ main, footer, .dock-nav{
   }
   .skills-row{
     flex-direction: column;
-    align-items: flex-end; /* right aligned on mobile too */
+    
     gap: 16px;
   }
   .skills-group__label{ font-size: 17px; line-height: 27px; }
