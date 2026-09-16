@@ -543,7 +543,7 @@ h3 {
 .podcast-featured__title{
   margin: 0;
   font-size: 40px;
-  line-height: 44px;
+  line-height: auto;
   font-weight: 600;
 }
 
