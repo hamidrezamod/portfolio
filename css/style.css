@@ -1991,7 +1991,7 @@ main, footer, .dock-nav{
   .theatre-data__row{
     display: flex !important;
     flex-direction: column !important;
-    gap: 8px !important;
+    gap: 4px !important;
   }
   .theatre-data__row + .theatre-data__row{ margin-top: 16px !important; }
 
