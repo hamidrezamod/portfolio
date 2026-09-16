@@ -1630,6 +1630,106 @@ main, footer, .dock-nav{
     margin-top: 8px;
   }
 
+
+/* سکشن: عنوان وسط */
+  .short-film > .container > h2{
+    text-align: center;
+  }
+
+  /* محتوا: تک ستونه + اول پلیر */
+  .short-film__layout{
+    margin-top: 80px;                 /* فاصله title سکشن تا محتوا */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  /* پلیر بالا */
+  .short-film__player{
+    order: -1;
+  }
+
+  /* اندازه پلیر */
+  .short-film__player.video-embed{
+    width: 361px;
+    height: auto;
+    aspect-ratio: 677 / 380.81;
+  }
+
+  .short-film__player.video-embed iframe,
+  .short-film__player.video-embed .video-poster{
+    width: 100%;
+    height: 100%;
+  }
+
+  /* فاصله پلیر تا تیتر = 16 */
+  .short-film__text{
+    width: 361px;
+    margin-top: 16px;
+  }
+
+  /* تیتر فیلم = Card Title (موبایل) */
+  .short-film__title{
+    margin: 0;
+    font-size: 27px;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  /* سال = Body (موبایل) + فاصله 8 */
+  .short-film__year{
+    margin-left: 8px;
+    font-size: 17px;
+    line-height: 27px;
+    font-weight: 400;
+    white-space: nowrap;
+  }
+
+  /* سابتایتل = Card Subtitle (موبایل) و فاصله 8 از تیتر */
+  .short-film__subtitle{
+    margin: 8px 0 0;
+    font-size: 19px;
+    line-height: 25px;
+    font-weight: 400;
+  }
+
+  /* Watch on فاصله 32 از سابتایتل */
+  .short-film__watch{
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;                        /* Watch on -> آیکن‌ها */
+  }
+
+  /* Watch on label = Label (موبایل) */
+  .short-film__watch-label{
+    font-size: 13px;
+    line-height: 17px;
+    font-weight: 500;
+  }
+
+  /* فاصله بین آیکن‌ها 16 */
+  .short-film__icons{
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  /* آیکن‌ها 1.5 برابر (base 16.43 => 24.65) */
+  .short-film__icon{
+    width: 24.65px;
+    height: 24.65px;
+    display: block;
+    flex: 0 0 24.65px;
+    object-fit: contain;
+  }
+}
+
+
+
+
+   
   /* Theatre list on mobile */
   .theatre-grid{
     margin-top: 120px;
