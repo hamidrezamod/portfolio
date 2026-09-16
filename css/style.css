@@ -625,8 +625,7 @@ h3 {
   gap: 32px;
   flex-wrap: nowrap;
 
-  justify-content: flex-end; /* ✅ right aligned */
-  direction: rtl;            /* ✅ helps align groups to the right */
+  
 }
 
 .skills-group{
@@ -1704,9 +1703,9 @@ main, footer, .dock-nav{
 
   /* Watch on label = Label (موبایل) */
   .short-film__watch-label{
-    font-size: 13px;
-    line-height: 17px;
-    font-weight: 500;
+    font-size: 17px;
+    line-height: 27px;
+    font-weight: 400;
   }
 
   /* فاصله بین آیکن‌ها 16 */
@@ -1762,11 +1761,11 @@ main, footer, .dock-nav{
     order: -1;
   }
   .podcast-featured__text{ margin-top: 16px; }
-  .podcast-featured__title{ font-size: 27px; }
+  .podcast-featured__title{ font-size: 27px; line-height: auto; }
   .podcast-featured__subtitle{ font-size: 19px; line-height: 25px; margin-top: 8px; }
   .podcast-featured__links{ gap: 16px; }
-  .podcast-link{ font-size: 16px; }
-  .podcast-link__icon{ width: 16.43px; height: 16.43px; flex: 0 0 16.43px; }
+  .podcast-link{ font-size: 17px; }
+  .podcast-link__icon{ width: 17.5px; height: 17.5px; flex: 0 0 16.43px; }
 
   /* Resume mobile */
   .resume__stack{ margin-top: 80px; }
@@ -1780,7 +1779,7 @@ main, footer, .dock-nav{
     gap: 16px;
   }
   .skills-group__label{ font-size: 17px; line-height: 27px; }
-  .skill-icon{ width: 16.43px; height: 16.43px; flex: 0 0 16.43px; }
+  .skill-icon{ width: 17.5px; height: 17.5px; flex: 0 0 16.43px; }
 
   /* Certificates mobile */
   .certificate-grid{
