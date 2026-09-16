@@ -1805,7 +1805,7 @@ main, footer, .dock-nav{
   .article-sheet__meta{
     margin-top: 4px !important;
     gap: 8px !important;
-    justify-content: center !important;
+    justify-content: right !important;
 
     font-family: "Doran", sans-serif;
     font-size: 12px !important;
@@ -1818,7 +1818,7 @@ main, footer, .dock-nav{
 
   .article-sheet__headings{
     margin-top: 8px !important;
-    text-align: center !important;
+    text-align: right !important;
   }
 
   .article-sheet__title-en{ display: none !important; }
@@ -1829,7 +1829,7 @@ main, footer, .dock-nav{
     font-size: 24px !important;
     font-weight: 700 !important;
     line-height: 48px !important;
-    text-align: center !important;
+    text-align: right !important;
   }
 
   .article-sheet__body{ margin-top: 72px !important; }
