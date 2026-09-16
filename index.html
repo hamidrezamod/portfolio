@@ -466,6 +466,47 @@
     </button>
   </div>
 </div>
+
+
+  <nav class="mnav" aria-label="Mobile navigation">
+  <div class="mnav__left">
+    <a class="mnav__home" href="#top" aria-label="Home">
+      <img class="mnav__home-icon" src="assets/icons/home.svg" alt="" aria-hidden="true">
+    </a>
+
+    <div class="mnav__drop" data-mnav-drop="works">
+      <button class="mnav__toggle" type="button" aria-expanded="false" aria-controls="mnavWorks">
+        Works
+        <svg class="mnav__chev" width="11" height="9" viewBox="0 0 11 9" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M1 3L5.5 7L10 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <div class="mnav__menu" id="mnavWorks">
+        <a class="mnav__menu-link" href="#writings">Writings</a>
+        <a class="mnav__menu-link" href="#short-film">Short Film</a>
+        <a class="mnav__menu-link" href="#theatre">Theatre</a>
+        <a class="mnav__menu-link" href="#podcast">Podcast</a>
+      </div>
+    </div>
+
+    <div class="mnav__drop" data-mnav-drop="info">
+      <button class="mnav__toggle" type="button" aria-expanded="false" aria-controls="mnavInfo">
+        Info
+        <svg class="mnav__chev" width="11" height="9" viewBox="0 0 11 9" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M1 3L5.5 7L10 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <div class="mnav__menu" id="mnavInfo">
+        <a class="mnav__menu-link" href="#about">About Me</a>
+        <a class="mnav__menu-link" href="#resume">Resume</a>
+      </div>
+    </div>
+  </div>
+
+  <a class="mnav__cta" href="#contact">contact</a>
+</nav>
   
   <script src="js/main.js"></script>
 </body>
