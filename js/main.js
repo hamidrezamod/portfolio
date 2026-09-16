@@ -586,3 +586,66 @@ if (window.innerWidth <= 600) {
     if (e.key === "ArrowRight") next();
   });
 })();
+
+/* =========================
+   Mobile navbar (Works / Info dropdown + smooth scroll)
+========================= */
+(function () {
+  const nav = document.querySelector(".mnav");
+  if (!nav) return;
+
+  const drops = Array.from(nav.querySelectorAll(".mnav__drop"));
+  const toggles = Array.from(nav.querySelectorAll(".mnav__toggle"));
+
+  function closeAll() {
+    drops.forEach((d) => d.classList.remove("is-open"));
+    toggles.forEach((t) => t.setAttribute("aria-expanded", "false"));
+  }
+
+  toggles.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      const drop = btn.closest(".mnav__drop");
+      if (!drop) return;
+
+      const isOpen = drop.classList.contains("is-open");
+      closeAll();
+
+      if (!isOpen) {
+        drop.classList.add("is-open");
+        btn.setAttribute("aria-expanded", "true");
+      }
+    });
+  });
+
+  // Smooth scroll for anchors inside mobile nav
+  nav.querySelectorAll('a[href^="#"]').forEach((a) => {
+    a.addEventListener("click", (e) => {
+      const href = a.getAttribute("href");
+      if (!href || href === "#") return;
+
+      const targetEl = document.querySelector(href);
+      if (!targetEl) return;
+
+      e.preventDefault();
+
+      const y = targetEl.getBoundingClientRect().top + window.scrollY;
+
+      // use your engine if exists, fallback to native smooth
+      if (window.SmoothScrollEngine && typeof window.SmoothScrollEngine.to === "function") {
+        window.SmoothScrollEngine.to(y);
+      } else {
+        window.scrollTo({ top: y, behavior: "smooth" });
+      }
+
+      history.pushState(null, "", href);
+      closeAll();
+    });
+  });
+
+  // close when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!nav.contains(e.target)) closeAll();
+  });
+})();
