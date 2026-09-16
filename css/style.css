@@ -1776,7 +1776,7 @@ main, footer, .dock-nav{
   }
   .skills-row{
     flex-direction: column;
-    
+    direction: ltr;
     gap: 16px;
   }
   .skills-group__label{ font-size: 17px; line-height: 27px; }
@@ -1997,12 +1997,12 @@ main, footer, .dock-nav{
 
   .theatre-data dt{
     font-size: 13px !important;
-    line-height: 17px !important;
+    line-height: auto !important;
     font-weight: 500 !important;
   }
   .theatre-data dd{
     font-size: 17px !important;
-    line-height: 27px !important;
+    line-height: auto !important;
     font-weight: 700 !important;
   }
 
