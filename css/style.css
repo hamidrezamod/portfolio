@@ -2033,3 +2033,32 @@ main, footer, .dock-nav{
     height: auto !important;
   }
 }
+
+/* =========================
+   THEATRE order on MOBILE
+   relingo > extraneous > dollear > assoiffes > bi > soug soroud > retreating world
+========================= */
+@media (max-width: 600px){
+
+  /* theatre becomes one flex column so "order" works */
+  .theatre-grid{
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 160px; /* اگر قبلاً عدد دیگری گذاشتی و نمی‌خوای تغییر کنه، این خط رو حذف کن */
+  }
+
+  /* flatten the two columns into one flow */
+  .theatre-column{ display: contents !important; }
+  .theatre-offset{ padding-top: 0 !important; }
+
+  /* default (anything else goes last) */
+  .theatre-item{ order: 999; }
+
+  .theatre-item[data-theatre-src="theatre/relingo.html"]{ order: 1; }
+  .theatre-item[data-theatre-src="theatre/extraneous.html"]{ order: 2; }
+  .theatre-item[data-theatre-src="theatre/dollear.html"]{ order: 3; }
+  .theatre-item[data-theatre-src="theatre/assoiffes.html"]{ order: 4; }
+  .theatre-item[data-theatre-src="theatre/bi.html"]{ order: 5; }
+  .theatre-item[data-theatre-src="theatre/soug-soroud.html"]{ order: 6; }
+  .theatre-item[data-theatre-src="theatre/retreating-world.html"]{ order: 7; }
+}
