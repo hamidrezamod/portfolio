@@ -1630,7 +1630,7 @@ main, footer, .dock-nav{
     margin-top: 8px;
   }
 
-
+@media (max-width: 600px){
 /* سکشن: عنوان وسط */
   .short-film > .container > h2{
     text-align: center;
