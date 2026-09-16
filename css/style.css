@@ -2063,3 +2063,139 @@ main, footer, .dock-nav{
   .theatre-item[data-theatre-src="theatre/soug-soroud.html"]{ order: 6; }
   .theatre-item[data-theatre-src="theatre/retreating-world.html"]{ order: 7; }
 }
+
+
+/* =========================
+   MOBILE NAVBAR
+========================= */
+
+.mnav{ display: none; }
+
+@media (max-width: 600px){
+  /* hide desktop dock */
+  .dock-nav{ display: none !important; }
+
+  .mnav{
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 16px;              /* فاصله از پایین موبایل */
+    z-index: 9999;
+
+    width: min(341.44px, calc(100% - 32px));
+    height: 50px;
+    padding: 0 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: #343333;
+    color: #F7F4EF;
+
+    border-radius: 16px;
+    box-shadow: 0 0 7px rgba(0,0,0,0.3);
+  }
+
+  .mnav__left{
+    display: inline-flex;
+    align-items: center;
+    gap: 32px;                 /* فاصله بین دکمه‌ها */
+  }
+
+  .mnav__home{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    text-decoration: none;
+  }
+
+  .mnav__home-icon{
+    width: 13.44px;
+    height: 13.44px;
+    display: block;
+    object-fit: contain;
+  }
+
+  .mnav__toggle{
+    font-family: inherit;
+    font-size: 16px;           /* navbar mobile font */
+    font-weight: 500;
+    line-height: normal;
+
+    background: transparent;
+    border: 0;
+    padding: 0;
+    color: inherit;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+  }
+
+  .mnav__chev{
+    transition: transform 180ms ease;
+  }
+
+  .mnav__drop{
+    position: relative;
+  }
+
+  .mnav__menu{
+    position: absolute;
+    left: 50%;
+    bottom: 50px;              /* دقیقاً بچسبد به نوبار */
+    transform: translateX(-50%);
+
+    padding: 14px 16px;
+    background: #343333;
+    color: #F7F4EF;
+
+    box-shadow: 0 0 7px rgba(0,0,0,0.3);
+
+    /* اتصال به نوبار: پایین گرد نیست */
+    border-radius: 16px 16px 0 0;
+
+    display: none;
+    flex-direction: column;
+    gap: 16px;
+
+    min-width: 150px;
+  }
+
+  .mnav__drop.is-open .mnav__menu{
+    display: flex;
+  }
+
+  .mnav__drop.is-open .mnav__chev{
+    transform: rotate(180deg);
+  }
+
+  .mnav__menu-link{
+    font-size: 16px;
+    font-weight: 500;
+    line-height: normal;
+    text-decoration: none;
+    color: inherit;
+    white-space: nowrap;
+  }
+
+  .mnav__menu-link:hover{
+    text-decoration: underline;
+  }
+
+  .mnav__cta{
+    font-size: 16px;
+    font-weight: 500;
+    line-height: normal;
+    text-decoration: none;
+
+    background: #F7F4EF;
+    color: #343333;
+    padding: 6px 14px;
+    border-radius: 10px;
+  }
+}
